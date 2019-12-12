@@ -9,6 +9,8 @@ namespace ClassificationNumbers.MainClasses
     public class NeuralNetwork
     {
         private readonly double _helperNum = 100;
+        private readonly double _expectedSignal = 1;
+
         private double _alpha;
         private double _minWeight;
         private double _maxWeight;
@@ -35,6 +37,11 @@ namespace ClassificationNumbers.MainClasses
                 return (1 / (1 + Math.Pow(Math.E, -inputSignal)));
             }
             return inputSignal;
+        }
+
+        public double DerivateByFuncActivation()
+        {
+            
         }
 
         public NeuralNetwork(FunctionActivation funcActivation, int amountInputNeurons, int amountHiddenNeurons, int amountOutputNeurons, double alpha, double minWeight, double maxWeight)
@@ -84,7 +91,8 @@ namespace ClassificationNumbers.MainClasses
                 var outputSignals = CalcSignalsFromLayer(signals, HiddenLayer, OutputLayer, HiddenOutputRelations);
 
                 // Обновление весов на нужных ребрах, в зависимости от ошибки и правильного ответа
-                UpdateWeights(HiddenLayer, InputHiddenRelations, outputSignals, rightAnswer);
+                UpdateWeights(HiddenLayer, HiddenOutputRelations, outputSignals, rightAnswer);
+                UpdateWeights(InputLayer, InputHiddenRelations, outputSignals, rightAnswer);
             }
         }
 
@@ -111,20 +119,37 @@ namespace ClassificationNumbers.MainClasses
         /// но при этом деление этой ошибки пропорционально на каждое ребро, которое входит в этот нейрон из предыдущего слоя.
         /// Затем обновление веса, используя производную от функции активации (градиентный спуск).
         /// </summary>
-        /// <returns></returns>
-        private double[] UpdateWeights(Layer layer, Relation[,] relations, double[] outputSignals, int rightAnswer)
+        private void UpdateWeights(Layer layer, Relation[,] relations, double[] outputSignals, int numberOutputNeuron)
         {
             // Забираем выходной сигнал из нейрона, ответственного за эту цифру
-            var mainOutputSignal = outputSignals[rightAnswer];
+            var mainOutputSignal = outputSignals[numberOutputNeuron];
 
-            // Ошибка будет ожидаемый сигнал (1) минус фактический (0.53, например) и все в квадрате, чтобы уйти от знака минуса
-            var mainError = Math.Pow(1 - mainOutputSignal, 2);
+            // Ошибка будет ожидаемый сигнал (_expectedSignal) минус фактический (0.53, например) и все в квадрате, чтобы уйти от знака минуса
+            var mainError = Math.Pow(_expectedSignal - mainOutputSignal, 2);
 
             // Теперь будем делить ошибку на каждое ребро пропорционально весу ребра
             var errors = new double[outputSignals.Length];
+
+            // Найдем сумму всех весов, связанных с выходным нейроном
+            double commonWeights = 0;
             for (int i = 0; i < relations.Length; i++)
             {
-                relations[i, ]
+                commonWeights += relations[i, numberOutputNeuron].Weight;
+            }
+
+            // Найдем части ошибок, распределенных пропорционально весам для будущего обновления весов
+            var partsOfMainError = new double[relations.Length];
+            for (int i = 0; i < relations.Length; i++)
+            {
+                partsOfMainError[i] = (relations[i, numberOutputNeuron].Weight / commonWeights) * mainError;
+            }
+
+            // Обновляем веса по методу градиентного спуска (используя коэффициент обучения и производную от функции активации)
+            for (int i = 0; i < relations.Length; i++)
+            {
+                var derivate = DerivateByFuncActivation();
+                double newWeight = relations[i, numberOutputNeuron].Weight - (_alpha * derivate);
+                relations[i, numberOutputNeuron].SetWeight(newWeight);
             }
         }
     }

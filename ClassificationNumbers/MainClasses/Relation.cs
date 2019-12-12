@@ -2,7 +2,7 @@
 {
     public class Relation
     {
-        public double Weight { get; }
+        public double Weight { get; private set; }
         public Neuron InputNeuron { get; }
         public Neuron OutputNeuron { get; }
 
@@ -11,6 +11,14 @@
             InputNeuron = inputNeuron;
             OutputNeuron = outputNeuron;
             Weight = weight;
+        }
+
+        /// <summary>
+        /// Установить новый вес для связи между нейронами
+        /// </summary>
+        public void SetWeight(double newWeight)
+        {
+            Weight = newWeight;
         }
     }
 }

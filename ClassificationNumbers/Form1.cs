@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using ClassificationNumbers.Helpers;
 using ClassificationNumbers.MainClasses;
 
 namespace ClassificationNumbers
@@ -38,14 +39,15 @@ namespace ClassificationNumbers
             // Максимальный возможный вес для ребра
             var maxWeight = double.Parse(_maxWeightN.Text);
             // Функция активации
-            var functionActivation = _funcActivationsList.SelectedItem as string;
+            var funcActivationStr = _funcActivationsList.SelectedItem as string;
+            var functionActivation = FuncActivationHelper.MapFunction(funcActivationStr);
 
             // Создали простую трехслойную нейросеть
             // Создаем нейроны, генерируем между ними связи с случайными значениями весов
-            /*var neuralNetwork = new NeuralNetwork(
-
+            var neuralNetwork = new NeuralNetwork(
+                functionActivation,
                 amountInputNeurons, amountHiddenNeurons, amountOutputNeurons, 
-                alpha, minWeight, maxWeight);*/
+                alpha, minWeight, maxWeight);
 
             
         }

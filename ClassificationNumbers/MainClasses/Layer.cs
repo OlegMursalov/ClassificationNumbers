@@ -23,7 +23,7 @@
             var neurons = new Neuron[amount];
             for (int i = 0; i < neurons.Length; i++)
             {
-
+                neurons[i] = new Neuron(_funcActivation);
             }
             return neurons;
         }

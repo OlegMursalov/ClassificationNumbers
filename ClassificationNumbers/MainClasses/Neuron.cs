@@ -21,10 +21,7 @@ namespace ClassificationNumbers.MainClasses
             {
                 return (1 / (1 + Math.Pow(Math.E, -inputSignal)));
             }
-            else
-            {
-                throw new Exception("Укажите функцию активации для нейрона");
-            }
+            return inputSignal;
         }
     }
 }

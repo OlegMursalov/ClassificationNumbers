@@ -52,6 +52,7 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\FuncActivationHelper.cs" />
     <Compile Include="MainClasses\FunctionActivation.cs" />
     <Compile Include="MainClasses\Layer.cs" />
     <Compile Include="MainClasses\NeuralNetwork.cs" />
@@ -84,8 +85,6 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Helpers\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

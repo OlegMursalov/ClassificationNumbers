@@ -9,18 +9,20 @@ namespace ClassificationNumbers.MainClasses
         private Layer _inputLayer;
         private Layer _hiddenLayer;
         private Layer _outputLayer;
-        private float _alpha;
-        private float _minWeight;
-        private float _maxWeight;
+        private double _alpha;
+        private double _minWeight;
+        private double _maxWeight;
+        private FunctionActivation _funcActivation;
 
         private Relation[,] _inputHiddenRelations;
         private Relation[,] _hiddenOutputRelations;
 
-        public NeuralNetwork(int amountInputNeurons, int amountHiddenNeurons, int amountOutputNeurons, float alpha, float minWeight, float maxWeight)
+        public NeuralNetwork(FunctionActivation funcActivation, int amountInputNeurons, int amountHiddenNeurons, int amountOutputNeurons, double alpha, double minWeight, double maxWeight)
         {
+            _funcActivation = funcActivation;
             _inputLayer = new Layer(amountInputNeurons);
-            _hiddenLayer = new Layer(amountHiddenNeurons);
-            _outputLayer = new Layer(amountOutputNeurons);
+            _hiddenLayer = new Layer(funcActivation, amountHiddenNeurons);
+            _outputLayer = new Layer(funcActivation, amountOutputNeurons);
             _alpha = alpha;
             _minWeight = minWeight;
             _maxWeight = maxWeight;
@@ -38,7 +40,7 @@ namespace ClassificationNumbers.MainClasses
             {
                 for (int j = 0; j < layer2.Neurons.Length; j++)
                 {
-                    var initialWeight = (float)(rand.Next(minW, maxW) / _helperNum);
+                    var initialWeight = (double)(rand.Next(minW, maxW) / _helperNum);
                     relations[i, j] = new Relation(layer1.Neurons[i], layer2.Neurons[j], initialWeight);
                 }
             }

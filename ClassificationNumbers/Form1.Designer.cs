@@ -133,9 +133,19 @@
             0,
             0,
             0});
+            this._amountInputNeuronsN.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             this._amountInputNeuronsN.Name = "_amountInputNeuronsN";
             this._amountInputNeuronsN.Size = new System.Drawing.Size(148, 22);
             this._amountInputNeuronsN.TabIndex = 15;
+            this._amountInputNeuronsN.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             // 
             // _amountHiddenNeuronsN
             // 
@@ -145,9 +155,19 @@
             0,
             0,
             0});
+            this._amountHiddenNeuronsN.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             this._amountHiddenNeuronsN.Name = "_amountHiddenNeuronsN";
             this._amountHiddenNeuronsN.Size = new System.Drawing.Size(148, 22);
             this._amountHiddenNeuronsN.TabIndex = 16;
+            this._amountHiddenNeuronsN.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             // 
             // _amountOutputNeuronsN
             // 
@@ -157,9 +177,19 @@
             0,
             0,
             0});
+            this._amountOutputNeuronsN.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             this._amountOutputNeuronsN.Name = "_amountOutputNeuronsN";
             this._amountOutputNeuronsN.Size = new System.Drawing.Size(148, 22);
             this._amountOutputNeuronsN.TabIndex = 17;
+            this._amountOutputNeuronsN.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             // 
             // _alphaN
             // 
@@ -170,9 +200,24 @@
             0,
             131072});
             this._alphaN.Location = new System.Drawing.Point(987, 214);
+            this._alphaN.Maximum = new decimal(new int[] {
+            99,
+            0,
+            0,
+            0});
+            this._alphaN.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            131072});
             this._alphaN.Name = "_alphaN";
             this._alphaN.Size = new System.Drawing.Size(148, 22);
             this._alphaN.TabIndex = 18;
+            this._alphaN.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            131072});
             // 
             // _minWeightN
             // 
@@ -183,9 +228,19 @@
             0,
             131072});
             this._minWeightN.Location = new System.Drawing.Point(987, 278);
+            this._minWeightN.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            131072});
             this._minWeightN.Name = "_minWeightN";
             this._minWeightN.Size = new System.Drawing.Size(75, 22);
             this._minWeightN.TabIndex = 19;
+            this._minWeightN.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            131072});
             // 
             // _maxWeightN
             // 
@@ -196,15 +251,26 @@
             0,
             131072});
             this._maxWeightN.Location = new System.Drawing.Point(1068, 278);
+            this._maxWeightN.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            131072});
             this._maxWeightN.Name = "_maxWeightN";
             this._maxWeightN.Size = new System.Drawing.Size(67, 22);
             this._maxWeightN.TabIndex = 20;
+            this._maxWeightN.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            131072});
             // 
             // _funcActivationsList
             // 
             this._funcActivationsList.FormattingEnabled = true;
             this._funcActivationsList.ItemHeight = 16;
             this._funcActivationsList.Items.AddRange(new object[] {
+            "None",
             "y = 1 / (1 + e^x)"});
             this._funcActivationsList.Location = new System.Drawing.Point(985, 350);
             this._funcActivationsList.Name = "_funcActivationsList";

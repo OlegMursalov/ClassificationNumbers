@@ -32,19 +32,20 @@ namespace ClassificationNumbers
             // Количество выходных нейронов
             var amountOutputNeurons = int.Parse(_amountOutputNeuronsN.Text);
             // Коэфициент обучения
-            var alpha = float.Parse(_alphaN.Text);
+            var alpha = double.Parse(_alphaN.Text);
             // Минимальный возможный вес для ребра
-            var minWeight = float.Parse(_minWeightN.Text);
+            var minWeight = double.Parse(_minWeightN.Text);
             // Максимальный возможный вес для ребра
-            var maxWeight = float.Parse(_maxWeightN.Text);
+            var maxWeight = double.Parse(_maxWeightN.Text);
             // Функция активации
-            var functionActivation = _funcActivationsList.SelectedValue;
+            var functionActivation = _funcActivationsList.SelectedItem as string;
 
             // Создали простую трехслойную нейросеть
             // Создаем нейроны, генерируем между ними связи с случайными значениями весов
-            var neuralNetwork = new NeuralNetwork(
+            /*var neuralNetwork = new NeuralNetwork(
+
                 amountInputNeurons, amountHiddenNeurons, amountOutputNeurons, 
-                alpha, minWeight, maxWeight);
+                alpha, minWeight, maxWeight);*/
 
             
         }

@@ -29,19 +29,27 @@
         private void InitializeComponent()
         {
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this._amountInputNeuronsTxb = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this._amountHiddenNeuronsTxb = new System.Windows.Forms.TextBox();
-            this._amountOutputNeuronsTxb = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
-            this._alphaTxb = new System.Windows.Forms.TextBox();
             this._createNeuralNetworkBtn = new System.Windows.Forms.Button();
             this.label5 = new System.Windows.Forms.Label();
-            this._minWeightTxb = new System.Windows.Forms.TextBox();
-            this._maxWeightTxb = new System.Windows.Forms.TextBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this._amountInputNeuronsN = new System.Windows.Forms.NumericUpDown();
+            this._amountHiddenNeuronsN = new System.Windows.Forms.NumericUpDown();
+            this._amountOutputNeuronsN = new System.Windows.Forms.NumericUpDown();
+            this._alphaN = new System.Windows.Forms.NumericUpDown();
+            this._minWeightN = new System.Windows.Forms.NumericUpDown();
+            this._maxWeightN = new System.Windows.Forms.NumericUpDown();
+            this._funcActivationsList = new System.Windows.Forms.ListBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this._amountInputNeuronsN)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this._amountHiddenNeuronsN)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this._amountOutputNeuronsN)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this._alphaN)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this._minWeightN)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this._maxWeightN)).BeginInit();
             this.SuspendLayout();
             // 
             // pictureBox1
@@ -52,13 +60,6 @@
             this.pictureBox1.Size = new System.Drawing.Size(953, 658);
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
-            // 
-            // _amountInputNeuronsTxb
-            // 
-            this._amountInputNeuronsTxb.Location = new System.Drawing.Point(985, 33);
-            this._amountInputNeuronsTxb.Name = "_amountInputNeuronsTxb";
-            this._amountInputNeuronsTxb.Size = new System.Drawing.Size(148, 22);
-            this._amountInputNeuronsTxb.TabIndex = 1;
             // 
             // label1
             // 
@@ -78,20 +79,6 @@
             this.label2.TabIndex = 3;
             this.label2.Text = "Кол-во скрытых узлов";
             // 
-            // _amountHiddenNeuronsTxb
-            // 
-            this._amountHiddenNeuronsTxb.Location = new System.Drawing.Point(985, 91);
-            this._amountHiddenNeuronsTxb.Name = "_amountHiddenNeuronsTxb";
-            this._amountHiddenNeuronsTxb.Size = new System.Drawing.Size(148, 22);
-            this._amountHiddenNeuronsTxb.TabIndex = 4;
-            // 
-            // _amountOutputNeuronsTxb
-            // 
-            this._amountOutputNeuronsTxb.Location = new System.Drawing.Point(987, 152);
-            this._amountOutputNeuronsTxb.Name = "_amountOutputNeuronsTxb";
-            this._amountOutputNeuronsTxb.Size = new System.Drawing.Size(148, 22);
-            this._amountOutputNeuronsTxb.TabIndex = 6;
-            // 
             // label3
             // 
             this.label3.AutoSize = true;
@@ -110,18 +97,11 @@
             this.label4.TabIndex = 7;
             this.label4.Text = "Коэффициент обучения";
             // 
-            // _alphaTxb
-            // 
-            this._alphaTxb.Location = new System.Drawing.Point(987, 214);
-            this._alphaTxb.Name = "_alphaTxb";
-            this._alphaTxb.Size = new System.Drawing.Size(148, 22);
-            this._alphaTxb.TabIndex = 8;
-            // 
             // _createNeuralNetworkBtn
             // 
-            this._createNeuralNetworkBtn.Location = new System.Drawing.Point(987, 327);
+            this._createNeuralNetworkBtn.Location = new System.Drawing.Point(985, 463);
             this._createNeuralNetworkBtn.Name = "_createNeuralNetworkBtn";
-            this._createNeuralNetworkBtn.Size = new System.Drawing.Size(148, 78);
+            this._createNeuralNetworkBtn.Size = new System.Drawing.Size(150, 78);
             this._createNeuralNetworkBtn.TabIndex = 9;
             this._createNeuralNetworkBtn.Text = "Создать трехслойную нейросеть";
             this._createNeuralNetworkBtn.UseVisualStyleBackColor = true;
@@ -136,42 +116,131 @@
             this.label5.TabIndex = 10;
             this.label5.Text = "Диапазон весов";
             // 
-            // _minWeightTxb
+            // label6
             // 
-            this._minWeightTxb.Location = new System.Drawing.Point(985, 278);
-            this._minWeightTxb.Name = "_minWeightTxb";
-            this._minWeightTxb.Size = new System.Drawing.Size(67, 22);
-            this._minWeightTxb.TabIndex = 11;
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(984, 320);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(140, 17);
+            this.label6.TabIndex = 13;
+            this.label6.Text = "Функция активации";
             // 
-            // _maxWeightTxb
+            // _amountInputNeuronsN
             // 
-            this._maxWeightTxb.Location = new System.Drawing.Point(1068, 278);
-            this._maxWeightTxb.Name = "_maxWeightTxb";
-            this._maxWeightTxb.Size = new System.Drawing.Size(67, 22);
-            this._maxWeightTxb.TabIndex = 12;
+            this._amountInputNeuronsN.Location = new System.Drawing.Point(985, 32);
+            this._amountInputNeuronsN.Maximum = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            0});
+            this._amountInputNeuronsN.Name = "_amountInputNeuronsN";
+            this._amountInputNeuronsN.Size = new System.Drawing.Size(148, 22);
+            this._amountInputNeuronsN.TabIndex = 15;
+            // 
+            // _amountHiddenNeuronsN
+            // 
+            this._amountHiddenNeuronsN.Location = new System.Drawing.Point(985, 91);
+            this._amountHiddenNeuronsN.Maximum = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            0});
+            this._amountHiddenNeuronsN.Name = "_amountHiddenNeuronsN";
+            this._amountHiddenNeuronsN.Size = new System.Drawing.Size(148, 22);
+            this._amountHiddenNeuronsN.TabIndex = 16;
+            // 
+            // _amountOutputNeuronsN
+            // 
+            this._amountOutputNeuronsN.Location = new System.Drawing.Point(985, 152);
+            this._amountOutputNeuronsN.Maximum = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            0});
+            this._amountOutputNeuronsN.Name = "_amountOutputNeuronsN";
+            this._amountOutputNeuronsN.Size = new System.Drawing.Size(148, 22);
+            this._amountOutputNeuronsN.TabIndex = 17;
+            // 
+            // _alphaN
+            // 
+            this._alphaN.DecimalPlaces = 2;
+            this._alphaN.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            131072});
+            this._alphaN.Location = new System.Drawing.Point(987, 214);
+            this._alphaN.Name = "_alphaN";
+            this._alphaN.Size = new System.Drawing.Size(148, 22);
+            this._alphaN.TabIndex = 18;
+            // 
+            // _minWeightN
+            // 
+            this._minWeightN.DecimalPlaces = 2;
+            this._minWeightN.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            131072});
+            this._minWeightN.Location = new System.Drawing.Point(987, 278);
+            this._minWeightN.Name = "_minWeightN";
+            this._minWeightN.Size = new System.Drawing.Size(75, 22);
+            this._minWeightN.TabIndex = 19;
+            // 
+            // _maxWeightN
+            // 
+            this._maxWeightN.DecimalPlaces = 2;
+            this._maxWeightN.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            131072});
+            this._maxWeightN.Location = new System.Drawing.Point(1068, 278);
+            this._maxWeightN.Name = "_maxWeightN";
+            this._maxWeightN.Size = new System.Drawing.Size(67, 22);
+            this._maxWeightN.TabIndex = 20;
+            // 
+            // _funcActivationsList
+            // 
+            this._funcActivationsList.FormattingEnabled = true;
+            this._funcActivationsList.ItemHeight = 16;
+            this._funcActivationsList.Items.AddRange(new object[] {
+            "y = 1 / (1 + e^x)"});
+            this._funcActivationsList.Location = new System.Drawing.Point(985, 350);
+            this._funcActivationsList.Name = "_funcActivationsList";
+            this._funcActivationsList.Size = new System.Drawing.Size(150, 84);
+            this._funcActivationsList.TabIndex = 21;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1705, 682);
-            this.Controls.Add(this._maxWeightTxb);
-            this.Controls.Add(this._minWeightTxb);
+            this.Controls.Add(this._funcActivationsList);
+            this.Controls.Add(this._maxWeightN);
+            this.Controls.Add(this._minWeightN);
+            this.Controls.Add(this._alphaN);
+            this.Controls.Add(this._amountOutputNeuronsN);
+            this.Controls.Add(this._amountHiddenNeuronsN);
+            this.Controls.Add(this._amountInputNeuronsN);
+            this.Controls.Add(this.label6);
             this.Controls.Add(this.label5);
             this.Controls.Add(this._createNeuralNetworkBtn);
-            this.Controls.Add(this._alphaTxb);
             this.Controls.Add(this.label4);
-            this.Controls.Add(this._amountOutputNeuronsTxb);
             this.Controls.Add(this.label3);
-            this.Controls.Add(this._amountHiddenNeuronsTxb);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this._amountInputNeuronsTxb);
             this.Controls.Add(this.pictureBox1);
             this.Name = "Form1";
             this.Text = "Classification numbers - neural network";
             this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this._amountInputNeuronsN)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this._amountHiddenNeuronsN)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this._amountOutputNeuronsN)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this._alphaN)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this._minWeightN)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this._maxWeightN)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -180,18 +249,20 @@
         #endregion
 
         private System.Windows.Forms.PictureBox pictureBox1;
-        private System.Windows.Forms.TextBox _amountInputNeuronsTxb;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox _amountHiddenNeuronsTxb;
-        private System.Windows.Forms.TextBox _amountOutputNeuronsTxb;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.TextBox _alphaTxb;
         private System.Windows.Forms.Button _createNeuralNetworkBtn;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.TextBox _minWeightTxb;
-        private System.Windows.Forms.TextBox _maxWeightTxb;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.NumericUpDown _amountInputNeuronsN;
+        private System.Windows.Forms.NumericUpDown _amountHiddenNeuronsN;
+        private System.Windows.Forms.NumericUpDown _amountOutputNeuronsN;
+        private System.Windows.Forms.NumericUpDown _alphaN;
+        private System.Windows.Forms.NumericUpDown _minWeightN;
+        private System.Windows.Forms.NumericUpDown _maxWeightN;
+        private System.Windows.Forms.ListBox _funcActivationsList;
     }
 }
 

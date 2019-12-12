@@ -76,10 +76,14 @@ namespace ClassificationNumbers.MainClasses
             for (int i = 0; i < outputLayer.Neurons.Length; i++)
             {
                 double sumX = 0;
+                var outputNeuron = outputLayer.Neurons[i];
                 for (int j = 0; j < relations.Length; j++)
                 {
                     var relation = relations[j, i];
-                    sumX += relation.Weight * inputSignals[j];
+                    if (relation.OutputNeuron.Number == outputNeuron.Number)
+                    {
+                        sumX += relation.Weight * inputSignals[j];
+                    }
                 }
                 array[i] = sumX;
             }

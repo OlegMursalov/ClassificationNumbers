@@ -2,15 +2,14 @@
 {
     public class Relation
     {
-        private Neuron _inputNeuron;
-        private Neuron _outputNeuron;
-
         public double Weight { get; }
+        public Neuron InputNeuron { get; }
+        public Neuron OutputNeuron { get; }
 
         public Relation(Neuron inputNeuron, Neuron outputNeuron, double weight)
         {
-            _inputNeuron = inputNeuron;
-            _outputNeuron = outputNeuron;
+            InputNeuron = inputNeuron;
+            OutputNeuron = outputNeuron;
             Weight = weight;
         }
     }

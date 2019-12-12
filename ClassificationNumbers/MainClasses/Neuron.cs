@@ -6,8 +6,11 @@ namespace ClassificationNumbers.MainClasses
     {
         private FunctionActivation _functionActivation;
 
-        public Neuron(FunctionActivation functionActivation)
+        public int Number { get; }
+
+        public Neuron(int number, FunctionActivation functionActivation)
         {
+            Number = number;
             _functionActivation = functionActivation;
         }
 

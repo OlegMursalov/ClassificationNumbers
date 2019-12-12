@@ -5,29 +5,29 @@ namespace ClassificationNumbers.MainClasses
     public class NeuralNetwork
     {
         private readonly int _helperNum = 100;
-
-        private Layer _inputLayer;
-        private Layer _hiddenLayer;
-        private Layer _outputLayer;
         private double _alpha;
         private double _minWeight;
         private double _maxWeight;
         private FunctionActivation _funcActivation;
 
-        private Relation[,] _inputHiddenRelations;
-        private Relation[,] _hiddenOutputRelations;
+        public Layer InputLayer { get; }
+        public Layer HiddenLayer { get; }
+        public Layer OutputLayer { get; }
+
+        public Relation[,] InputHiddenRelations { get; }
+        public Relation[,] HiddenOutputRelations { get; }
 
         public NeuralNetwork(FunctionActivation funcActivation, int amountInputNeurons, int amountHiddenNeurons, int amountOutputNeurons, double alpha, double minWeight, double maxWeight)
         {
             _funcActivation = funcActivation;
-            _inputLayer = new Layer(amountInputNeurons);
-            _hiddenLayer = new Layer(funcActivation, amountHiddenNeurons);
-            _outputLayer = new Layer(funcActivation, amountOutputNeurons);
+            InputLayer = new Layer(amountInputNeurons);
+            HiddenLayer = new Layer(funcActivation, amountHiddenNeurons);
+            OutputLayer = new Layer(funcActivation, amountOutputNeurons);
             _alpha = alpha;
             _minWeight = minWeight;
             _maxWeight = maxWeight;
-            _inputHiddenRelations = CreateRelations(_inputLayer, _hiddenLayer);
-            _hiddenOutputRelations = CreateRelations(_hiddenLayer, _outputLayer);
+            InputHiddenRelations = CreateRelations(InputLayer, HiddenLayer);
+            HiddenOutputRelations = CreateRelations(HiddenLayer, OutputLayer);
         }
 
         private Relation[,] CreateRelations(Layer layer1, Layer layer2)

@@ -3,6 +3,7 @@ using ClassificationNumbers.Helpers;
 using ClassificationNumbers.MainClasses;
 using System;
 using System.Windows.Forms;
+using System.Collections.Generic;
 
 namespace ClassificationNumbers
 {
@@ -49,6 +50,12 @@ namespace ClassificationNumbers
             // Делаем для глядности и лучшего изучения темы
             var neuralNetworkPainter = new NeuralNetworkPainter(_mainPictureBox, _neuralNetwork);
             neuralNetworkPainter.Draw();
+
+            // Обучение трехслойной нейронной сети
+            // ЗАДАЧА - классифицировать на картинках цифры от 0 до 9, написанные от руки
+            // Входные данные, где int - цифры, а float[] - массив преобразованных RGB компонент из картинок
+            var inputNmbersData = new Dictionary<int, double[]>();
+            _neuralNetwork.Learn(inputNmbersData);
         }
     }
 }

@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Windows.Media;
 
 namespace ClassificationNumbers.MainClasses
 {
@@ -45,6 +48,33 @@ namespace ClassificationNumbers.MainClasses
                 }
             }
             return relations;
+        }
+
+        /// <summary>
+        /// Главный метод нейросети - обучение
+        /// </summary>
+        public void Learn(Dictionary<int, double[]> inputNumbersData)
+        {
+            // Поэтапная тренировка по каждой картинке
+            for (var i = 0; i < inputNumbersData.Count; i++)
+            {
+                CalcOutputSignals(inputNumbersData[i]);
+            }
+        }
+
+        public void CalcOutputSignals(double[] inputSignals)
+        {
+            // Комбинирование и сглаживание входных сигналов для каждого нейрона скрытого слоя
+            for (int i = 0; i < HiddenLayer.Neurons.Length; i++)
+            {
+                double sumX = 0;
+                var hiddenNeuron = HiddenLayer.Neurons[i];
+                for (int j = 0; j < InputHiddenRelations.Length; j++)
+                {
+                    var relation = InputHiddenRelations[j, i];
+                    sumX += relation.Weight * inputSignals[j];
+                }
+            }
         }
     }
 }

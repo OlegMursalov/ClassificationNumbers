@@ -4,6 +4,7 @@ using ClassificationNumbers.MainClasses;
 using System;
 using System.Windows.Forms;
 using System.Collections.Generic;
+using ClassificationNumbers.DataDTO;
 
 namespace ClassificationNumbers
 {
@@ -57,8 +58,11 @@ namespace ClassificationNumbers
             // Обучение трехслойной нейронной сети
             // ЗАДАЧА - классифицировать на картинках цифры от 0 до 9, написанные от руки
             // Входные данные, где int - цифры, а float[] - массив преобразованных RGB компонент из картинок
-            var inputNmbersData = new Dictionary<int, double[]>();
-            _neuralNetwork.Learn(inputNmbersData);
+            var data = new Dictionary<int, DataNumberDTO_5x5>();
+            data.Add(0, new DataNumberDTO_5x5(5, new double[] { 0.87, 0.23, 0.03, 0.01, 0.57 }));
+            data.Add(1, new DataNumberDTO_5x5(5, new double[] { 0.78, 0.03, 0.01, 0.01, 0.28 }));
+            data.Add(2, new DataNumberDTO_5x5(5, new double[] { 0.09, 0.11, 0.28, 0.78, 0.97 }));
+            _neuralNetwork.Learn(data);
         }
     }
 }

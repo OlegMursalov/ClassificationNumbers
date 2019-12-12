@@ -9,10 +9,10 @@ namespace ClassificationNumbers.Drawing
     public class NeuralNetworkPainter
     {
         private readonly Point _initialPointLeftCorner = new Point(25, 25);
-        private readonly int _widthNeuron = 20;
-        private readonly int _heightNeuron = 20;
-        private readonly int _ySpace = 40;
-        private readonly int _offset_x_y = 5;
+        private readonly int _widthNeuron = 40;
+        private readonly int _heightNeuron = 40;
+        private readonly int _ySpace = 120;
+        private readonly int _offset_x_y = 20;
 
         private NeuralNetwork _neuralNetwork;
         private PictureBox _pictureBox;
@@ -69,7 +69,7 @@ namespace ClassificationNumbers.Drawing
         {
             var neuronPoints = new Point[neurons.Length];
             var x = _initialPointLeftCorner.X + xSpace;
-            var y = _initialPointLeftCorner.Y + ySpace;
+            var y = _initialPointLeftCorner.Y;
             for (int i = 0; i < neurons.Length; i++)
             {
                 neuronPoints[i] = new Point(x, y);

@@ -47,6 +47,8 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataDTO\DataNumberDTO_28x28.cs" />
+    <Compile Include="DataDTO\DataNumberDTO_5x5.cs" />
     <Compile Include="Drawing\NeuralNetworkPaintercs.cs" />
     <Compile Include="Drawing\RelationLine.cs" />
     <Compile Include="Form1.cs">

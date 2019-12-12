@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ClassificationNumbers.DataDTO;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Media;
@@ -7,7 +8,7 @@ namespace ClassificationNumbers.MainClasses
 {
     public class NeuralNetwork
     {
-        private readonly int _helperNum = 100;
+        private readonly double _helperNum = 100;
         private double _alpha;
         private double _minWeight;
         private double _maxWeight;
@@ -36,14 +37,14 @@ namespace ClassificationNumbers.MainClasses
         private Relation[,] CreateRelations(Layer layer1, Layer layer2)
         {
             var rand = new Random();
-            var minW = (int)_minWeight * _helperNum;
-            var maxW = (int)_maxWeight * _helperNum;
+            var minW = (int)(_minWeight * _helperNum);
+            var maxW = (int)(_maxWeight * _helperNum);
             var relations = new Relation[layer1.Neurons.Length, layer2.Neurons.Length];
             for (int i = 0; i < layer1.Neurons.Length; i++)
             {
                 for (int j = 0; j < layer2.Neurons.Length; j++)
                 {
-                    var initialWeight = (double)(rand.Next(minW, maxW) / _helperNum);
+                    var initialWeight = (double)rand.Next(minW, maxW) / _helperNum;
                     relations[i, j] = new Relation(layer1.Neurons[i], layer2.Neurons[j], initialWeight);
                 }
             }
@@ -53,14 +54,15 @@ namespace ClassificationNumbers.MainClasses
         /// <summary>
         /// Главный метод нейросети - обучение
         /// </summary>
-        public void Learn(Dictionary<int, double[]> inputNumbersData)
+        public void Learn(Dictionary<int, DataNumberDTO_5x5> data)
         {
             // Поэтапная тренировка по каждой картинке
-            for (var i = 0; i < inputNumbersData.Count; i++)
+            for (var i = 0; i < data.Count; i++)
             {
-                var signals = inputNumbersData[i];
-                signals = CalcOutputSignalsFromLayer(signals, HiddenLayer);
-                signals = CalcOutputSignalsFromLayer(signals, OutputLayer);
+                var rightAnswer = data[i].Number;
+                var signals = data[i].ImageRGBComponents;
+                signals = CalcOutputSignalsFromLayer(signals, HiddenLayer, InputHiddenRelations);
+                signals = CalcOutputSignalsFromLayer(signals, OutputLayer, HiddenOutputRelations);
             }
         }
 
@@ -68,15 +70,15 @@ namespace ClassificationNumbers.MainClasses
         /// Получение выходных сигналов для слоя
         /// </summary>
         /// <returns></returns>
-        public double[] CalcOutputSignalsFromLayer(double[] inputSignals, Layer outputLayer)
+        public double[] CalcOutputSignalsFromLayer(double[] inputSignals, Layer outputLayer, Relation[,] relations)
         {
             var array = new double[inputSignals.Length];
             for (int i = 0; i < outputLayer.Neurons.Length; i++)
             {
                 double sumX = 0;
-                for (int j = 0; j < InputHiddenRelations.Length; j++)
+                for (int j = 0; j < relations.Length; j++)
                 {
-                    var relation = InputHiddenRelations[j, i];
+                    var relation = relations[j, i];
                     sumX += relation.Weight * inputSignals[j];
                 }
                 array[i] = sumX;

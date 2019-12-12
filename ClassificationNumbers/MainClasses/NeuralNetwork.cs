@@ -58,23 +58,30 @@ namespace ClassificationNumbers.MainClasses
             // Поэтапная тренировка по каждой картинке
             for (var i = 0; i < inputNumbersData.Count; i++)
             {
-                CalcOutputSignals(inputNumbersData[i]);
+                var signals = inputNumbersData[i];
+                signals = CalcOutputSignalsFromLayer(signals, HiddenLayer);
+                signals = CalcOutputSignalsFromLayer(signals, OutputLayer);
             }
         }
 
-        public void CalcOutputSignals(double[] inputSignals)
+        /// <summary>
+        /// Получение выходных сигналов для слоя
+        /// </summary>
+        /// <returns></returns>
+        public double[] CalcOutputSignalsFromLayer(double[] inputSignals, Layer outputLayer)
         {
-            // Комбинирование и сглаживание входных сигналов для каждого нейрона скрытого слоя
-            for (int i = 0; i < HiddenLayer.Neurons.Length; i++)
+            var array = new double[inputSignals.Length];
+            for (int i = 0; i < outputLayer.Neurons.Length; i++)
             {
                 double sumX = 0;
-                var hiddenNeuron = HiddenLayer.Neurons[i];
                 for (int j = 0; j < InputHiddenRelations.Length; j++)
                 {
                     var relation = InputHiddenRelations[j, i];
                     sumX += relation.Weight * inputSignals[j];
                 }
+                array[i] = sumX;
             }
+            return array;
         }
     }
 }

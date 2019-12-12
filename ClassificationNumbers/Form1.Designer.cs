@@ -43,6 +43,7 @@
             this._minWeightN = new System.Windows.Forms.NumericUpDown();
             this._maxWeightN = new System.Windows.Forms.NumericUpDown();
             this._funcActivationsList = new System.Windows.Forms.ListBox();
+            this._LearnBtn = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this._mainPictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this._amountInputNeuronsN)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this._amountHiddenNeuronsN)).BeginInit();
@@ -287,11 +288,22 @@
             this._funcActivationsList.Size = new System.Drawing.Size(150, 84);
             this._funcActivationsList.TabIndex = 21;
             // 
+            // _LearnBtn
+            // 
+            this._LearnBtn.Location = new System.Drawing.Point(987, 564);
+            this._LearnBtn.Name = "_LearnBtn";
+            this._LearnBtn.Size = new System.Drawing.Size(150, 78);
+            this._LearnBtn.TabIndex = 22;
+            this._LearnBtn.Text = "Обучение по картинкам";
+            this._LearnBtn.UseVisualStyleBackColor = true;
+            this._LearnBtn.Click += new System.EventHandler(this._LearnBtn_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1705, 682);
+            this.Controls.Add(this._LearnBtn);
             this.Controls.Add(this._funcActivationsList);
             this.Controls.Add(this._maxWeightN);
             this.Controls.Add(this._minWeightN);
@@ -339,6 +351,7 @@
         private System.Windows.Forms.NumericUpDown _minWeightN;
         private System.Windows.Forms.NumericUpDown _maxWeightN;
         private System.Windows.Forms.ListBox _funcActivationsList;
+        private System.Windows.Forms.Button _LearnBtn;
     }
 }
 

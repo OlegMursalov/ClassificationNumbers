@@ -50,7 +50,10 @@ namespace ClassificationNumbers
             // Делаем для глядности и лучшего изучения темы
             var neuralNetworkPainter = new NeuralNetworkPainter(_mainPictureBox, _neuralNetwork);
             neuralNetworkPainter.Draw();
+        }
 
+        private void _LearnBtn_Click(object sender, EventArgs e)
+        {
             // Обучение трехслойной нейронной сети
             // ЗАДАЧА - классифицировать на картинках цифры от 0 до 9, написанные от руки
             // Входные данные, где int - цифры, а float[] - массив преобразованных RGB компонент из картинок

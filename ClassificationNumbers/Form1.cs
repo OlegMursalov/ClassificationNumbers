@@ -1,19 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+﻿using ClassificationNumbers.Drawing;
 using ClassificationNumbers.Helpers;
 using ClassificationNumbers.MainClasses;
+using System;
+using System.Windows.Forms;
 
 namespace ClassificationNumbers
 {
     public partial class Form1 : Form
     {
+        private NeuralNetwork _neuralNetwork;
+
         public Form1()
         {
             InitializeComponent();
@@ -44,12 +40,15 @@ namespace ClassificationNumbers
 
             // Создали простую трехслойную нейросеть
             // Создаем нейроны, генерируем между ними связи с случайными значениями весов
-            var neuralNetwork = new NeuralNetwork(
+            _neuralNetwork = new NeuralNetwork(
                 functionActivation,
                 amountInputNeurons, amountHiddenNeurons, amountOutputNeurons, 
                 alpha, minWeight, maxWeight);
 
-            
+            // Создаем художника для рисования нейросети в picture box
+            // Делаем для глядности и лучшего изучения темы
+            var neuralNetworkPainter = new NeuralNetworkPainter(_mainPictureBox, _neuralNetwork);
+            neuralNetworkPainter.Draw();
         }
     }
 }

@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this._mainPictureBox = new System.Windows.Forms.PictureBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -43,7 +43,7 @@
             this._minWeightN = new System.Windows.Forms.NumericUpDown();
             this._maxWeightN = new System.Windows.Forms.NumericUpDown();
             this._funcActivationsList = new System.Windows.Forms.ListBox();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this._mainPictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this._amountInputNeuronsN)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this._amountHiddenNeuronsN)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this._amountOutputNeuronsN)).BeginInit();
@@ -52,14 +52,14 @@
             ((System.ComponentModel.ISupportInitialize)(this._maxWeightN)).BeginInit();
             this.SuspendLayout();
             // 
-            // pictureBox1
+            // _mainPictureBox
             // 
-            this.pictureBox1.BackColor = System.Drawing.SystemColors.ButtonShadow;
-            this.pictureBox1.Location = new System.Drawing.Point(12, 12);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(953, 658);
-            this.pictureBox1.TabIndex = 0;
-            this.pictureBox1.TabStop = false;
+            this._mainPictureBox.BackColor = System.Drawing.Color.AntiqueWhite;
+            this._mainPictureBox.Location = new System.Drawing.Point(12, 12);
+            this._mainPictureBox.Name = "_mainPictureBox";
+            this._mainPictureBox.Size = new System.Drawing.Size(953, 658);
+            this._mainPictureBox.TabIndex = 0;
+            this._mainPictureBox.TabStop = false;
             // 
             // label1
             // 
@@ -201,10 +201,10 @@
             131072});
             this._alphaN.Location = new System.Drawing.Point(987, 214);
             this._alphaN.Maximum = new decimal(new int[] {
-            99,
+            9999,
             0,
             0,
-            0});
+            131072});
             this._alphaN.Minimum = new decimal(new int[] {
             1,
             0,
@@ -228,6 +228,11 @@
             0,
             131072});
             this._minWeightN.Location = new System.Drawing.Point(987, 278);
+            this._minWeightN.Maximum = new decimal(new int[] {
+            9999,
+            0,
+            0,
+            131072});
             this._minWeightN.Minimum = new decimal(new int[] {
             1,
             0,
@@ -251,6 +256,11 @@
             0,
             131072});
             this._maxWeightN.Location = new System.Drawing.Point(1068, 278);
+            this._maxWeightN.Maximum = new decimal(new int[] {
+            9999,
+            0,
+            0,
+            131072});
             this._maxWeightN.Minimum = new decimal(new int[] {
             1,
             0,
@@ -296,11 +306,11 @@
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.pictureBox1);
+            this.Controls.Add(this._mainPictureBox);
             this.Name = "Form1";
             this.Text = "Classification numbers - neural network";
             this.Load += new System.EventHandler(this.Form1_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this._mainPictureBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this._amountInputNeuronsN)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this._amountHiddenNeuronsN)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this._amountOutputNeuronsN)).EndInit();
@@ -314,7 +324,7 @@
 
         #endregion
 
-        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.PictureBox _mainPictureBox;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;

@@ -21,6 +21,19 @@ namespace ClassificationNumbers.MainClasses
         public Relation[,] InputHiddenRelations { get; }
         public Relation[,] HiddenOutputRelations { get; }
 
+        public double CalcOutputSignal(double inputSignal)
+        {
+            if (_funcActivation == FunctionActivation.None)
+            {
+                return inputSignal;
+            }
+            else if (_funcActivation == FunctionActivation.Sigmoida)
+            {
+                return (1 / (1 + Math.Pow(Math.E, -inputSignal)));
+            }
+            return inputSignal;
+        }
+
         public NeuralNetwork(FunctionActivation funcActivation, int amountInputNeurons, int amountHiddenNeurons, int amountOutputNeurons, double alpha, double minWeight, double maxWeight)
         {
             _funcActivation = funcActivation;
@@ -61,33 +74,33 @@ namespace ClassificationNumbers.MainClasses
             {
                 var rightAnswer = data[i].Number;
                 var signals = data[i].ImageRGBComponents;
-                signals = CalcOutputSignalsFromLayer(signals, HiddenLayer, InputHiddenRelations);
-                signals = CalcOutputSignalsFromLayer(signals, OutputLayer, HiddenOutputRelations);
+                signals = CalcSignalsFromLayer(signals, InputLayer, HiddenLayer, InputHiddenRelations);
+                var outputSignals = CalcSignalsFromLayer(signals, HiddenLayer, OutputLayer, HiddenOutputRelations);
+                var errors = CalculateProportionalErrors(outputSignals, );
             }
         }
 
         /// <summary>
-        /// Получение выходных сигналов для слоя
+        /// Вычисление сглаженного и комбинированного сигналов для нейронов следующего слоя, пропущенных через функцию активации
         /// </summary>
-        /// <returns></returns>
-        public double[] CalcOutputSignalsFromLayer(double[] inputSignals, Layer outputLayer, Relation[,] relations)
+        private double[] CalcSignalsFromLayer(double[] inputSignals, Layer inputLayer, Layer outputLayer, Relation[,] relations)
         {
             var array = new double[inputSignals.Length];
             for (int i = 0; i < outputLayer.Neurons.Length; i++)
             {
                 double sumX = 0;
-                var outputNeuron = outputLayer.Neurons[i];
-                for (int j = 0; j < relations.Length; j++)
+                for (int j = 0; j < inputLayer.Neurons.Length; j++)
                 {
-                    var relation = relations[j, i];
-                    if (relation.OutputNeuron.Number == outputNeuron.Number)
-                    {
-                        sumX += relation.Weight * inputSignals[j];
-                    }
+                    sumX += inputSignals[j] * relations[j, i].Weight;
                 }
-                array[i] = sumX;
+                array[i] = CalcOutputSignal(sumX);
             }
             return array;
+        }
+
+        private double[] CalculateProportionalErrors(double[] outputSignals)
+        {
+            return outputSignals;
         }
     }
 }

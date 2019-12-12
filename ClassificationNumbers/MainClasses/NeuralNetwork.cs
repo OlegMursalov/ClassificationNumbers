@@ -21,6 +21,9 @@ namespace ClassificationNumbers.MainClasses
         public Relation[,] InputHiddenRelations { get; }
         public Relation[,] HiddenOutputRelations { get; }
 
+        /// <summary>
+        /// Функция активации
+        /// </summary>
         public double CalcOutputSignal(double inputSignal)
         {
             if (_funcActivation == FunctionActivation.None)
@@ -73,10 +76,15 @@ namespace ClassificationNumbers.MainClasses
             for (var i = 0; i < data.Count; i++)
             {
                 var rightAnswer = data[i].Number;
+
+                // Вычисление комбинированного и сглаженного сигнала, пропущенного через сигмоиду,
+                // данный сигнал прошел через все узлы и вышел из output layer
                 var signals = data[i].ImageRGBComponents;
                 signals = CalcSignalsFromLayer(signals, InputLayer, HiddenLayer, InputHiddenRelations);
                 var outputSignals = CalcSignalsFromLayer(signals, HiddenLayer, OutputLayer, HiddenOutputRelations);
-                var errors = CalculateProportionalErrors(outputSignals, );
+
+                // Обновление весов на нужных ребрах, в зависимости от ошибки и правильного ответа
+                UpdateWeights(HiddenLayer, InputHiddenRelations, outputSignals, rightAnswer);
             }
         }
 
@@ -98,9 +106,26 @@ namespace ClassificationNumbers.MainClasses
             return array;
         }
 
-        private double[] CalculateProportionalErrors(double[] outputSignals)
+        /// <summary>
+        /// Нахождение ошибки только для одного выходного нейрона (так как нас интересует, по сути, только один нейрон),
+        /// но при этом деление этой ошибки пропорционально на каждое ребро, которое входит в этот нейрон из предыдущего слоя.
+        /// Затем обновление веса, используя производную от функции активации (градиентный спуск).
+        /// </summary>
+        /// <returns></returns>
+        private double[] UpdateWeights(Layer layer, Relation[,] relations, double[] outputSignals, int rightAnswer)
         {
-            return outputSignals;
+            // Забираем выходной сигнал из нейрона, ответственного за эту цифру
+            var mainOutputSignal = outputSignals[rightAnswer];
+
+            // Ошибка будет ожидаемый сигнал (1) минус фактический (0.53, например) и все в квадрате, чтобы уйти от знака минуса
+            var mainError = Math.Pow(1 - mainOutputSignal, 2);
+
+            // Теперь будем делить ошибку на каждое ребро пропорционально весу ребра
+            var errors = new double[outputSignals.Length];
+            for (int i = 0; i < relations.Length; i++)
+            {
+                relations[i, ]
+            }
         }
     }
 }

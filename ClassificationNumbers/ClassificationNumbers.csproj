@@ -47,8 +47,6 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DataDTO\DataNumberDTO_28x28.cs" />
-    <Compile Include="DataDTO\DataNumberDTO_5x5.cs" />
     <Compile Include="Drawing\NeuralNetworkPaintercs.cs" />
     <Compile Include="Drawing\RelationLine.cs" />
     <Compile Include="Form1.cs">
@@ -90,6 +88,11 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\CommonLibrary\CommonLibrary.csproj">
+      <Project>{31249bfc-79df-4217-8e2f-ad79a0341e26}</Project>
+      <Name>CommonLibrary</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

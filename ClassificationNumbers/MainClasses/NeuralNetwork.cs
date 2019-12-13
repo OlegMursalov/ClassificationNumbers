@@ -1,8 +1,6 @@
-﻿using ClassificationNumbers.DataDTO;
+﻿using CommonLibrary.DataDTO;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Windows.Media;
 
 namespace ClassificationNumbers.MainClasses
 {
@@ -117,7 +115,7 @@ namespace ClassificationNumbers.MainClasses
             }
             else if (_funcActivation == FunctionActivation.Sigmoida)
             {
-                var 
+                
             }
             return 0;
         }
@@ -135,10 +133,10 @@ namespace ClassificationNumbers.MainClasses
             // Ошибка будет ожидаемый сигнал (_expectedSignal) минус фактический (0.53, например) и все в квадрате, чтобы уйти от знака минуса
             var mainError = Math.Pow(_expectedSignal - mainOutputSignal, 2);
 
-            // Теперь будем делить ошибку на каждое ребро пропорционально весу ребра
-            var errors = new double[outputSignals.Length];
-
             #region [Думаю, можно уйти от разделения ошибки на ребра, пропорционально весу]
+            // Теперь будем делить ошибку на каждое ребро пропорционально весу ребра
+            // var errors = new double[outputSignals.Length];
+
             // Найдем сумму всех весов, связанных с выходным нейроном
             /*double commonWeights = 0;
             for (int i = 0; i < relations.Length; i++)
@@ -155,6 +153,8 @@ namespace ClassificationNumbers.MainClasses
             #endregion
 
             // Обновляем веса по методу градиентного спуска (используя коэффициент обучения и производную от функции активации)
+            // Коэффициент обучения - это шаг в градиентном спуске
+            // Производная по функции активации 
             for (int i = 0; i < relations.Length; i++)
             {
                 

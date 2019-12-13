@@ -1,0 +1,5 @@
+C:\Users\Олег\source\repos\ClassificationNumbers\CommonLibrary\bin\Debug\CommonLibrary.dll
+C:\Users\Олег\source\repos\ClassificationNumbers\CommonLibrary\bin\Debug\CommonLibrary.pdb
+C:\Users\Олег\source\repos\ClassificationNumbers\CommonLibrary\obj\Debug\CommonLibrary.csproj.CoreCompileInputs.cache
+C:\Users\Олег\source\repos\ClassificationNumbers\CommonLibrary\obj\Debug\CommonLibrary.dll
+C:\Users\Олег\source\repos\ClassificationNumbers\CommonLibrary\obj\Debug\CommonLibrary.pdb

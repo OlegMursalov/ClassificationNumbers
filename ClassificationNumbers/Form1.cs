@@ -4,7 +4,7 @@ using ClassificationNumbers.MainClasses;
 using System;
 using System.Windows.Forms;
 using System.Collections.Generic;
-using ClassificationNumbers.DataDTO;
+using CommonLibrary.DataDTO;
 
 namespace ClassificationNumbers
 {

@@ -8,3 +8,6 @@ C:\Users\Олег\source\repos\ClassificationNumbers\ClassificationNumbers\obj\D
 C:\Users\Олег\source\repos\ClassificationNumbers\ClassificationNumbers\obj\Debug\ClassificationNumbers.exe
 C:\Users\Олег\source\repos\ClassificationNumbers\ClassificationNumbers\obj\Debug\ClassificationNumbers.pdb
 C:\Users\Олег\source\repos\ClassificationNumbers\ClassificationNumbers\obj\Debug\ClassificationNumbers.csprojAssemblyReference.cache
+C:\Users\Олег\source\repos\ClassificationNumbers\ClassificationNumbers\bin\Debug\CommonLibrary.dll
+C:\Users\Олег\source\repos\ClassificationNumbers\ClassificationNumbers\bin\Debug\CommonLibrary.pdb
+C:\Users\Олег\source\repos\ClassificationNumbers\ClassificationNumbers\obj\Debug\ClassificationNumbers.csproj.CopyComplete

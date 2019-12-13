@@ -1,0 +1,10 @@
+C:\Users\Олег\source\repos\ClassificationNumbers\GeneratingDataFromImages\obj\Debug\GeneratingDataFromImages.csprojAssemblyReference.cache
+C:\Users\Олег\source\repos\ClassificationNumbers\GeneratingDataFromImages\obj\Debug\GeneratingDataFromImages.csproj.CoreCompileInputs.cache
+C:\Users\Олег\source\repos\ClassificationNumbers\GeneratingDataFromImages\bin\Debug\GeneratingDataFromImages.exe.config
+C:\Users\Олег\source\repos\ClassificationNumbers\GeneratingDataFromImages\bin\Debug\GeneratingDataFromImages.exe
+C:\Users\Олег\source\repos\ClassificationNumbers\GeneratingDataFromImages\bin\Debug\GeneratingDataFromImages.pdb
+C:\Users\Олег\source\repos\ClassificationNumbers\GeneratingDataFromImages\bin\Debug\CommonLibrary.dll
+C:\Users\Олег\source\repos\ClassificationNumbers\GeneratingDataFromImages\bin\Debug\CommonLibrary.pdb
+C:\Users\Олег\source\repos\ClassificationNumbers\GeneratingDataFromImages\obj\Debug\GeneratingDataFromImages.csproj.CopyComplete
+C:\Users\Олег\source\repos\ClassificationNumbers\GeneratingDataFromImages\obj\Debug\GeneratingDataFromImages.exe
+C:\Users\Олег\source\repos\ClassificationNumbers\GeneratingDataFromImages\obj\Debug\GeneratingDataFromImages.pdb

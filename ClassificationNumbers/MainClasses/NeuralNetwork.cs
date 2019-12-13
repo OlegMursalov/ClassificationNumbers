@@ -39,11 +39,6 @@ namespace ClassificationNumbers.MainClasses
             return inputSignal;
         }
 
-        public double DerivateByFuncActivation()
-        {
-            
-        }
-
         public NeuralNetwork(FunctionActivation funcActivation, int amountInputNeurons, int amountHiddenNeurons, int amountOutputNeurons, double alpha, double minWeight, double maxWeight)
         {
             _funcActivation = funcActivation;
@@ -114,6 +109,19 @@ namespace ClassificationNumbers.MainClasses
             return array;
         }
 
+        public double DerivateByFuncActivation()
+        {
+            if (_funcActivation == FunctionActivation.None)
+            {
+                return 0;
+            }
+            else if (_funcActivation == FunctionActivation.Sigmoida)
+            {
+                var 
+            }
+            return 0;
+        }
+
         /// <summary>
         /// Нахождение ошибки только для одного выходного нейрона (так как нас интересует, по сути, только один нейрон),
         /// но при этом деление этой ошибки пропорционально на каждое ребро, которое входит в этот нейрон из предыдущего слоя.
@@ -130,8 +138,9 @@ namespace ClassificationNumbers.MainClasses
             // Теперь будем делить ошибку на каждое ребро пропорционально весу ребра
             var errors = new double[outputSignals.Length];
 
+            #region [Думаю, можно уйти от разделения ошибки на ребра, пропорционально весу]
             // Найдем сумму всех весов, связанных с выходным нейроном
-            double commonWeights = 0;
+            /*double commonWeights = 0;
             for (int i = 0; i < relations.Length; i++)
             {
                 commonWeights += relations[i, numberOutputNeuron].Weight;
@@ -142,14 +151,13 @@ namespace ClassificationNumbers.MainClasses
             for (int i = 0; i < relations.Length; i++)
             {
                 partsOfMainError[i] = (relations[i, numberOutputNeuron].Weight / commonWeights) * mainError;
-            }
+            }*/
+            #endregion
 
             // Обновляем веса по методу градиентного спуска (используя коэффициент обучения и производную от функции активации)
             for (int i = 0; i < relations.Length; i++)
             {
-                var derivate = DerivateByFuncActivation();
-                double newWeight = relations[i, numberOutputNeuron].Weight - (_alpha * derivate);
-                relations[i, numberOutputNeuron].SetWeight(newWeight);
+                
             }
         }
     }

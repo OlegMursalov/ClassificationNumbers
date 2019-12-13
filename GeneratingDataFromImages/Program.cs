@@ -10,6 +10,7 @@ namespace GeneratingDataFromImages
             var path = ConfigurationManager.AppSettings["path"];
             var fileExt = ConfigurationManager.AppSettings["fileExt"];
             var imageTransformatter = new ImageTranformatter(path, fileExt);
+            var data = imageTransformatter.GetData28x28();
         }
     }
 }

@@ -33,6 +33,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -41,7 +42,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DataDTO\DataNumberDTO_28x28.cs" />
+    <Compile Include="DataDTO\DataNumberDTO_28x28_Set.cs" />
     <Compile Include="DataDTO\DataNumberDTO_5x5.cs" />
     <Compile Include="Transformators\ImageTranformatter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -1,5 +1,6 @@
 ﻿using System.Drawing;
 using System.Runtime.Serialization;
+using System.Linq;
 
 namespace CommonLibrary.DataDTO
 {
@@ -9,12 +10,14 @@ namespace CommonLibrary.DataDTO
     [DataContract]
     public class DataNumberDTO_28x28_Set
     {
+        protected Color[] _pixelColors;
+
         /// <summary>
         /// Номер item of data set
         /// </summary>
         [DataMember(Name = "Id")]
         public int Id { get; private set; }
-        
+
         /// <summary>
         /// Правильный ответ - цифра от 0 до 9
         /// </summary>
@@ -25,13 +28,24 @@ namespace CommonLibrary.DataDTO
         /// Массив цветов (RGB - компонент) пикселей из изображения
         /// </summary>
         [DataMember(Name = "PixelColors")]
-        public Color[] PixelColors { get; private set; }
-        
+        public string PixelColorsStr
+        {
+            get
+            {
+                var pixelColorsStr = _pixelColors.Select(i => $"{i.A}, {i.G}, {i.B}").ToArray();
+                return string.Join(" _ ", pixelColorsStr);
+            }
+            private set
+            {
+                // not implementing
+            }
+        }
+
         public DataNumberDTO_28x28_Set(int id, int number, Color[] pixelColors)
         {
             Id = id;
             Number = number;
-            PixelColors = pixelColors;
+            _pixelColors = pixelColors;
         }
     }
 }

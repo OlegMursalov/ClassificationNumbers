@@ -44,6 +44,7 @@
             this._maxWeightN = new System.Windows.Forms.NumericUpDown();
             this._funcActivationsList = new System.Windows.Forms.ListBox();
             this._LearnBtn = new System.Windows.Forms.Button();
+            this._loadJsonDataSetBtn = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this._mainPictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this._amountInputNeuronsN)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this._amountHiddenNeuronsN)).BeginInit();
@@ -298,11 +299,22 @@
             this._LearnBtn.UseVisualStyleBackColor = true;
             this._LearnBtn.Click += new System.EventHandler(this._LearnBtn_Click);
             // 
+            // _loadJsonDataSetBtn
+            // 
+            this._loadJsonDataSetBtn.Location = new System.Drawing.Point(1164, 32);
+            this._loadJsonDataSetBtn.Name = "_loadJsonDataSetBtn";
+            this._loadJsonDataSetBtn.Size = new System.Drawing.Size(148, 78);
+            this._loadJsonDataSetBtn.TabIndex = 23;
+            this._loadJsonDataSetBtn.Text = "Выбор JSON data set";
+            this._loadJsonDataSetBtn.UseVisualStyleBackColor = true;
+            this._loadJsonDataSetBtn.Click += new System.EventHandler(this._loadJsonDataSetBtn_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1705, 682);
+            this.Controls.Add(this._loadJsonDataSetBtn);
             this.Controls.Add(this._LearnBtn);
             this.Controls.Add(this._funcActivationsList);
             this.Controls.Add(this._maxWeightN);
@@ -352,6 +364,7 @@
         private System.Windows.Forms.NumericUpDown _maxWeightN;
         private System.Windows.Forms.ListBox _funcActivationsList;
         private System.Windows.Forms.Button _LearnBtn;
+        private System.Windows.Forms.Button _loadJsonDataSetBtn;
     }
 }
 

@@ -1,6 +1,7 @@
 ﻿using CommonLibrary.DataDTO;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 
 namespace ClassificationNumbers.MainClasses
 {
@@ -8,6 +9,8 @@ namespace ClassificationNumbers.MainClasses
     {
         private readonly double _helperNum = 100;
         private readonly double _expectedSignal = 1;
+        private readonly double _minSignal = 0.01;
+        private readonly double _maxSignal = 0.99;
 
         private double _alpha;
         private double _minWeight;
@@ -70,16 +73,17 @@ namespace ClassificationNumbers.MainClasses
         /// <summary>
         /// Главный метод нейросети - обучение
         /// </summary>
-        public void Learn(Dictionary<int, DataNumberDTO_5x5> data)
+        public void Learn(DataNumberDTO_28x28_Set[] dataSet)
         {
             // Поэтапная тренировка по каждой картинке
-            for (var i = 0; i < data.Count; i++)
+            for (var i = 0; i < dataSet.Length; i++)
             {
-                var rightAnswer = data[i].Number;
+                var rightAnswer = dataSet[i].Number;
 
                 // Вычисление комбинированного и сглаженного сигнала, пропущенного через сигмоиду,
                 // данный сигнал прошел через все узлы и вышел из output layer
-                var signals = data[i].ImageRGBComponents;
+                var pixelColors = dataSet[i].PixelColors;
+                var signals = TransformWhiteBlackPixelsToSignals(pixelColors);
                 signals = CalcSignalsFromLayer(signals, InputLayer, HiddenLayer, InputHiddenRelations);
                 var outputSignals = CalcSignalsFromLayer(signals, HiddenLayer, OutputLayer, HiddenOutputRelations);
 
@@ -87,6 +91,29 @@ namespace ClassificationNumbers.MainClasses
                 UpdateWeights(HiddenLayer, HiddenOutputRelations, outputSignals, rightAnswer);
                 UpdateWeights(InputLayer, InputHiddenRelations, outputSignals, rightAnswer);
             }
+        }
+
+        /// <summary>
+        /// Преобразование над RGB - составляющими, превращение их в сигналы в указанном диапазоне.
+        /// Данный метод работает только с черно-белыми изображениями.
+        /// При этом минимальный сигнал - _minSignal (0.01), чтобы на вход сигмоиды не поступали нули.
+        /// </summary>
+        private double[] TransformWhiteBlackPixelsToSignals(Color[] pixelColors)
+        {
+            var signals = new double[pixelColors.Length];
+            for (var i = 0; i < pixelColors.Length; i++)
+            {
+                double sumRgbComponents = pixelColors[i].R + pixelColors[i].G + pixelColors[i].B;
+                if (sumRgbComponents <= 10)
+                {
+                    signals[i] = _minSignal;
+                }
+                else
+                {
+                    signals[i] = sumRgbComponents / 1000;
+                }
+            }
+            return signals;
         }
 
         /// <summary>

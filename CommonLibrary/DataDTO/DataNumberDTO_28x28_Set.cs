@@ -1,6 +1,7 @@
 ﻿using System.Drawing;
 using System.Runtime.Serialization;
 using System.Linq;
+using System.Collections.Generic;
 
 namespace CommonLibrary.DataDTO
 {
@@ -10,7 +11,38 @@ namespace CommonLibrary.DataDTO
     [DataContract]
     public class DataNumberDTO_28x28_Set
     {
+        private string _pixelColorsStr;
+
         protected Color[] _pixelColors;
+
+        public Color[] PixelColors
+        {
+            get
+            {
+                if (_pixelColors == null)
+                {
+                    _pixelColors = GetPixelColors().ToArray();
+                    return _pixelColors;
+                }
+                else
+                {
+                    return _pixelColors;
+                }
+            }
+        }
+
+        private IEnumerable<Color> GetPixelColors()
+        {
+            var array = _pixelColorsStr.Split('_').ToArray();
+            for (int i = 0; i < array.Length; i++)
+            {
+                var items = array[i].Split(',');
+                var r = int.Parse(items[0]);
+                var g = int.Parse(items[1]);
+                var b = int.Parse(items[2]);
+                yield return Color.FromArgb(r, g, b);
+            }
+        }
 
         /// <summary>
         /// Номер item of data set
@@ -32,12 +64,16 @@ namespace CommonLibrary.DataDTO
         {
             get
             {
-                var pixelColorsStr = _pixelColors.Select(i => $"{i.A}, {i.G}, {i.B}").ToArray();
-                return string.Join(" _ ", pixelColorsStr);
+                if (string.IsNullOrEmpty(_pixelColorsStr))
+                {
+                    var pixelColorsStr = _pixelColors.Select(i => $"{i.A}, {i.G}, {i.B}").ToArray();
+                    _pixelColorsStr = string.Join(" _ ", pixelColorsStr);
+                }
+                return _pixelColorsStr;
             }
             private set
             {
-                // not implementing
+                _pixelColorsStr = value;
             }
         }
 

@@ -5,12 +5,15 @@ using System;
 using System.Windows.Forms;
 using System.Collections.Generic;
 using CommonLibrary.DataDTO;
+using System.IO;
+using System.Runtime.Serialization.Json;
 
 namespace ClassificationNumbers
 {
     public partial class Form1 : Form
     {
         private NeuralNetwork _neuralNetwork;
+        private DataNumberDTO_28x28_Set[] _dataNumberDTO_28x28_Set;
 
         public Form1()
         {
@@ -44,7 +47,7 @@ namespace ClassificationNumbers
             // Создаем нейроны, генерируем между ними связи с случайными значениями весов
             _neuralNetwork = new NeuralNetwork(
                 functionActivation,
-                amountInputNeurons, amountHiddenNeurons, amountOutputNeurons, 
+                amountInputNeurons, amountHiddenNeurons, amountOutputNeurons,
                 alpha, minWeight, maxWeight);
 
             // Создаем художника для рисования нейросети в picture box
@@ -55,14 +58,35 @@ namespace ClassificationNumbers
 
         private void _LearnBtn_Click(object sender, EventArgs e)
         {
+            if (_dataNumberDTO_28x28_Set == null || _dataNumberDTO_28x28_Set.Length == 0)
+            {
+                MessageBox.Show("Нет данных, пожалуйста, выберите подходящий JSON файл.");
+                return;
+            }
+
             // Обучение трехслойной нейронной сети
             // ЗАДАЧА - классифицировать на картинках цифры от 0 до 9, написанные от руки
             // Входные данные, где int - цифры, а float[] - массив преобразованных RGB компонент из картинок
-            var data = new Dictionary<int, DataNumberDTO_5x5>();
-            data.Add(0, new DataNumberDTO_5x5(5, new double[] { 0.87, 0.23, 0.03, 0.01, 0.57 }));
-            data.Add(1, new DataNumberDTO_5x5(5, new double[] { 0.78, 0.03, 0.01, 0.01, 0.28 }));
-            data.Add(2, new DataNumberDTO_5x5(5, new double[] { 0.09, 0.11, 0.28, 0.78, 0.97 }));
-            _neuralNetwork.Learn(data);
+            var dataSet = _dataNumberDTO_28x28_Set;
+            _neuralNetwork.Learn(dataSet);
+        }
+
+        /// <summary>
+        /// Выбираем JSON файл, подгружаем его и вытаскиваем data set для тренировки neural networks
+        /// </summary>
+        private void _loadJsonDataSetBtn_Click(object sender, EventArgs e)
+        {
+            var openFileDialog = new OpenFileDialog();
+            openFileDialog.Filter = "Json Files|*.json";
+            if (openFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                var fileName = openFileDialog.FileName;
+                using (var fs = new FileStream(fileName, FileMode.Open))
+                {
+                    var serializer = new DataContractJsonSerializer(typeof(DataNumberDTO_28x28_Set[]));
+                    _dataNumberDTO_28x28_Set = (DataNumberDTO_28x28_Set[])serializer.ReadObject(fs);
+                }
+            }
         }
     }
 }

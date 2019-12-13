@@ -2,6 +2,7 @@
 using CommonLibrary.DataDTO;
 using System.IO;
 using System.Drawing;
+using System;
 
 namespace CommonLibrary.Transformators
 {
@@ -19,22 +20,33 @@ namespace CommonLibrary.Transformators
         /// <summary>
         /// Вытаскивание RGB компонент из изображений 28x28, получение данных для обучения нейросети
         /// </summary>
-        public Dictionary<int, DataNumberDTO_28x28_Set> GetData28x28()
+        public DataNumberDTO_28x28_Set[] GetData28x28(ref Dictionary<string, string> errors)
         {
-            var dataSet = new Dictionary<int, DataNumberDTO_28x28_Set>();
+            var length = 28 * 28;
             var images = Directory.GetFiles(_path, $"*.{_fileExt}");
+            var dataSet = new DataNumberDTO_28x28_Set[images.Length];
             for (int i = 0; i < images.Length; i++)
             {
-                var bitmap = new Bitmap(images[i]);
-                var colorPixels = new Color[28, 28];
-                for (int x = 0; x < 28; x++)
+                var fileName = images[i];
+                try
                 {
-                    for (int y = 0; y < 28; y++)
+                    var bitmap = new Bitmap(fileName);
+                    var fileInfo = new FileInfo(fileName);
+                    var rightAnswer = int.Parse(fileInfo.Name.Split('_')[0]);
+                    var colorPixels = new Color[length];
+                    for (int x = 0; x < 28; x++)
                     {
-                        colorPixels[x, y] = bitmap.GetPixel(x, y);
+                        for (int y = 0; y < 28; y++)
+                        {
+                            colorPixels[x + y] = bitmap.GetPixel(x, y);
+                        }
                     }
+                    dataSet[i] = new DataNumberDTO_28x28_Set(i, rightAnswer, colorPixels);
                 }
-                var item = new DataNumberDTO_28x28_Set(i, );
+                catch (Exception ex)
+                {
+                    errors.Add(fileName, ex.Message);
+                }
             }
             return dataSet;
         }

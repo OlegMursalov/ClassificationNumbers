@@ -51,6 +51,7 @@
             this._setDefaultPropertiesBtn = new System.Windows.Forms.Button();
             this._drawNeuralNetworkBtn = new System.Windows.Forms.Button();
             this._mainBackgroundWorker = new System.ComponentModel.BackgroundWorker();
+            this._visualizationDataBtn = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this._amountInputNeuronsN)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this._amountHiddenNeuronsN)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this._amountOutputNeuronsN)).BeginInit();
@@ -289,7 +290,7 @@
             // _LearnBtn
             // 
             this._LearnBtn.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
-            this._LearnBtn.Location = new System.Drawing.Point(95, 449);
+            this._LearnBtn.Location = new System.Drawing.Point(95, 553);
             this._LearnBtn.Name = "_LearnBtn";
             this._LearnBtn.Size = new System.Drawing.Size(323, 46);
             this._LearnBtn.TabIndex = 22;
@@ -304,7 +305,7 @@
             this._loadJsonDataSetBtn.Name = "_loadJsonDataSetBtn";
             this._loadJsonDataSetBtn.Size = new System.Drawing.Size(324, 46);
             this._loadJsonDataSetBtn.TabIndex = 23;
-            this._loadJsonDataSetBtn.Text = "Подгрузить JSON данные для тренировки ";
+            this._loadJsonDataSetBtn.Text = "Подгрузить JSON данные 28x28";
             this._loadJsonDataSetBtn.UseVisualStyleBackColor = false;
             this._loadJsonDataSetBtn.Click += new System.EventHandler(this._loadJsonDataSetBtn_Click);
             // 
@@ -360,7 +361,7 @@
             // _drawNeuralNetworkBtn
             // 
             this._drawNeuralNetworkBtn.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
-            this._drawNeuralNetworkBtn.Location = new System.Drawing.Point(95, 501);
+            this._drawNeuralNetworkBtn.Location = new System.Drawing.Point(94, 449);
             this._drawNeuralNetworkBtn.Name = "_drawNeuralNetworkBtn";
             this._drawNeuralNetworkBtn.Size = new System.Drawing.Size(323, 46);
             this._drawNeuralNetworkBtn.TabIndex = 29;
@@ -368,11 +369,23 @@
             this._drawNeuralNetworkBtn.UseVisualStyleBackColor = false;
             this._drawNeuralNetworkBtn.Click += new System.EventHandler(this._drawNeuralNetworkBtn_Click);
             // 
+            // _visualizationDataBtn
+            // 
+            this._visualizationDataBtn.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
+            this._visualizationDataBtn.Location = new System.Drawing.Point(94, 501);
+            this._visualizationDataBtn.Name = "_visualizationDataBtn";
+            this._visualizationDataBtn.Size = new System.Drawing.Size(323, 46);
+            this._visualizationDataBtn.TabIndex = 30;
+            this._visualizationDataBtn.Text = "Визуализировать данные";
+            this._visualizationDataBtn.UseVisualStyleBackColor = false;
+            this._visualizationDataBtn.Click += new System.EventHandler(this._visualizationDataBtn_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(495, 579);
+            this.ClientSize = new System.Drawing.Size(495, 660);
+            this.Controls.Add(this._visualizationDataBtn);
             this.Controls.Add(this._drawNeuralNetworkBtn);
             this.Controls.Add(this._setDefaultPropertiesBtn);
             this.Controls.Add(this.label10);
@@ -432,6 +445,7 @@
         internal System.Windows.Forms.Button _setDefaultPropertiesBtn;
         internal System.Windows.Forms.Button _drawNeuralNetworkBtn;
         private System.ComponentModel.BackgroundWorker _mainBackgroundWorker;
+        internal System.Windows.Forms.Button _visualizationDataBtn;
     }
 }
 

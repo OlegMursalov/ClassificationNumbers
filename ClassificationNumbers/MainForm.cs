@@ -93,7 +93,7 @@ namespace ClassificationNumbers
 
             if (_painterForm != null)
             {
-                MessageBox.Show("Нейросеть уже отрисована, закройте окно и отрисуйте снова.");
+                MessageBox.Show("Второе окно уже используется для отрисовки.");
                 return;
             }
 
@@ -108,6 +108,31 @@ namespace ClassificationNumbers
         private void _painterForm_FormClosed(object sender, FormClosedEventArgs e)
         {
             _painterForm = null;
+        }
+
+        /// <summary>
+        /// Отрисовывает данных картинок 28x28 пикселей
+        /// </summary>
+        private void _visualizationDataBtn_Click(object sender, EventArgs e)
+        {
+            if (_dataNumberDTO_28x28_Set == null)
+            {
+                MessageBox.Show("Не были подгружены JSON данные картинок 28x28 pixels.");
+                return;
+            }
+
+            if (_painterForm != null)
+            {
+                MessageBox.Show("Второе окно уже используется для отрисовки.");
+                return;
+            }
+
+            _painterForm = new PainterForm(_dataNumberDTO_28x28_Set);
+            _painterForm.FormClosed += _painterForm_FormClosed;
+            _painterForm.Width = 1400;
+            _painterForm.Height = 800;
+            _painterForm.Show();
+            _painterForm.DrawImages28x28();
         }
     }
 }

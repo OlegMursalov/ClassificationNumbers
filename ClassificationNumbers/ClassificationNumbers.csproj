@@ -48,6 +48,7 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Drawing\Image28x28Painter.cs" />
     <Compile Include="Drawing\NeuralNetworkPainter.cs" />
     <Compile Include="Drawing\RelationLine.cs" />
     <Compile Include="MainForm.cs">

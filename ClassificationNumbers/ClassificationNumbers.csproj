@@ -60,6 +60,7 @@
     <Compile Include="MainClasses\FunctionActivation.cs" />
     <Compile Include="MainClasses\Layer.cs" />
     <Compile Include="MainClasses\NeuralNetwork.cs" />
+    <Compile Include="MainClasses\NeuralNetworkProperties.cs" />
     <Compile Include="MainClasses\Neuron.cs" />
     <Compile Include="MainClasses\Relation.cs" />
     <Compile Include="Program.cs" />

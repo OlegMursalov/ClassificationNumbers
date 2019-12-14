@@ -221,13 +221,13 @@ namespace ClassificationNumbers.MainClasses
 
             // Найдем сумму всех весов, связанных с выходным нейроном
             double commonWeights = 0;
-            for (int i = 0; i < relations.Length; i++)
+            for (int i = 0; i < relations.Length / outputSignals.Length; i++)
             {
                 commonWeights += relations[i, numberOutputNeuron].Weight;
             }
 
             // Найдем части ошибок, распределенных пропорционально весам для будущего обновления весов
-            for (int i = 0; i < relations.Length; i++)
+            for (int i = 0; i < relations.Length / outputSignals.Length; i++)
             {
                 proportionalErrors[i] = (relations[i, numberOutputNeuron].Weight / commonWeights) * mainError;
             }

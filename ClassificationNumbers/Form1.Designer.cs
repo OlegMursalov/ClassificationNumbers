@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this._mainPictureBox = new System.Windows.Forms.PictureBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -45,7 +44,11 @@
             this._funcActivationsList = new System.Windows.Forms.ListBox();
             this._LearnBtn = new System.Windows.Forms.Button();
             this._loadJsonDataSetBtn = new System.Windows.Forms.Button();
-            ((System.ComponentModel.ISupportInitialize)(this._mainPictureBox)).BeginInit();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
+            this._setDefaultPropertiesBtn = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this._amountInputNeuronsN)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this._amountHiddenNeuronsN)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this._amountOutputNeuronsN)).BeginInit();
@@ -54,19 +57,10 @@
             ((System.ComponentModel.ISupportInitialize)(this._maxWeightN)).BeginInit();
             this.SuspendLayout();
             // 
-            // _mainPictureBox
-            // 
-            this._mainPictureBox.BackColor = System.Drawing.Color.AntiqueWhite;
-            this._mainPictureBox.Location = new System.Drawing.Point(12, 12);
-            this._mainPictureBox.Name = "_mainPictureBox";
-            this._mainPictureBox.Size = new System.Drawing.Size(953, 658);
-            this._mainPictureBox.TabIndex = 0;
-            this._mainPictureBox.TabStop = false;
-            // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(982, 12);
+            this.label1.Location = new System.Drawing.Point(92, 57);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(151, 17);
             this.label1.TabIndex = 2;
@@ -75,7 +69,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(982, 71);
+            this.label2.Location = new System.Drawing.Point(265, 57);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(153, 17);
             this.label2.TabIndex = 3;
@@ -84,7 +78,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(984, 132);
+            this.label3.Location = new System.Drawing.Point(91, 112);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(161, 17);
             this.label3.TabIndex = 5;
@@ -93,7 +87,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(984, 194);
+            this.label4.Location = new System.Drawing.Point(265, 112);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(168, 17);
             this.label4.TabIndex = 7;
@@ -101,18 +95,19 @@
             // 
             // _createNeuralNetworkBtn
             // 
-            this._createNeuralNetworkBtn.Location = new System.Drawing.Point(985, 463);
+            this._createNeuralNetworkBtn.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
+            this._createNeuralNetworkBtn.Location = new System.Drawing.Point(94, 345);
             this._createNeuralNetworkBtn.Name = "_createNeuralNetworkBtn";
-            this._createNeuralNetworkBtn.Size = new System.Drawing.Size(150, 78);
+            this._createNeuralNetworkBtn.Size = new System.Drawing.Size(324, 46);
             this._createNeuralNetworkBtn.TabIndex = 9;
             this._createNeuralNetworkBtn.Text = "Создать трехслойную нейросеть";
-            this._createNeuralNetworkBtn.UseVisualStyleBackColor = true;
+            this._createNeuralNetworkBtn.UseVisualStyleBackColor = false;
             this._createNeuralNetworkBtn.Click += new System.EventHandler(this._createNeuralNetworkBtn_Click);
             // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(984, 258);
+            this.label5.Location = new System.Drawing.Point(92, 163);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(115, 17);
             this.label5.TabIndex = 10;
@@ -121,7 +116,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(984, 320);
+            this.label6.Location = new System.Drawing.Point(267, 163);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(140, 17);
             this.label6.TabIndex = 13;
@@ -129,7 +124,7 @@
             // 
             // _amountInputNeuronsN
             // 
-            this._amountInputNeuronsN.Location = new System.Drawing.Point(985, 32);
+            this._amountInputNeuronsN.Location = new System.Drawing.Point(95, 77);
             this._amountInputNeuronsN.Maximum = new decimal(new int[] {
             1000,
             0,
@@ -151,7 +146,7 @@
             // 
             // _amountHiddenNeuronsN
             // 
-            this._amountHiddenNeuronsN.Location = new System.Drawing.Point(985, 91);
+            this._amountHiddenNeuronsN.Location = new System.Drawing.Point(268, 77);
             this._amountHiddenNeuronsN.Maximum = new decimal(new int[] {
             1000,
             0,
@@ -173,7 +168,7 @@
             // 
             // _amountOutputNeuronsN
             // 
-            this._amountOutputNeuronsN.Location = new System.Drawing.Point(985, 152);
+            this._amountOutputNeuronsN.Location = new System.Drawing.Point(95, 132);
             this._amountOutputNeuronsN.Maximum = new decimal(new int[] {
             1000,
             0,
@@ -201,7 +196,7 @@
             0,
             0,
             131072});
-            this._alphaN.Location = new System.Drawing.Point(987, 214);
+            this._alphaN.Location = new System.Drawing.Point(268, 132);
             this._alphaN.Maximum = new decimal(new int[] {
             9999,
             0,
@@ -229,7 +224,7 @@
             0,
             0,
             131072});
-            this._minWeightN.Location = new System.Drawing.Point(987, 278);
+            this._minWeightN.Location = new System.Drawing.Point(137, 185);
             this._minWeightN.Maximum = new decimal(new int[] {
             9999,
             0,
@@ -241,7 +236,7 @@
             0,
             131072});
             this._minWeightN.Name = "_minWeightN";
-            this._minWeightN.Size = new System.Drawing.Size(75, 22);
+            this._minWeightN.Size = new System.Drawing.Size(106, 22);
             this._minWeightN.TabIndex = 19;
             this._minWeightN.Value = new decimal(new int[] {
             1,
@@ -257,7 +252,7 @@
             0,
             0,
             131072});
-            this._maxWeightN.Location = new System.Drawing.Point(1068, 278);
+            this._maxWeightN.Location = new System.Drawing.Point(137, 215);
             this._maxWeightN.Maximum = new decimal(new int[] {
             9999,
             0,
@@ -269,7 +264,7 @@
             0,
             131072});
             this._maxWeightN.Name = "_maxWeightN";
-            this._maxWeightN.Size = new System.Drawing.Size(67, 22);
+            this._maxWeightN.Size = new System.Drawing.Size(106, 22);
             this._maxWeightN.TabIndex = 20;
             this._maxWeightN.Value = new decimal(new int[] {
             1,
@@ -284,36 +279,92 @@
             this._funcActivationsList.Items.AddRange(new object[] {
             "None",
             "y = 1 / (1 + e^x)"});
-            this._funcActivationsList.Location = new System.Drawing.Point(985, 350);
+            this._funcActivationsList.Location = new System.Drawing.Point(268, 185);
             this._funcActivationsList.Name = "_funcActivationsList";
-            this._funcActivationsList.Size = new System.Drawing.Size(150, 84);
+            this._funcActivationsList.Size = new System.Drawing.Size(150, 52);
             this._funcActivationsList.TabIndex = 21;
             // 
             // _LearnBtn
             // 
-            this._LearnBtn.Location = new System.Drawing.Point(987, 564);
+            this._LearnBtn.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
+            this._LearnBtn.Location = new System.Drawing.Point(95, 449);
             this._LearnBtn.Name = "_LearnBtn";
-            this._LearnBtn.Size = new System.Drawing.Size(150, 78);
+            this._LearnBtn.Size = new System.Drawing.Size(323, 46);
             this._LearnBtn.TabIndex = 22;
-            this._LearnBtn.Text = "Обучение по картинкам";
-            this._LearnBtn.UseVisualStyleBackColor = true;
+            this._LearnBtn.Text = "Начать обучение";
+            this._LearnBtn.UseVisualStyleBackColor = false;
             this._LearnBtn.Click += new System.EventHandler(this._LearnBtn_Click);
             // 
             // _loadJsonDataSetBtn
             // 
-            this._loadJsonDataSetBtn.Location = new System.Drawing.Point(1164, 32);
+            this._loadJsonDataSetBtn.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
+            this._loadJsonDataSetBtn.Location = new System.Drawing.Point(94, 397);
             this._loadJsonDataSetBtn.Name = "_loadJsonDataSetBtn";
-            this._loadJsonDataSetBtn.Size = new System.Drawing.Size(148, 78);
+            this._loadJsonDataSetBtn.Size = new System.Drawing.Size(324, 46);
             this._loadJsonDataSetBtn.TabIndex = 23;
-            this._loadJsonDataSetBtn.Text = "Выбор JSON data set";
-            this._loadJsonDataSetBtn.UseVisualStyleBackColor = true;
+            this._loadJsonDataSetBtn.Text = "Подгрузить JSON данные для тренировки ";
+            this._loadJsonDataSetBtn.UseVisualStyleBackColor = false;
             this._loadJsonDataSetBtn.Click += new System.EventHandler(this._loadJsonDataSetBtn_Click);
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.BackColor = System.Drawing.Color.LightBlue;
+            this.label7.Location = new System.Drawing.Point(92, 30);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(226, 17);
+            this.label7.TabIndex = 24;
+            this.label7.Text = "Характеристики нейронной сети";
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(92, 185);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(39, 17);
+            this.label8.TabIndex = 25;
+            this.label8.Text = "Мин.";
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(91, 216);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(45, 17);
+            this.label9.TabIndex = 26;
+            this.label9.Text = "Макс.";
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.BackColor = System.Drawing.Color.LightBlue;
+            this.label10.Location = new System.Drawing.Point(91, 258);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(207, 17);
+            this.label10.TabIndex = 27;
+            this.label10.Text = "Управление нейронной сетью";
+            // 
+            // _setDefaultPropertiesBtn
+            // 
+            this._setDefaultPropertiesBtn.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
+            this._setDefaultPropertiesBtn.Location = new System.Drawing.Point(94, 293);
+            this._setDefaultPropertiesBtn.Name = "_setDefaultPropertiesBtn";
+            this._setDefaultPropertiesBtn.Size = new System.Drawing.Size(324, 46);
+            this._setDefaultPropertiesBtn.TabIndex = 28;
+            this._setDefaultPropertiesBtn.Text = "Установить характеристики по-умолчанию";
+            this._setDefaultPropertiesBtn.UseVisualStyleBackColor = false;
+            this._setDefaultPropertiesBtn.Click += new System.EventHandler(this._setDefaultPropertiesBtn_Click);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1705, 682);
+            this.ClientSize = new System.Drawing.Size(495, 536);
+            this.Controls.Add(this._setDefaultPropertiesBtn);
+            this.Controls.Add(this.label10);
+            this.Controls.Add(this.label9);
+            this.Controls.Add(this.label8);
+            this.Controls.Add(this.label7);
             this.Controls.Add(this._loadJsonDataSetBtn);
             this.Controls.Add(this._LearnBtn);
             this.Controls.Add(this._funcActivationsList);
@@ -330,11 +381,9 @@
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this._mainPictureBox);
             this.Name = "Form1";
-            this.Text = "Classification numbers - neural network";
+            this.Text = "Neurol Network Trainer (3 layers)";
             this.Load += new System.EventHandler(this.Form1_Load);
-            ((System.ComponentModel.ISupportInitialize)(this._mainPictureBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this._amountInputNeuronsN)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this._amountHiddenNeuronsN)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this._amountOutputNeuronsN)).EndInit();
@@ -347,24 +396,27 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.PictureBox _mainPictureBox;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Button _createNeuralNetworkBtn;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.NumericUpDown _amountInputNeuronsN;
-        private System.Windows.Forms.NumericUpDown _amountHiddenNeuronsN;
-        private System.Windows.Forms.NumericUpDown _amountOutputNeuronsN;
-        private System.Windows.Forms.NumericUpDown _alphaN;
-        private System.Windows.Forms.NumericUpDown _minWeightN;
-        private System.Windows.Forms.NumericUpDown _maxWeightN;
-        private System.Windows.Forms.ListBox _funcActivationsList;
-        private System.Windows.Forms.Button _LearnBtn;
-        private System.Windows.Forms.Button _loadJsonDataSetBtn;
+        internal System.Windows.Forms.Label label1;
+        internal System.Windows.Forms.Label label2;
+        internal System.Windows.Forms.Label label3;
+        internal System.Windows.Forms.Label label4;
+        internal System.Windows.Forms.Button _createNeuralNetworkBtn;
+        internal System.Windows.Forms.Label label5;
+        internal System.Windows.Forms.Label label6;
+        internal System.Windows.Forms.NumericUpDown _amountInputNeuronsN;
+        internal System.Windows.Forms.NumericUpDown _amountHiddenNeuronsN;
+        internal System.Windows.Forms.NumericUpDown _amountOutputNeuronsN;
+        internal System.Windows.Forms.NumericUpDown _alphaN;
+        internal System.Windows.Forms.NumericUpDown _minWeightN;
+        internal System.Windows.Forms.NumericUpDown _maxWeightN;
+        internal System.Windows.Forms.ListBox _funcActivationsList;
+        internal System.Windows.Forms.Button _LearnBtn;
+        internal System.Windows.Forms.Button _loadJsonDataSetBtn;
+        internal System.Windows.Forms.Label label7;
+        internal System.Windows.Forms.Label label8;
+        internal System.Windows.Forms.Label label9;
+        internal System.Windows.Forms.Label label10;
+        internal System.Windows.Forms.Button _setDefaultPropertiesBtn;
     }
 }
 

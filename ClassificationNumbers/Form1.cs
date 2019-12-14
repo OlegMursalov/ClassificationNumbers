@@ -25,35 +25,28 @@ namespace ClassificationNumbers
 
         }
 
+        /// <summary>
+        /// Создаем простую трехслойную нейросеть.
+        /// Создаем нейроны, генерируем между ними связи со случайными значениями весов.
+        /// </summary>
         private void _createNeuralNetworkBtn_Click(object sender, EventArgs e)
         {
-            // Количество входных нейронов
-            var amountInputNeurons = int.Parse(_amountInputNeuronsN.Text);
-            // Количество скрытых нейронов
-            var amountHiddenNeurons = int.Parse(_amountHiddenNeuronsN.Text);
-            // Количество выходных нейронов
-            var amountOutputNeurons = int.Parse(_amountOutputNeuronsN.Text);
-            // Коэфициент обучения
-            var alpha = double.Parse(_alphaN.Text);
-            // Минимальный возможный вес для ребра
-            var minWeight = double.Parse(_minWeightN.Text);
-            // Максимальный возможный вес для ребра
-            var maxWeight = double.Parse(_maxWeightN.Text);
-            // Функция активации
-            var funcActivationStr = _funcActivationsList.SelectedItem as string;
-            var functionActivation = FuncActivationHelper.MapFunction(funcActivationStr);
+            var properties = new NeuralNetworkProperties(this);
 
-            // Создали простую трехслойную нейросеть
-            // Создаем нейроны, генерируем между ними связи с случайными значениями весов
-            _neuralNetwork = new NeuralNetwork(
-                functionActivation,
-                amountInputNeurons, amountHiddenNeurons, amountOutputNeurons,
-                alpha, minWeight, maxWeight);
+            var functionActivation = properties.FuncActivation;
+            var amountInputNeurons = properties.AmountInputNeurons;
+            var amountHiddenNeurons = properties.AmountHiddenNeurons;
+            var amountOutputNeurons = properties.AmountOutputNeurons;
+            var alpha = properties.Alpha;
+            var minWeight = properties.MinWeight;
+            var maxWeight = properties.MaxWeight;
+            
+            _neuralNetwork = new NeuralNetwork(functionActivation, amountInputNeurons, amountHiddenNeurons, amountOutputNeurons, alpha, minWeight, maxWeight);
 
             // Создаем художника для рисования нейросети в picture box
             // Делаем для глядности и лучшего изучения темы
-            var neuralNetworkPainter = new NeuralNetworkPainter(_mainPictureBox, _neuralNetwork);
-            neuralNetworkPainter.Draw();
+            // var neuralNetworkPainter = new NeuralNetworkPainter(_mainPictureBox, _neuralNetwork);
+            // neuralNetworkPainter.Draw();
         }
 
         private void _LearnBtn_Click(object sender, EventArgs e)
@@ -87,6 +80,15 @@ namespace ClassificationNumbers
                     _dataNumberDTO_28x28_Set = (DataNumberDTO_28x28_Set[])serializer.ReadObject(fs);
                 }
             }
+        }
+
+        /// <summary>
+        /// Установить характеристики простой трехслойной нейронной сети по-умолчанию
+        /// </summary>
+        private void _setDefaultPropertiesBtn_Click(object sender, EventArgs e)
+        {
+            var properties = new NeuralNetworkProperties(this);
+            properties.SetInForm();
         }
     }
 }

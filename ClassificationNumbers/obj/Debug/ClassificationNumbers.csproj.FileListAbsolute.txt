@@ -1,7 +1,6 @@
 C:\Users\Олег\source\repos\ClassificationNumbers\ClassificationNumbers\bin\Debug\ClassificationNumbers.exe.config
 C:\Users\Олег\source\repos\ClassificationNumbers\ClassificationNumbers\bin\Debug\ClassificationNumbers.exe
 C:\Users\Олег\source\repos\ClassificationNumbers\ClassificationNumbers\bin\Debug\ClassificationNumbers.pdb
-C:\Users\Олег\source\repos\ClassificationNumbers\ClassificationNumbers\obj\Debug\ClassificationNumbers.Form1.resources
 C:\Users\Олег\source\repos\ClassificationNumbers\ClassificationNumbers\obj\Debug\ClassificationNumbers.Properties.Resources.resources
 C:\Users\Олег\source\repos\ClassificationNumbers\ClassificationNumbers\obj\Debug\ClassificationNumbers.csproj.GenerateResource.cache
 C:\Users\Олег\source\repos\ClassificationNumbers\ClassificationNumbers\obj\Debug\ClassificationNumbers.csproj.CoreCompileInputs.cache
@@ -11,3 +10,5 @@ C:\Users\Олег\source\repos\ClassificationNumbers\ClassificationNumbers\obj\D
 C:\Users\Олег\source\repos\ClassificationNumbers\ClassificationNumbers\bin\Debug\CommonLibrary.dll
 C:\Users\Олег\source\repos\ClassificationNumbers\ClassificationNumbers\bin\Debug\CommonLibrary.pdb
 C:\Users\Олег\source\repos\ClassificationNumbers\ClassificationNumbers\obj\Debug\ClassificationNumbers.csproj.CopyComplete
+C:\Users\Олег\source\repos\ClassificationNumbers\ClassificationNumbers\obj\Debug\ClassificationNumbers.MainForm.resources
+C:\Users\Олег\source\repos\ClassificationNumbers\ClassificationNumbers\obj\Debug\ClassificationNumbers.PainterForm.resources

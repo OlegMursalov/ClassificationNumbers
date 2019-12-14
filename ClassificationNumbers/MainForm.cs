@@ -1,28 +1,23 @@
-﻿using ClassificationNumbers.Drawing;
-using ClassificationNumbers.Helpers;
-using ClassificationNumbers.MainClasses;
-using System;
-using System.Windows.Forms;
-using System.Collections.Generic;
+﻿using ClassificationNumbers.MainClasses;
 using CommonLibrary.DataDTO;
+using System;
+using System.Drawing;
 using System.IO;
 using System.Runtime.Serialization.Json;
+using System.Windows.Forms;
 
 namespace ClassificationNumbers
 {
-    public partial class Form1 : Form
+    public partial class MainForm : Form
     {
         private NeuralNetwork _neuralNetwork;
+        private PainterForm _painterForm;
+        private Bitmap _neuralNetworkBitmap;
         private DataNumberDTO_28x28_Set[] _dataNumberDTO_28x28_Set;
 
-        public Form1()
+        public MainForm()
         {
             InitializeComponent();
-        }
-
-        private void Form1_Load(object sender, EventArgs e)
-        {
-
         }
 
         /// <summary>
@@ -42,11 +37,6 @@ namespace ClassificationNumbers
             var maxWeight = properties.MaxWeight;
             
             _neuralNetwork = new NeuralNetwork(functionActivation, amountInputNeurons, amountHiddenNeurons, amountOutputNeurons, alpha, minWeight, maxWeight);
-
-            // Создаем художника для рисования нейросети в picture box
-            // Делаем для глядности и лучшего изучения темы
-            // var neuralNetworkPainter = new NeuralNetworkPainter(_mainPictureBox, _neuralNetwork);
-            // neuralNetworkPainter.Draw();
         }
 
         private void _LearnBtn_Click(object sender, EventArgs e)
@@ -89,6 +79,19 @@ namespace ClassificationNumbers
         {
             var properties = new NeuralNetworkProperties(this);
             properties.SetInForm();
+        }
+
+        private void _drawNeuralNetworkBtn_Click(object sender, EventArgs e)
+        {
+            if (_neuralNetwork == null)
+            {
+                MessageBox.Show("Нейросеть не создана.");
+                return;
+            }
+
+            _painterForm = new PainterForm(_neuralNetwork);
+            _painterForm.Show();
+            _neuralNetworkBitmap = _painterForm.DrawNeuralNetwork();
         }
     }
 }

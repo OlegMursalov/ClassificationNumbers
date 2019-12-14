@@ -4,7 +4,7 @@ namespace ClassificationNumbers.MainClasses
 {
     public class NeuralNetworkProperties
     {
-        private Form1 _mainForm;
+        private MainForm _mainForm;
 
         /// <summary>
         /// Количество входных нейронов
@@ -48,7 +48,7 @@ namespace ClassificationNumbers.MainClasses
             }
         }
 
-        public NeuralNetworkProperties(Form1 mainForm)
+        public NeuralNetworkProperties(MainForm mainForm)
         {
             _mainForm = mainForm;
         }

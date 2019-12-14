@@ -1,6 +1,6 @@
 ﻿namespace ClassificationNumbers
 {
-    partial class Form1
+    partial class MainForm
     {
         /// <summary>
         /// Обязательная переменная конструктора.
@@ -49,6 +49,7 @@
             this.label9 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
             this._setDefaultPropertiesBtn = new System.Windows.Forms.Button();
+            this._drawNeuralNetworkBtn = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this._amountInputNeuronsN)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this._amountHiddenNeuronsN)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this._amountOutputNeuronsN)).BeginInit();
@@ -355,11 +356,23 @@
             this._setDefaultPropertiesBtn.UseVisualStyleBackColor = false;
             this._setDefaultPropertiesBtn.Click += new System.EventHandler(this._setDefaultPropertiesBtn_Click);
             // 
-            // Form1
+            // _drawNeuralNetworkBtn
+            // 
+            this._drawNeuralNetworkBtn.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
+            this._drawNeuralNetworkBtn.Location = new System.Drawing.Point(95, 501);
+            this._drawNeuralNetworkBtn.Name = "_drawNeuralNetworkBtn";
+            this._drawNeuralNetworkBtn.Size = new System.Drawing.Size(323, 46);
+            this._drawNeuralNetworkBtn.TabIndex = 29;
+            this._drawNeuralNetworkBtn.Text = "Отрисовать нейросеть";
+            this._drawNeuralNetworkBtn.UseVisualStyleBackColor = false;
+            this._drawNeuralNetworkBtn.Click += new System.EventHandler(this._drawNeuralNetworkBtn_Click);
+            // 
+            // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(495, 536);
+            this.ClientSize = new System.Drawing.Size(495, 579);
+            this.Controls.Add(this._drawNeuralNetworkBtn);
             this.Controls.Add(this._setDefaultPropertiesBtn);
             this.Controls.Add(this.label10);
             this.Controls.Add(this.label9);
@@ -381,9 +394,8 @@
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
-            this.Name = "Form1";
+            this.Name = "MainForm";
             this.Text = "Neurol Network Trainer (3 layers)";
-            this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this._amountInputNeuronsN)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this._amountHiddenNeuronsN)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this._amountOutputNeuronsN)).EndInit();
@@ -417,6 +429,7 @@
         internal System.Windows.Forms.Label label9;
         internal System.Windows.Forms.Label label10;
         internal System.Windows.Forms.Button _setDefaultPropertiesBtn;
+        internal System.Windows.Forms.Button _drawNeuralNetworkBtn;
     }
 }
 

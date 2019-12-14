@@ -1,7 +1,6 @@
 ﻿using ClassificationNumbers.MainClasses;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Drawing.Imaging;
 using System.Windows.Forms;
 
 namespace ClassificationNumbers.Drawing
@@ -15,7 +14,7 @@ namespace ClassificationNumbers.Drawing
         private readonly int _offset_x_y = 20;
 
         private NeuralNetwork _neuralNetwork;
-        private PictureBox _pictureBox;
+        private PainterForm _painterForm;
         private Graphics _currentGraphics;
 
         private Point[] _inputNeuronPoints;
@@ -25,14 +24,14 @@ namespace ClassificationNumbers.Drawing
         private List<RelationLine> _inputHiddenRelationPoints;
         private List<RelationLine> _hiddenOutputRelationPoints;
 
-        public NeuralNetworkPainter(PictureBox pictureBox, NeuralNetwork neuralNetwork)
+        public NeuralNetworkPainter(PainterForm painterForm, NeuralNetwork neuralNetwork)
         {
-            _pictureBox = pictureBox;
+            _painterForm = painterForm;
             _neuralNetwork = neuralNetwork;
-            _currentGraphics = _pictureBox.CreateGraphics();
+            _currentGraphics = _painterForm.CreateGraphics();
         }
 
-        public void Draw()
+        public Bitmap Draw()
         {
             // Отрисовка нейронов входного слоя
             _inputNeuronPoints = DrawNeurons(new Pen(Color.Blue), _neuralNetwork.InputLayer.Neurons, 0, _ySpace);
@@ -47,7 +46,7 @@ namespace ClassificationNumbers.Drawing
             // Отрисовка связей между нейронами скрытого и выходного слоях
             _hiddenOutputRelationPoints = DrawRelations(new Pen(Color.Green), _hiddenNeuronPoints, _outputNeuronPoints);
             
-            SetImageToPictureBox();
+            return SetImageToPictureBox();
         }
 
         private List<RelationLine> DrawRelations(Pen pen, Point[] neuronsA, Point[] neuronsB)
@@ -79,10 +78,12 @@ namespace ClassificationNumbers.Drawing
             return neuronPoints;
         }
 
-        private void SetImageToPictureBox()
+        private Bitmap SetImageToPictureBox()
         {
             _currentGraphics.Save();
-            _pictureBox.InitialImage = new Bitmap(_pictureBox.Width, _pictureBox.Height, _currentGraphics);
+            var bitmap = new Bitmap(_painterForm.Width, _painterForm.Height, _currentGraphics);
+            _painterForm.BackgroundImage = bitmap;
+            return bitmap;
         }
     }
 }

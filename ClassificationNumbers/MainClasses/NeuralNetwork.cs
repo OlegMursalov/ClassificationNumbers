@@ -80,16 +80,18 @@ namespace ClassificationNumbers.MainClasses
             {
                 var rightAnswer = dataSet[i].Number;
 
+                // Трансформирование RGB - компонент в входной сигнал для нейронов входного слоя
+                var pixelColors = dataSet[i].PixelColors;
+                var signalsFromInputLayer = TransformWhiteBlackPixelsToSignals(pixelColors);
+
                 // Вычисление комбинированного и сглаженного сигнала, пропущенного через сигмоиду,
                 // данный сигнал прошел через все узлы и вышел из output layer
-                var pixelColors = dataSet[i].PixelColors;
-                var signals = TransformWhiteBlackPixelsToSignals(pixelColors);
-                signals = CalcSignalsFromLayer(signals, InputLayer, HiddenLayer, InputHiddenRelations);
-                var outputSignals = CalcSignalsFromLayer(signals, HiddenLayer, OutputLayer, HiddenOutputRelations);
+                var signalsFromHiddenLayer = CalcSignalsFromLayer(signalsFromInputLayer, InputLayer, HiddenLayer, InputHiddenRelations);
+                var signalsFromOutputLayer = CalcSignalsFromLayer(signalsFromHiddenLayer, HiddenLayer, OutputLayer, HiddenOutputRelations);
 
                 // Обновление весов на нужных ребрах, в зависимости от ошибки и правильного ответа
-                UpdateWeights(HiddenLayer, HiddenOutputRelations, outputSignals, rightAnswer);
-                UpdateWeights(InputLayer, InputHiddenRelations, outputSignals, rightAnswer);
+                var errorsHiddenLayer = UpdateWeights(HiddenOutputRelations, signalsFromHiddenLayer, signalsFromOutputLayer, rightAnswer);
+                UpdateWeights(errorsHiddenLayer, InputHiddenRelations, signalsFromInputLayer, signalsFromHiddenLayer);
             }
         }
 
@@ -134,25 +136,73 @@ namespace ClassificationNumbers.MainClasses
             return array;
         }
 
-        public double DerivateByFuncActivation()
+        /// <summary>
+        /// Производная от функции активации по весу одного ребра
+        /// </summary>
+        public double DerivateByFuncActivation(double e, double inputSignal, double outputSignal)
         {
+            // e - пропорциональная ошибка на нейроне
+            // inputSignal - сигнал, который пришел на этот нейрон от предыдущего нейрона из предыдущего слоя
+            // outputSignal - комбинированный и сглаженный сигнал, пропущенный через функцию активации на данном нейроне
+
             if (_funcActivation == FunctionActivation.None)
             {
                 return 0;
             }
             else if (_funcActivation == FunctionActivation.Sigmoida)
             {
-                
+                return -2 * e * outputSignal * (1 - outputSignal) * inputSignal;
             }
             return 0;
         }
 
         /// <summary>
+        /// Обновление весов по распределенным ошибкам
+        /// </summary>
+        private void UpdateWeights(double[] errors, Relation[,] relations, double[] inputSignals, double[] outputSignals)
+        {
+            for (int i = 0; i < errors.Length; i++)
+            {
+                // Ошибка для текущего нейрона
+                var mainError = errors[i];
+
+                // Теперь будем делить ошибку на каждое ребро пропорционально весу ребра, которое входит в текущий нейрон
+                var proportionalErrors = new double[outputSignals.Length];
+
+                // Найдем сумму всех весов, связанных с выходным нейроном
+                double commonWeights = 0;
+                for (int j = 0; j < relations.Length; j++)
+                {
+                    commonWeights += relations[j, i].Weight;
+                }
+
+                // Найдем части ошибок, распределенных пропорционально весам для будущего обновления весов
+                for (int j = 0; j < relations.Length; j++)
+                {
+                    proportionalErrors[i] = (relations[j, i].Weight / commonWeights) * mainError;
+                }
+
+                // Обновляем веса по методу градиентного спуска (используя коэффициент обучения и производную от функции активации).
+                // Коэффициент обучения - это шаг в градиентном спуске.
+                // Производная по функции активации - направление градиента.
+                for (int j = 0; j < proportionalErrors.Length; j++)
+                {
+                    var e = proportionalErrors[j];
+                    var inputSignal = inputSignals[j];
+                    var outputSignal = outputSignals[j];
+                    var derivation = DerivateByFuncActivation(e, inputSignal, outputSignal);
+                    var newWeight = relations[i, j].Weight - _alpha * derivation;
+                    relations[i, j].SetWeight(newWeight);
+                }
+            }
+        }
+
+        /// <summary>
         /// Нахождение ошибки только для одного выходного нейрона (так как нас интересует, по сути, только один нейрон),
         /// но при этом деление этой ошибки пропорционально на каждое ребро, которое входит в этот нейрон из предыдущего слоя.
-        /// Затем обновление веса, используя производную от функции активации (градиентный спуск).
+        /// Затем обновление весов, используя производную от функции активации (градиентный спуск).
         /// </summary>
-        private void UpdateWeights(Layer layer, Relation[,] relations, double[] outputSignals, int numberOutputNeuron)
+        private double[] UpdateWeights(Relation[,] relations, double[] inputSignals, double[] outputSignals, int numberOutputNeuron)
         {
             // Забираем выходной сигнал из нейрона, ответственного за эту цифру
             var mainOutputSignal = outputSignals[numberOutputNeuron];
@@ -160,32 +210,37 @@ namespace ClassificationNumbers.MainClasses
             // Ошибка будет ожидаемый сигнал (_expectedSignal) минус фактический (0.53, например) и все в квадрате, чтобы уйти от знака минуса
             var mainError = Math.Pow(_expectedSignal - mainOutputSignal, 2);
 
-            #region [Думаю, можно уйти от разделения ошибки на ребра, пропорционально весу]
             // Теперь будем делить ошибку на каждое ребро пропорционально весу ребра
-            // var errors = new double[outputSignals.Length];
+            var proportionalErrors = new double[outputSignals.Length];
 
             // Найдем сумму всех весов, связанных с выходным нейроном
-            /*double commonWeights = 0;
+            double commonWeights = 0;
             for (int i = 0; i < relations.Length; i++)
             {
                 commonWeights += relations[i, numberOutputNeuron].Weight;
             }
 
             // Найдем части ошибок, распределенных пропорционально весам для будущего обновления весов
-            var partsOfMainError = new double[relations.Length];
             for (int i = 0; i < relations.Length; i++)
             {
-                partsOfMainError[i] = (relations[i, numberOutputNeuron].Weight / commonWeights) * mainError;
-            }*/
-            #endregion
-
-            // Обновляем веса по методу градиентного спуска (используя коэффициент обучения и производную от функции активации)
-            // Коэффициент обучения - это шаг в градиентном спуске
-            // Производная по функции активации 
-            for (int i = 0; i < relations.Length; i++)
-            {
-                
+                proportionalErrors[i] = (relations[i, numberOutputNeuron].Weight / commonWeights) * mainError;
             }
+
+            // Обновляем веса по методу градиентного спуска (используя коэффициент обучения и производную от функции активации).
+            // Коэффициент обучения - это шаг в градиентном спуске.
+            // Производная по функции активации - направление градиента.
+            for (int i = 0; i < proportionalErrors.Length; i++)
+            {
+                var e = proportionalErrors[i];
+                var inputSignal = inputSignals[i];
+                var outputSignal = outputSignals[i];
+                var derivation = DerivateByFuncActivation(e, inputSignal, outputSignal);
+                var newWeight = relations[i, numberOutputNeuron].Weight - _alpha * derivation;
+                relations[i, numberOutputNeuron].SetWeight(newWeight);
+            }
+            
+            // Вернем распределенные ошибки для обновления весов на предыдущем слое
+            return proportionalErrors;
         }
     }
 }

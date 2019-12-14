@@ -123,13 +123,19 @@ namespace ClassificationNumbers.MainClasses
         /// </summary>
         private double[] CalcSignalsFromLayer(double[] inputSignals, Layer inputLayer, Layer outputLayer, Relation[,] relations)
         {
-            var array = new double[inputSignals.Length];
+            var array = new double[outputLayer.Neurons.Length];
             for (int i = 0; i < outputLayer.Neurons.Length; i++)
             {
                 double sumX = 0;
+                var outNeuron = outputLayer.Neurons[i];
                 for (int j = 0; j < inputLayer.Neurons.Length; j++)
                 {
-                    sumX += inputSignals[j] * relations[j, i].Weight;
+                    var inNeuron = inputLayer.Neurons[j];
+                    var relation = relations[j, i];
+                    if (relation.InputNeuron.Number == inNeuron.Number && relation.OutputNeuron.Number == outNeuron.Number)
+                    {
+                        sumX += inputSignals[j] * relation.Weight;
+                    }
                 }
                 array[i] = CalcOutputSignal(sumX);
             }

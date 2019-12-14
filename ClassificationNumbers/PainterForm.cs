@@ -26,12 +26,15 @@ namespace ClassificationNumbers
             _mainProgressBar.Value = 0;
             _mainProgressBar.Minimum = 0;
             _mainProgressBar.Maximum = 100;
-            _neuralNetworkPainter = new NeuralNetworkPainter(this, _neuralNetwork);
-            await Task.Run(() =>
+            _mainPictureBox.Image = null;
+            using (_neuralNetworkPainter = new NeuralNetworkPainter(this, _neuralNetwork))
             {
-                _neuralNetworkPainter.CreateImage((percent) => { _mainProgressBar.Value += percent; });
-            });
-            _mainPictureBox.Image = Image.FromFile(_neuralNetworkPainter.ImageName);
+                await Task.Run(() =>
+                {
+                    _neuralNetworkPainter.CreateImage((percent) => { _mainProgressBar.Value += percent; });
+                });
+                _mainPictureBox.Image = Image.FromFile(_neuralNetworkPainter.ImageName);
+            }
         }
     }
 }

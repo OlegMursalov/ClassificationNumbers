@@ -98,10 +98,16 @@ namespace ClassificationNumbers
             }
 
             _painterForm = new PainterForm(_neuralNetwork);
+            _painterForm.FormClosed += _painterForm_FormClosed;
             _painterForm.Width = 1400;
             _painterForm.Height = 800;
             _painterForm.Show();
             _painterForm.DrawNeuralNetworkAsync();
+        }
+
+        private void _painterForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            _painterForm = null;
         }
     }
 }

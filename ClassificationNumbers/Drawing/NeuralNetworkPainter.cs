@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.IO;
 using System.Windows.Forms;
 
 namespace ClassificationNumbers.Drawing
@@ -44,10 +45,10 @@ namespace ClassificationNumbers.Drawing
             _inputNeuronPoints = GetNeuronPoints(_neuralNetwork.InputLayer.Neurons, new Point(25, 25), 0, _ySpace);
 
             // Получение точек нейронов скрытого слоя
-            _hiddenNeuronPoints = GetNeuronPoints(_neuralNetwork.HiddenLayer.Neurons, new Point(25, 5000), 100, _ySpace);
+            _hiddenNeuronPoints = GetNeuronPoints(_neuralNetwork.HiddenLayer.Neurons, new Point(25, 25), 100, _ySpace);
 
             // Получение точек нейронов выходного слоя
-            _outputNeuronPoints = GetNeuronPoints(_neuralNetwork.OutputLayer.Neurons, new Point(25, 10000), 200, _ySpace);
+            _outputNeuronPoints = GetNeuronPoints(_neuralNetwork.OutputLayer.Neurons, new Point(25, 25), 200, _ySpace);
 
             _painterForm.Invoke(progressBarIncrement, 10);
 

@@ -2,6 +2,7 @@
 using ClassificationNumbers.MainClasses;
 using System;
 using System.Drawing;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace ClassificationNumbers
@@ -9,22 +10,28 @@ namespace ClassificationNumbers
     public partial class PainterForm : Form
     {
         private NeuralNetwork _neuralNetwork;
-        private Bitmap _neuralNetworkBitmap;
+        private NeuralNetworkPainter _neuralNetworkPainter;
 
         public PainterForm(NeuralNetwork neuralNetwork)
         {
-            InitializeComponent();
             _neuralNetwork = neuralNetwork;
+            InitializeComponent();
         }
 
         /// <summary>
         /// Отрисовать нейронную сеть
         /// </summary>
-        public Bitmap DrawNeuralNetwork()
+        public async void DrawNeuralNetworkAsync()
         {
-            var neuralNetworkPainter = new NeuralNetworkPainter(this, _neuralNetwork);
-            _neuralNetworkBitmap = neuralNetworkPainter.Draw();
-            return _neuralNetworkBitmap;
+            _mainProgressBar.Value = 0;
+            _mainProgressBar.Minimum = 0;
+            _mainProgressBar.Maximum = 100;
+            _neuralNetworkPainter = new NeuralNetworkPainter(this, _neuralNetwork);
+            await Task.Run(() =>
+            {
+                _neuralNetworkPainter.CreateImage((percent) => { _mainProgressBar.Value += percent; });
+            });
+            _mainPictureBox.Image = Image.FromFile(_neuralNetworkPainter.ImageName);
         }
     }
 }

@@ -12,7 +12,6 @@ namespace ClassificationNumbers
     {
         private NeuralNetwork _neuralNetwork;
         private PainterForm _painterForm;
-        private Bitmap _neuralNetworkBitmap;
         private DataNumberDTO_28x28_Set[] _dataNumberDTO_28x28_Set;
 
         public MainForm()
@@ -81,6 +80,9 @@ namespace ClassificationNumbers
             properties.SetInForm();
         }
 
+        /// <summary>
+        /// Отрисовывает нейронную сеть
+        /// </summary>
         private void _drawNeuralNetworkBtn_Click(object sender, EventArgs e)
         {
             if (_neuralNetwork == null)
@@ -89,9 +91,17 @@ namespace ClassificationNumbers
                 return;
             }
 
+            if (_painterForm != null)
+            {
+                MessageBox.Show("Нейросеть уже отрисована, закройте окно и отрисуйте снова.");
+                return;
+            }
+
             _painterForm = new PainterForm(_neuralNetwork);
+            _painterForm.Width = 1400;
+            _painterForm.Height = 800;
             _painterForm.Show();
-            _neuralNetworkBitmap = _painterForm.DrawNeuralNetwork();
+            _painterForm.DrawNeuralNetworkAsync();
         }
     }
 }

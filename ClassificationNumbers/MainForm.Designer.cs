@@ -50,6 +50,7 @@
             this.label10 = new System.Windows.Forms.Label();
             this._setDefaultPropertiesBtn = new System.Windows.Forms.Button();
             this._drawNeuralNetworkBtn = new System.Windows.Forms.Button();
+            this._mainBackgroundWorker = new System.ComponentModel.BackgroundWorker();
             ((System.ComponentModel.ISupportInitialize)(this._amountInputNeuronsN)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this._amountHiddenNeuronsN)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this._amountOutputNeuronsN)).BeginInit();
@@ -430,6 +431,7 @@
         internal System.Windows.Forms.Label label10;
         internal System.Windows.Forms.Button _setDefaultPropertiesBtn;
         internal System.Windows.Forms.Button _drawNeuralNetworkBtn;
+        private System.ComponentModel.BackgroundWorker _mainBackgroundWorker;
     }
 }
 

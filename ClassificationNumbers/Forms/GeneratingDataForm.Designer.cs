@@ -35,6 +35,7 @@
             this._statusSelectImgLbl = new System.Windows.Forms.Label();
             this._saveDataJsonInFileBtn = new System.Windows.Forms.Button();
             this._statusSaveLbl = new System.Windows.Forms.Label();
+            this._backgroundWorker = new System.ComponentModel.BackgroundWorker();
             this.SuspendLayout();
             // 
             // _selectImages28x28Btn
@@ -136,5 +137,6 @@
         private System.Windows.Forms.Label _statusSelectImgLbl;
         private System.Windows.Forms.Button _saveDataJsonInFileBtn;
         private System.Windows.Forms.Label _statusSaveLbl;
+        private System.ComponentModel.BackgroundWorker _backgroundWorker;
     }
 }

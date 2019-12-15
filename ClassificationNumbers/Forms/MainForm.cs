@@ -15,6 +15,9 @@ namespace ClassificationNumbers.Forms
         private PainterForm _painterForm;
         private GeneratingDataForm _generatingDataForm;
 
+        private OpenFileDialog _pngImagesDialogSelecting;
+        private FileStream _mainFileStream;
+
         private DataNumberDTO_28x28_Set[] _dataNumberDTO_28x28_Set;
 
         public MainForm()
@@ -37,7 +40,7 @@ namespace ClassificationNumbers.Forms
             var alpha = properties.Alpha;
             var minWeight = properties.MinWeight;
             var maxWeight = properties.MaxWeight;
-            
+
             _neuralNetwork = new NeuralNetwork(functionActivation, amountInputNeurons, amountHiddenNeurons, amountOutputNeurons, alpha, minWeight, maxWeight);
         }
 
@@ -61,19 +64,34 @@ namespace ClassificationNumbers.Forms
         /// </summary>
         private void _loadJsonDataSetBtn_Click(object sender, EventArgs e)
         {
-            using (var openFileDialog = new OpenFileDialog())
+            _pngImagesDialogSelecting = new OpenFileDialog();
+            _pngImagesDialogSelecting.Filter = "Json Files|*.json";
+            if (_pngImagesDialogSelecting.ShowDialog() == DialogResult.OK)
             {
-                openFileDialog.Filter = "Json Files|*.json";
-                if (openFileDialog.ShowDialog() == DialogResult.OK)
-                {
-                    var fileName = openFileDialog.FileName;
-                    using (var fs = new FileStream(fileName, FileMode.Open))
-                    {
-                        var serializer = new DataContractJsonSerializer(typeof(DataNumberDTO_28x28_Set[]));
-                        _dataNumberDTO_28x28_Set = (DataNumberDTO_28x28_Set[])serializer.ReadObject(fs);
-                    }
-                }
+                var fileName = _pngImagesDialogSelecting.FileName;
+                _mainFileStream = new FileStream(fileName, FileMode.Open);
+                _mainBackgroundWorker.DoWork += LoadJsonDataSet_DoWork;
+                _mainBackgroundWorker.RunWorkerCompleted += LoadJsonDataSet_RunWorkerCompleted;
+                _mainBackgroundWorker.RunWorkerAsync();
             }
+        }
+
+        private void LoadJsonDataSet_RunWorkerCompleted(object sender, System.ComponentModel.RunWorkerCompletedEventArgs e)
+        {
+            if (_pngImagesDialogSelecting != null)
+            {
+                _pngImagesDialogSelecting.Dispose();
+            }
+            if (_mainFileStream != null)
+            {
+                _mainFileStream.Dispose();
+            }
+        }
+
+        private void LoadJsonDataSet_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
+        {
+            var serializer = new DataContractJsonSerializer(typeof(DataNumberDTO_28x28_Set[]));
+            _dataNumberDTO_28x28_Set = (DataNumberDTO_28x28_Set[])serializer.ReadObject(_mainFileStream);
         }
 
         /// <summary>

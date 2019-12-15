@@ -43,16 +43,26 @@ namespace ClassificationNumbers.Forms
                 return;
             }
 
-            var errors = new Dictionary<string, string>();
-            var imageTransformatter28x28 = new ImageWorker28x28(_images_28x28_Set);
-            _dataNumberDTO_28x28_Set = imageTransformatter28x28.GetRGBData(ref errors);
+            _backgroundWorker.DoWork += GenerateJSONData_DoWork;
+            _backgroundWorker.RunWorkerCompleted += GenerateJSONData_RunWorkerCompleted;
 
-            var exMessage = string.Empty;
-            _dataNumberDTO_28x28_SetJSON = imageTransformatter28x28.SerializeRGBDataToJSON(_dataNumberDTO_28x28_Set,ref exMessage);
+            _backgroundWorker.RunWorkerAsync();
+        }
 
+        private void GenerateJSONData_RunWorkerCompleted(object sender, System.ComponentModel.RunWorkerCompletedEventArgs e)
+        {
             _mainRichTxb.Text = _dataNumberDTO_28x28_SetJSON;
             _statusDataLbl.BackColor = Color.Green;
             _statusDataLbl.Text = "Данные получены";
+        }
+
+        private void GenerateJSONData_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
+        {
+            var errors = new Dictionary<string, string>();
+            var imageTransformatter28x28 = new ImageWorker28x28(_images_28x28_Set);
+            _dataNumberDTO_28x28_Set = imageTransformatter28x28.GetRGBData(ref errors);
+            var exMessage = string.Empty;
+            _dataNumberDTO_28x28_SetJSON = imageTransformatter28x28.SerializeRGBDataToJSON(_dataNumberDTO_28x28_Set, ref exMessage);
         }
 
         private void _saveDataJsonInFileBtn_Click(object sender, EventArgs e)

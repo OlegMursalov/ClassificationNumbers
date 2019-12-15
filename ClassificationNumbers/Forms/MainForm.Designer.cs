@@ -17,7 +17,17 @@
             {
                 components.Dispose();
             }
+
             base.Dispose(disposing);
+
+            if (_pngImagesDialogSelecting != null)
+            {
+                _pngImagesDialogSelecting.Dispose();
+            }
+            if (_mainFileStream != null)
+            {
+                _mainFileStream.Dispose();
+            }
         }
 
         #region Код, автоматически созданный конструктором форм Windows

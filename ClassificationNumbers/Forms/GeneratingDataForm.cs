@@ -3,6 +3,7 @@ using CommonLibrary.Transformators;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Text;
 using System.Windows.Forms;
 
 namespace ClassificationNumbers.Forms
@@ -11,13 +12,14 @@ namespace ClassificationNumbers.Forms
     {
         private string[] _images_28x28_Set;
         private DataNumberDTO_28x28_Set[] _dataNumberDTO_28x28_Set;
+        private string _dataNumberDTO_28x28_SetJSON;
 
         public GeneratingDataForm()
         {
             InitializeComponent();
         }
 
-        private void _selectImages28x28_Click(object sender, EventArgs e)
+        private void _selectImages28x28Btn_Click(object sender, EventArgs e)
         {
             using (var openFileDialog = new OpenFileDialog())
             {
@@ -28,12 +30,12 @@ namespace ClassificationNumbers.Forms
                     _images_28x28_Set = openFileDialog.FileNames;
                 }
             }
-
+            
             _statusSelectImgLbl.BackColor = Color.Green;
             _statusSelectImgLbl.Text = "Картинки выбраны";
         }
 
-        private void _generateJSONData_Click(object sender, EventArgs e)
+        private void _generateJSONDataBtn_Click(object sender, EventArgs e)
         {
             if (_images_28x28_Set == null || _images_28x28_Set.Length == 0)
             {
@@ -43,19 +45,44 @@ namespace ClassificationNumbers.Forms
 
             var errors = new Dictionary<string, string>();
             var imageTransformatter28x28 = new ImageWorker28x28(_images_28x28_Set);
-            _dataNumberDTO_28x28_Set = imageTransformatter28x28.GetData(ref errors);
+            _dataNumberDTO_28x28_Set = imageTransformatter28x28.GetRGBData(ref errors);
 
-            
+            var exMessage = string.Empty;
+            _dataNumberDTO_28x28_SetJSON = imageTransformatter28x28.SerializeRGBDataToJSON(_dataNumberDTO_28x28_Set,ref exMessage);
 
+            _mainRichTxb.Text = _dataNumberDTO_28x28_SetJSON;
             _statusDataLbl.BackColor = Color.Green;
             _statusDataLbl.Text = "Данные получены";
         }
 
-        private void X()
+        private void _saveDataJsonInFileBtn_Click(object sender, EventArgs e)
         {
-            for (var i = 0; i < _dataNumberDTO_28x28_Set.Length; i++)
+            if (string.IsNullOrEmpty(_dataNumberDTO_28x28_SetJSON))
             {
-                _mainRichTxb.Text += _dataNumberDTO_28x28_Set.ToString();
+                MessageBox.Show("Не получены JSON данные");
+                return;
+            }
+
+            var savedFileName = string.Empty;
+
+            using (var saveFileDialog = new SaveFileDialog())
+            {
+                saveFileDialog.Filter = "JSON Files|*.json";
+                if (saveFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    using (var fs = saveFileDialog.OpenFile())
+                    {
+                        savedFileName = saveFileDialog.FileName;
+                        var bytes = Encoding.UTF8.GetBytes(_dataNumberDTO_28x28_SetJSON);
+                        fs.Write(bytes, 0, bytes.Length);
+                    }
+                }
+            }
+
+            if (!string.IsNullOrEmpty(savedFileName))
+            {
+                _statusSaveLbl.BackColor = Color.Green;
+                _statusSaveLbl.Text = $"Данные JSON сохранены в файл {savedFileName}";
             }
         }
     }

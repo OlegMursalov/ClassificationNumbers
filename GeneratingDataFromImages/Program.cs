@@ -11,7 +11,7 @@ namespace GeneratingDataFromImages
     {
         static void Main()
         {
-            var exMessage = string.Empty; 
+            /*var exMessage = string.Empty; 
             var errors = new Dictionary<string, string>();
             var path = ConfigurationManager.AppSettings["path"];
             var fileExt = ConfigurationManager.AppSettings["fileExt"];
@@ -19,7 +19,7 @@ namespace GeneratingDataFromImages
             var outputFileName = ConfigurationManager.AppSettings["outputFileName"];
 
             var imageTransformatter28x28 = new ImageWorker28x28(path, fileExt);
-            var data = imageTransformatter28x28.GetData(ref errors);
+            var data = imageTransformatter28x28.GetRBGData(ref errors);
 
             if (errors.Count > 0)
             {
@@ -47,7 +47,7 @@ namespace GeneratingDataFromImages
                 Console.WriteLine($"Данные об картинках 28x28 pixels успешно сохранены в файл {fileName}");
             }
 
-            Console.ReadKey();
+            Console.ReadKey();*/
         }
     }
 }

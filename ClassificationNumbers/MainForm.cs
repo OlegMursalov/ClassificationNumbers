@@ -58,15 +58,17 @@ namespace ClassificationNumbers
         /// </summary>
         private void _loadJsonDataSetBtn_Click(object sender, EventArgs e)
         {
-            var openFileDialog = new OpenFileDialog();
-            openFileDialog.Filter = "Json Files|*.json";
-            if (openFileDialog.ShowDialog() == DialogResult.OK)
+            using (var openFileDialog = new OpenFileDialog())
             {
-                var fileName = openFileDialog.FileName;
-                using (var fs = new FileStream(fileName, FileMode.Open))
+                openFileDialog.Filter = "Json Files|*.json";
+                if (openFileDialog.ShowDialog() == DialogResult.OK)
                 {
-                    var serializer = new DataContractJsonSerializer(typeof(DataNumberDTO_28x28_Set[]));
-                    _dataNumberDTO_28x28_Set = (DataNumberDTO_28x28_Set[])serializer.ReadObject(fs);
+                    var fileName = openFileDialog.FileName;
+                    using (var fs = new FileStream(fileName, FileMode.Open))
+                    {
+                        var serializer = new DataContractJsonSerializer(typeof(DataNumberDTO_28x28_Set[]));
+                        _dataNumberDTO_28x28_Set = (DataNumberDTO_28x28_Set[])serializer.ReadObject(fs);
+                    }
                 }
             }
         }

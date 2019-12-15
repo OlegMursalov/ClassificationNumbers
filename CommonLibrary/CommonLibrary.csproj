@@ -45,7 +45,7 @@
   <ItemGroup>
     <Compile Include="DataDTO\DataNumberDTO_28x28_Set.cs" />
     <Compile Include="DataDTO\DataNumberDTO_5x5.cs" />
-    <Compile Include="Transformators\ImageTranformatter.cs" />
+    <Compile Include="Transformators\ImageTranformatter28x28.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

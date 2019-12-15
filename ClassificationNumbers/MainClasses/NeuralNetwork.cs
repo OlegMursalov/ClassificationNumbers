@@ -76,7 +76,7 @@ namespace ClassificationNumbers.MainClasses
         public void Learn(DataNumberDTO_28x28_Set[] dataSet)
         {
             // Поэтапная тренировка по каждой картинке
-            for (var i = 0; i < dataSet.Length; i++)
+            /*for (var i = 0; i < dataSet.Length; i++)
             {
                 var rightAnswer = dataSet[i].Number;
 
@@ -92,7 +92,7 @@ namespace ClassificationNumbers.MainClasses
                 // Обновление весов на нужных ребрах, в зависимости от ошибки и правильного ответа
                 var errorsHiddenLayer = UpdateWeights(HiddenOutputRelations, signalsFromHiddenLayer, signalsFromOutputLayer, rightAnswer);
                 UpdateWeights(errorsHiddenLayer, InputHiddenRelations, signalsFromInputLayer, signalsFromHiddenLayer);
-            }
+            }*/
         }
 
         /// <summary>

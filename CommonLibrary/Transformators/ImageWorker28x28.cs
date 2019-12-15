@@ -14,7 +14,7 @@ namespace CommonLibrary.Transformators
     public class ImageWorker28x28
     {
         private string[] _images;
-
+        
         private readonly int _widthImage = 28;
         private readonly int _heightImage = 28;
 

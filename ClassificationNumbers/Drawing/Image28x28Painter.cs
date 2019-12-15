@@ -15,7 +15,8 @@ namespace ClassificationNumbers.Drawing
 
         private readonly int amountPicturesInline = 30;
         private readonly int amountPicturesRows = 30;
-        private readonly int pixelsLength = 28;
+        private readonly int widthOneImage = 28;
+        private readonly int heightOneImage = 28;
 
         private PainterForm _painterForm;
         private Graphics _currentGraphics;
@@ -26,8 +27,8 @@ namespace ClassificationNumbers.Drawing
         {
             _painterForm = painterForm;
             _dataNumberDTO_28x28_Set = dataNumberDTO_28x28_Set;
-            int width = amountPicturesInline * pixelsLength;
-            int height = amountPicturesRows * pixelsLength;
+            int width = amountPicturesInline * widthOneImage;
+            int height = amountPicturesRows * heightOneImage;
             _bitmap = new Bitmap(width, height);
             _currentGraphics = Graphics.FromImage(_bitmap);
         }
@@ -37,21 +38,28 @@ namespace ClassificationNumbers.Drawing
         /// </summary>
         public void CreateImage(Action<int> progressBarIncrement)
         {
+            var counter = 0;
             var x_offset = 0;
             var y_offset = 0;
-            var counter = 0;
             for (int i = 0; i < _dataNumberDTO_28x28_Set.Length; i++)
             {
+                var x = 0;
+                var y = 0;
                 var dataSet = _dataNumberDTO_28x28_Set[i];
-                var colorPixels = dataSet.PixelColors;
-                for (int y = 0; y < pixelsLength; y++)
+                var rgbaComponents = dataSet.RGBAComponents;
+                for (int j = 0; j < rgbaComponents.Length; j++)
                 {
-                    for (int x = 0; x < pixelsLength; x++)
+                    var colorSimplifiedDTO = rgbaComponents[j];
+                    var colorPixel = Color.FromArgb(colorSimplifiedDTO.A, colorSimplifiedDTO.R, colorSimplifiedDTO.G, colorSimplifiedDTO.B);
+                    _bitmap.SetPixel(x + x_offset, y + y_offset, colorPixel);
+                    x++;
+                    if (x >= widthOneImage)
                     {
-                        var colorPixel = colorPixels[x + y];
-                        _currentGraphics.FillEllipse(new SolidBrush(colorPixel), new RectangleF(x + x_offset, y + y_offset, 1, 1));
+                        y++;
+                        x = 0;
                     }
                 }
+                counter++;
                 ChangeOffset(ref x_offset, ref y_offset, ref counter);
             }
             SaveImageToPictureBox();
@@ -59,13 +67,12 @@ namespace ClassificationNumbers.Drawing
 
         private void ChangeOffset(ref int x_offset, ref int y_offset, ref int counter)
         {
-            x_offset += pixelsLength;
-            counter++;
-            if (counter == pixelsLength)
+            x_offset += widthOneImage;
+            if (counter == amountPicturesInline)
             {
                 counter = 0;
                 x_offset = 0;
-                y_offset += pixelsLength;
+                y_offset += heightOneImage;
             }
         }
 

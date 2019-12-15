@@ -40,7 +40,8 @@ namespace CommonLibrary.DataDTO
                 var r = int.Parse(items[0]);
                 var g = int.Parse(items[1]);
                 var b = int.Parse(items[2]);
-                yield return Color.FromArgb(r, g, b);
+                var a = int.Parse(items[3]);
+                yield return Color.FromArgb(a, r, g, b);
             }
         }
 
@@ -66,7 +67,7 @@ namespace CommonLibrary.DataDTO
             {
                 if (string.IsNullOrEmpty(_pixelColorsStr))
                 {
-                    var pixelColorsStr = _pixelColors.Select(i => $"{i.A}, {i.G}, {i.B}").ToArray();
+                    var pixelColorsStr = _pixelColors.Select(i => $"{i.R}, {i.G}, {i.B}, {i.A}").ToArray();
                     _pixelColorsStr = string.Join(" _ ", pixelColorsStr);
                 }
                 return _pixelColorsStr;

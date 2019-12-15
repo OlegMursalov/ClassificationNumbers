@@ -46,6 +46,8 @@ namespace GeneratingDataFromImages
             {
                 Console.WriteLine($"Данные об картинках 28x28 pixels успешно сохранены в файл {fileName}");
             }
+
+            Console.ReadKey();
         }
     }
 }

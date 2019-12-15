@@ -13,6 +13,7 @@ namespace ClassificationNumbers.Drawing
         public readonly string ImageName = "images28x28data.png";
 
         private readonly int amountPicturesInline = 30;
+        private readonly int amountPicturesRows = 30;
         private readonly int pixelsLength = 28;
 
         private PainterForm _painterForm;
@@ -24,8 +25,8 @@ namespace ClassificationNumbers.Drawing
         {
             _painterForm = painterForm;
             _dataNumberDTO_28x28_Set = dataNumberDTO_28x28_Set;
-            int width = amountPicturesInline * 28;
-            int height = (_dataNumberDTO_28x28_Set.Length / amountPicturesInline) * 28;
+            int width = amountPicturesInline * pixelsLength;
+            int height = amountPicturesRows * pixelsLength;
             _bitmap = new Bitmap(width, height);
             _currentGraphics = Graphics.FromImage(_bitmap);
         }
@@ -42,12 +43,12 @@ namespace ClassificationNumbers.Drawing
             {
                 var dataSet = _dataNumberDTO_28x28_Set[i];
                 var colorPixels = dataSet.PixelColors;
-                for (int x = 0; x < pixelsLength; x++)
+                for (int y = 0; y < pixelsLength; y++)
                 {
-                    for (int y = 0; y < pixelsLength; y++)
+                    for (int x = 0; x < pixelsLength; x++)
                     {
                         var colorPixel = colorPixels[x + y];
-                        _currentGraphics.DrawEllipse(new Pen(colorPixel), new RectangleF(x + x_offset, y + y_offset, 1, 1));
+                        _currentGraphics.FillEllipse(new SolidBrush(colorPixel), new RectangleF(x + x_offset, y + y_offset, 1, 1));
                     }
                 }
                 ChangeOffset(ref x_offset, ref y_offset, ref counter);

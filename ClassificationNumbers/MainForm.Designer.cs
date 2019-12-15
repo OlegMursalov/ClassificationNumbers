@@ -52,6 +52,7 @@
             this._drawNeuralNetworkBtn = new System.Windows.Forms.Button();
             this._mainBackgroundWorker = new System.ComponentModel.BackgroundWorker();
             this._visualizationDataBtn = new System.Windows.Forms.Button();
+            this._generateJsonData28x28 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this._amountInputNeuronsN)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this._amountHiddenNeuronsN)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this._amountOutputNeuronsN)).BeginInit();
@@ -290,9 +291,9 @@
             // _LearnBtn
             // 
             this._LearnBtn.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
-            this._LearnBtn.Location = new System.Drawing.Point(95, 553);
+            this._LearnBtn.Location = new System.Drawing.Point(95, 637);
             this._LearnBtn.Name = "_LearnBtn";
-            this._LearnBtn.Size = new System.Drawing.Size(323, 46);
+            this._LearnBtn.Size = new System.Drawing.Size(323, 73);
             this._LearnBtn.TabIndex = 22;
             this._LearnBtn.Text = "Начать обучение";
             this._LearnBtn.UseVisualStyleBackColor = false;
@@ -301,9 +302,9 @@
             // _loadJsonDataSetBtn
             // 
             this._loadJsonDataSetBtn.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
-            this._loadJsonDataSetBtn.Location = new System.Drawing.Point(94, 397);
+            this._loadJsonDataSetBtn.Location = new System.Drawing.Point(94, 467);
             this._loadJsonDataSetBtn.Name = "_loadJsonDataSetBtn";
-            this._loadJsonDataSetBtn.Size = new System.Drawing.Size(324, 46);
+            this._loadJsonDataSetBtn.Size = new System.Drawing.Size(324, 58);
             this._loadJsonDataSetBtn.TabIndex = 23;
             this._loadJsonDataSetBtn.Text = "Подгрузить JSON данные 28x28";
             this._loadJsonDataSetBtn.UseVisualStyleBackColor = false;
@@ -361,7 +362,7 @@
             // _drawNeuralNetworkBtn
             // 
             this._drawNeuralNetworkBtn.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
-            this._drawNeuralNetworkBtn.Location = new System.Drawing.Point(94, 449);
+            this._drawNeuralNetworkBtn.Location = new System.Drawing.Point(94, 533);
             this._drawNeuralNetworkBtn.Name = "_drawNeuralNetworkBtn";
             this._drawNeuralNetworkBtn.Size = new System.Drawing.Size(323, 46);
             this._drawNeuralNetworkBtn.TabIndex = 29;
@@ -372,7 +373,7 @@
             // _visualizationDataBtn
             // 
             this._visualizationDataBtn.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
-            this._visualizationDataBtn.Location = new System.Drawing.Point(94, 501);
+            this._visualizationDataBtn.Location = new System.Drawing.Point(94, 585);
             this._visualizationDataBtn.Name = "_visualizationDataBtn";
             this._visualizationDataBtn.Size = new System.Drawing.Size(323, 46);
             this._visualizationDataBtn.TabIndex = 30;
@@ -380,11 +381,23 @@
             this._visualizationDataBtn.UseVisualStyleBackColor = false;
             this._visualizationDataBtn.Click += new System.EventHandler(this._visualizationDataBtn_Click);
             // 
+            // _generateJsonData28x28
+            // 
+            this._generateJsonData28x28.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
+            this._generateJsonData28x28.Location = new System.Drawing.Point(94, 397);
+            this._generateJsonData28x28.Name = "_generateJsonData28x28";
+            this._generateJsonData28x28.Size = new System.Drawing.Size(324, 64);
+            this._generateJsonData28x28.TabIndex = 31;
+            this._generateJsonData28x28.Text = "Сгенерировать JSON данные по картинкам 28x28";
+            this._generateJsonData28x28.UseVisualStyleBackColor = false;
+            this._generateJsonData28x28.Click += new System.EventHandler(this._generateJsonData28x28_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(495, 660);
+            this.ClientSize = new System.Drawing.Size(495, 780);
+            this.Controls.Add(this._generateJsonData28x28);
             this.Controls.Add(this._visualizationDataBtn);
             this.Controls.Add(this._drawNeuralNetworkBtn);
             this.Controls.Add(this._setDefaultPropertiesBtn);
@@ -446,6 +459,7 @@
         internal System.Windows.Forms.Button _drawNeuralNetworkBtn;
         private System.ComponentModel.BackgroundWorker _mainBackgroundWorker;
         internal System.Windows.Forms.Button _visualizationDataBtn;
+        internal System.Windows.Forms.Button _generateJsonData28x28;
     }
 }
 

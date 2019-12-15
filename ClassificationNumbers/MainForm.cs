@@ -136,5 +136,10 @@ namespace ClassificationNumbers
             _painterForm.Show();
             _painterForm.DrawImages28x28();
         }
+
+        private void _generateJsonData28x28_Click(object sender, EventArgs e)
+        {
+            
+        }
     }
 }

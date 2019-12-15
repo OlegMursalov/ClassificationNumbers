@@ -1,4 +1,5 @@
-﻿using ClassificationNumbers.Helpers;
+﻿using ClassificationNumbers.Forms;
+using ClassificationNumbers.Helpers;
 
 namespace ClassificationNumbers.MainClasses
 {

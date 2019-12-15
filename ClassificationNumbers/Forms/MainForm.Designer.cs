@@ -1,4 +1,4 @@
-﻿namespace ClassificationNumbers
+﻿namespace ClassificationNumbers.Forms
 {
     partial class MainForm
     {

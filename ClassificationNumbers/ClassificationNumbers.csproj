@@ -51,10 +51,16 @@
     <Compile Include="Drawing\Image28x28Painter.cs" />
     <Compile Include="Drawing\NeuralNetworkPainter.cs" />
     <Compile Include="Drawing\RelationLine.cs" />
-    <Compile Include="MainForm.cs">
+    <Compile Include="Forms\GeneratingDataForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="MainForm.Designer.cs">
+    <Compile Include="Forms\GeneratingDataForm.Designer.cs">
+      <DependentUpon>GeneratingDataForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\MainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Helpers\FuncActivationHelper.cs" />
@@ -64,18 +70,21 @@
     <Compile Include="MainClasses\NeuralNetworkProperties.cs" />
     <Compile Include="MainClasses\Neuron.cs" />
     <Compile Include="MainClasses\Relation.cs" />
-    <Compile Include="PainterForm.cs">
+    <Compile Include="Forms\PainterForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="PainterForm.Designer.cs">
+    <Compile Include="Forms\PainterForm.Designer.cs">
       <DependentUpon>PainterForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="MainForm.resx">
+    <EmbeddedResource Include="Forms\GeneratingDataForm.resx">
+      <DependentUpon>GeneratingDataForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="PainterForm.resx">
+    <EmbeddedResource Include="Forms\PainterForm.resx">
       <DependentUpon>PainterForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">

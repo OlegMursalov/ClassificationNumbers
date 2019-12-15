@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
+using ClassificationNumbers.Forms;
 
 namespace ClassificationNumbers.Drawing
 {

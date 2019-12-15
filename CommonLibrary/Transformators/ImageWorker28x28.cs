@@ -6,18 +6,24 @@ using System;
 
 namespace CommonLibrary.Transformators
 {
-    public class ImageTranformatter28x28
+    /// <summary>
+    /// Работник с изображениями 28x28 pixels
+    /// </summary>
+    public class ImageWorker28x28
     {
-        private string _path;
-        private string _fileExt;
+        private string[] _images;
 
         private readonly int _widthImage = 28;
         private readonly int _heightImage = 28;
 
-        public ImageTranformatter28x28(string path, string fileExt)
+        public ImageWorker28x28(string path, string fileExt)
         {
-            _path = path;
-            _fileExt = fileExt;
+            _images = Directory.GetFiles(path, $"*.{fileExt}");
+        }
+
+        public ImageWorker28x28(string[] images)
+        {
+            _images = images;
         }
 
         /// <summary>
@@ -25,11 +31,10 @@ namespace CommonLibrary.Transformators
         /// </summary>
         public DataNumberDTO_28x28_Set[] GetData(ref Dictionary<string, string> errors)
         {
-            var images = Directory.GetFiles(_path, $"*.{_fileExt}");
-            var dataSet = new DataNumberDTO_28x28_Set[images.Length];
-            for (int i = 0; i < images.Length; i++)
+            var dataSet = new DataNumberDTO_28x28_Set[_images.Length];
+            for (int i = 0; i < _images.Length; i++)
             {
-                var fileName = images[i];
+                var fileName = _images[i];
                 try
                 {
                     var bitmap = new Bitmap(fileName);

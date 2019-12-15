@@ -10,5 +10,6 @@ C:\Users\Олег\source\repos\ClassificationNumbers\ClassificationNumbers\obj\D
 C:\Users\Олег\source\repos\ClassificationNumbers\ClassificationNumbers\bin\Debug\CommonLibrary.dll
 C:\Users\Олег\source\repos\ClassificationNumbers\ClassificationNumbers\bin\Debug\CommonLibrary.pdb
 C:\Users\Олег\source\repos\ClassificationNumbers\ClassificationNumbers\obj\Debug\ClassificationNumbers.csproj.CopyComplete
-C:\Users\Олег\source\repos\ClassificationNumbers\ClassificationNumbers\obj\Debug\ClassificationNumbers.MainForm.resources
-C:\Users\Олег\source\repos\ClassificationNumbers\ClassificationNumbers\obj\Debug\ClassificationNumbers.PainterForm.resources
+C:\Users\Олег\source\repos\ClassificationNumbers\ClassificationNumbers\obj\Debug\ClassificationNumbers.Forms.GeneratingDataForm.resources
+C:\Users\Олег\source\repos\ClassificationNumbers\ClassificationNumbers\obj\Debug\ClassificationNumbers.Forms.MainForm.resources
+C:\Users\Олег\source\repos\ClassificationNumbers\ClassificationNumbers\obj\Debug\ClassificationNumbers.Forms.PainterForm.resources

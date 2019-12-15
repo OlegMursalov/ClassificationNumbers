@@ -6,7 +6,7 @@ using System.Drawing;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace ClassificationNumbers
+namespace ClassificationNumbers.Forms
 {
     public partial class PainterForm : Form
     {

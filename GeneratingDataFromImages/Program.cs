@@ -18,7 +18,7 @@ namespace GeneratingDataFromImages
             var finishPath = ConfigurationManager.AppSettings["finishPath"];
             var outputFileName = ConfigurationManager.AppSettings["outputFileName"];
 
-            var imageTransformatter28x28 = new ImageTranformatter28x28(path, fileExt);
+            var imageTransformatter28x28 = new ImageWorker28x28(path, fileExt);
             var data = imageTransformatter28x28.GetData(ref errors);
 
             if (errors.Count > 0)

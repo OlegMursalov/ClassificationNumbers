@@ -1,4 +1,5 @@
-﻿using ClassificationNumbers.MainClasses;
+﻿using ClassificationNumbers.Forms;
+using ClassificationNumbers.MainClasses;
 using CommonLibrary.DataDTO;
 using System;
 using System.Drawing;
@@ -6,12 +7,14 @@ using System.IO;
 using System.Runtime.Serialization.Json;
 using System.Windows.Forms;
 
-namespace ClassificationNumbers
+namespace ClassificationNumbers.Forms
 {
     public partial class MainForm : Form
     {
         private NeuralNetwork _neuralNetwork;
         private PainterForm _painterForm;
+        private GeneratingDataForm _generatingDataForm;
+
         private DataNumberDTO_28x28_Set[] _dataNumberDTO_28x28_Set;
 
         public MainForm()
@@ -139,7 +142,8 @@ namespace ClassificationNumbers
 
         private void _generateJsonData28x28_Click(object sender, EventArgs e)
         {
-            
+            _generatingDataForm = new GeneratingDataForm();
+            _generatingDataForm.Show();
         }
     }
 }

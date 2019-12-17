@@ -1,4 +1,4 @@
-﻿namespace ClassificationNumbers.MainClasses
+﻿namespace ClassificationNumbers.NeuralNetworks
 {
     public class Relation
     {

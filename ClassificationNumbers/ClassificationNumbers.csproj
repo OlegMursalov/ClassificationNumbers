@@ -64,18 +64,13 @@
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Helpers\FuncActivationHelper.cs" />
-    <Compile Include="MainClasses\FunctionActivation.cs" />
-    <Compile Include="MainClasses\Layer.cs" />
-    <Compile Include="MainClasses\NeuralNetwork.cs" />
-    <Compile Include="MainClasses\NeuralNetworkProperties.cs" />
-    <Compile Include="MainClasses\Neuron.cs" />
-    <Compile Include="MainClasses\Relation.cs" />
     <Compile Include="Forms\PainterForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\PainterForm.Designer.cs">
       <DependentUpon>PainterForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\NeuralNetworkProperties.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Forms\GeneratingDataForm.resx">

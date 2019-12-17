@@ -1,4 +1,4 @@
-﻿using ClassificationNumbers.MainClasses;
+﻿using ClassificationNumbers.NeuralNetworks;
 using System;
 using System.Collections.Generic;
 using System.Drawing;

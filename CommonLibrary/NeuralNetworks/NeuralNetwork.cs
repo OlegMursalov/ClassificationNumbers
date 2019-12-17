@@ -1,9 +1,8 @@
 ﻿using CommonLibrary.DataDTO;
 using System;
-using System.Collections.Generic;
 using System.Drawing;
 
-namespace ClassificationNumbers.MainClasses
+namespace ClassificationNumbers.NeuralNetworks
 {
     public class NeuralNetwork
     {

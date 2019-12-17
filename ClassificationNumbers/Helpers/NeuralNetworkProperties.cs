@@ -1,7 +1,7 @@
 ﻿using ClassificationNumbers.Forms;
-using ClassificationNumbers.Helpers;
+using ClassificationNumbers.NeuralNetworks;
 
-namespace ClassificationNumbers.MainClasses
+namespace ClassificationNumbers.Helpers
 {
     public class NeuralNetworkProperties
     {

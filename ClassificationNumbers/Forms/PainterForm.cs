@@ -1,5 +1,5 @@
 ﻿using ClassificationNumbers.Drawing;
-using ClassificationNumbers.MainClasses;
+using ClassificationNumbers.NeuralNetworks;
 using CommonLibrary.DataDTO;
 using System;
 using System.Drawing;

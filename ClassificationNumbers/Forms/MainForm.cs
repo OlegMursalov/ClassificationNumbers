@@ -1,8 +1,7 @@
-﻿using ClassificationNumbers.Forms;
-using ClassificationNumbers.MainClasses;
+﻿using ClassificationNumbers.Helpers;
+using ClassificationNumbers.NeuralNetworks;
 using CommonLibrary.DataDTO;
 using System;
-using System.Drawing;
 using System.IO;
 using System.Runtime.Serialization.Json;
 using System.Windows.Forms;
@@ -55,8 +54,20 @@ namespace ClassificationNumbers.Forms
             // Обучение трехслойной нейронной сети
             // ЗАДАЧА - классифицировать на картинках цифры от 0 до 9, написанные от руки
             // Входные данные, где int - цифры, а float[] - массив преобразованных RGB компонент из картинок
+            _mainBackgroundWorker.DoWork += LearnNeuralNetwork_DoWork;
+            _mainBackgroundWorker.RunWorkerCompleted += LearnNeuralNetwork_RunWorkerCompleted;
+            _mainBackgroundWorker.RunWorkerAsync();
+        }
+
+        private void LearnNeuralNetwork_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
+        {
             var dataSet = _dataNumberDTO_28x28_Set;
             _neuralNetwork.Learn(dataSet);
+        }
+
+        private void LearnNeuralNetwork_RunWorkerCompleted(object sender, System.ComponentModel.RunWorkerCompletedEventArgs e)
+        {
+
         }
 
         /// <summary>

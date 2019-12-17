@@ -1,4 +1,4 @@
-﻿using ClassificationNumbers.MainClasses;
+﻿using ClassificationNumbers.NeuralNetworks;
 
 namespace ClassificationNumbers.Helpers
 {

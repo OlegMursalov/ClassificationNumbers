@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ClassificationNumbers.MainClasses
+namespace ClassificationNumbers.NeuralNetworks
 {
     public class Neuron
     {

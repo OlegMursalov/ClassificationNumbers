@@ -3,4 +3,3 @@ C:\Users\Олег\source\repos\ClassificationNumbers\CommonLibrary\bin\Debug\Com
 C:\Users\Олег\source\repos\ClassificationNumbers\CommonLibrary\obj\Debug\CommonLibrary.csproj.CoreCompileInputs.cache
 C:\Users\Олег\source\repos\ClassificationNumbers\CommonLibrary\obj\Debug\CommonLibrary.dll
 C:\Users\Олег\source\repos\ClassificationNumbers\CommonLibrary\obj\Debug\CommonLibrary.pdb
-C:\Users\Олег\source\repos\ClassificationNumbers\CommonLibrary\obj\Debug\CommonLibrary.csprojAssemblyReference.cache

@@ -1,4 +1,4 @@
-﻿using ClassificationNumbers.NeuralNetworks;
+﻿using CommonLibrary.NeuralNetworks;
 
 namespace ClassificationNumbers.Helpers
 {
@@ -8,9 +8,9 @@ namespace ClassificationNumbers.Helpers
         {
             if (item == "None")
                 return FunctionActivation.None;
-            if (item == "y = 1 / (1 + e^x)")
+            else if (item == "y = 1 / (1 + e^x)")
                 return FunctionActivation.Sigmoida;
-            return FunctionActivation.None;
+            else return FunctionActivation.None;
         }
     }
 }

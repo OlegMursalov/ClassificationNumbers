@@ -1,76 +1,22 @@
-﻿using CommonLibrary.DataDTO;
+﻿using CommonLibrary.NeuralNetworks;
+using CommonLibrary.DataDTO;
 using System;
 using System.Drawing;
 
-namespace ClassificationNumbers.NeuralNetworks
+namespace CommonLibrary.NeuralNetworks
 {
-    public class NeuralNetwork
+    public class NeuralNetworkTeacher
     {
-        private readonly double _helperNum = 100;
-        private readonly double _expectedSignal = 1;
-        private readonly double _minSignal = 0.01;
-        private readonly double _maxSignal = 0.99;
+        private Neural3NetworkCreator _neural3NetworkCreator;
 
-        private double _alpha;
-        private double _minWeight;
-        private double _maxWeight;
-        private FunctionActivation _funcActivation;
+        public NeuralNetworkTeacher(Neural3NetworkCreator neural3NetworkCreator)
+        {
+            _neural3NetworkCreator = neural3NetworkCreator;
 
-        public Layer InputLayer { get; }
-        public Layer HiddenLayer { get; }
-        public Layer OutputLayer { get; }
-
-        public Relation[,] InputHiddenRelations { get; }
-        public Relation[,] HiddenOutputRelations { get; }
-
+        }
+        
         /// <summary>
-        /// Функция активации
-        /// </summary>
-        public double CalcOutputSignal(double inputSignal)
-        {
-            if (_funcActivation == FunctionActivation.None)
-            {
-                return inputSignal;
-            }
-            else if (_funcActivation == FunctionActivation.Sigmoida)
-            {
-                return (1 / (1 + Math.Pow(Math.E, -inputSignal)));
-            }
-            return inputSignal;
-        }
-
-        public NeuralNetwork(FunctionActivation funcActivation, int amountInputNeurons, int amountHiddenNeurons, int amountOutputNeurons, double alpha, double minWeight, double maxWeight)
-        {
-            _funcActivation = funcActivation;
-            InputLayer = new Layer(amountInputNeurons);
-            HiddenLayer = new Layer(funcActivation, amountHiddenNeurons);
-            OutputLayer = new Layer(funcActivation, amountOutputNeurons);
-            _alpha = alpha;
-            _minWeight = minWeight;
-            _maxWeight = maxWeight;
-            InputHiddenRelations = CreateRelations(InputLayer, HiddenLayer);
-            HiddenOutputRelations = CreateRelations(HiddenLayer, OutputLayer);
-        }
-
-        private Relation[,] CreateRelations(Layer layer1, Layer layer2)
-        {
-            var rand = new Random();
-            var minW = (int)(_minWeight * _helperNum);
-            var maxW = (int)(_maxWeight * _helperNum);
-            var relations = new Relation[layer1.Neurons.Length, layer2.Neurons.Length];
-            for (int i = 0; i < layer1.Neurons.Length; i++)
-            {
-                for (int j = 0; j < layer2.Neurons.Length; j++)
-                {
-                    var initialWeight = (double)rand.Next(minW, maxW) / _helperNum;
-                    relations[i, j] = new Relation(layer1.Neurons[i], layer2.Neurons[j], initialWeight);
-                }
-            }
-            return relations;
-        }
-
-        /// <summary>
-        /// Главный метод нейросети - обучение
+        /// Главный метод нейросети - обучение на картинках 28x28 pixels
         /// </summary>
         public void Learn(DataNumberDTO_28x28_Set[] dataSet)
         {
@@ -92,6 +38,22 @@ namespace ClassificationNumbers.NeuralNetworks
                 var errorsHiddenLayer = UpdateWeights(HiddenOutputRelations, signalsFromHiddenLayer, signalsFromOutputLayer, rightAnswer);
                 UpdateWeights(errorsHiddenLayer, InputHiddenRelations, signalsFromInputLayer, signalsFromHiddenLayer);
             }*/
+        }
+
+        /// <summary>
+        /// Вычисление выходного сигнала по функции активации нейрона
+        /// </summary>
+        private double CalcOutputSignal(double inputSignal)
+        {
+            if (_neural3NetworkCreator.FuncActivation == FunctionActivation.None)
+            {
+                return inputSignal;
+            }
+            else if (_funcActivation == FunctionActivation.Sigmoida)
+            {
+                return (1 / (1 + Math.Pow(Math.E, -inputSignal)));
+            }
+            return inputSignal;
         }
 
         /// <summary>
@@ -139,26 +101,6 @@ namespace ClassificationNumbers.NeuralNetworks
                 array[i] = CalcOutputSignal(sumX);
             }
             return array;
-        }
-
-        /// <summary>
-        /// Производная от функции активации по весу одного ребра
-        /// </summary>
-        public double DerivateByFuncActivation(double e, double inputSignal, double outputSignal)
-        {
-            // e - пропорциональная ошибка на нейроне
-            // inputSignal - сигнал, который пришел на этот нейрон от предыдущего нейрона из предыдущего слоя
-            // outputSignal - комбинированный и сглаженный сигнал, пропущенный через функцию активации на данном нейроне
-
-            if (_funcActivation == FunctionActivation.None)
-            {
-                return 0;
-            }
-            else if (_funcActivation == FunctionActivation.Sigmoida)
-            {
-                return -2 * e * outputSignal * (1 - outputSignal) * inputSignal;
-            }
-            return 0;
         }
 
         /// <summary>
@@ -243,7 +185,7 @@ namespace ClassificationNumbers.NeuralNetworks
                 var newWeight = relations[i, numberOutputNeuron].Weight - _alpha * derivation;
                 relations[i, numberOutputNeuron].SetWeight(newWeight);
             }
-            
+
             // Вернем распределенные ошибки для обновления весов на предыдущем слое
             return proportionalErrors;
         }

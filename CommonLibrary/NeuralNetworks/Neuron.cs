@@ -1,17 +1,15 @@
-﻿using System;
-
-namespace ClassificationNumbers.NeuralNetworks
+﻿namespace CommonLibrary.NeuralNetworks
 {
     public class Neuron
     {
-        private FunctionActivation _functionActivation;
+        private FunctionActivationEnum _functionActivationEnum;
 
         public int Number { get; }
 
-        public Neuron(int number, FunctionActivation functionActivation)
+        public Neuron(int number, FunctionActivationEnum functionActivationEnum)
         {
             Number = number;
-            _functionActivation = functionActivation;
+            _functionActivationEnum = functionActivationEnum;
         }
     }
 }

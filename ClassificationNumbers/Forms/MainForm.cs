@@ -10,7 +10,7 @@ namespace ClassificationNumbers.Forms
 {
     public partial class MainForm : Form
     {
-        private NeuralNetwork _neuralNetwork;
+        private Neural3NetworkCreator _neural3NetworkCreator;
         private PainterForm _painterForm;
         private GeneratingDataForm _generatingDataForm;
 
@@ -40,7 +40,7 @@ namespace ClassificationNumbers.Forms
             var minWeight = properties.MinWeight;
             var maxWeight = properties.MaxWeight;
 
-            _neuralNetwork = new NeuralNetwork(functionActivation, amountInputNeurons, amountHiddenNeurons, amountOutputNeurons, alpha, minWeight, maxWeight);
+            _neural3NetworkCreator = new Neural3NetworkCreator(functionActivation, amountInputNeurons, amountHiddenNeurons, amountOutputNeurons, alpha, minWeight, maxWeight);
         }
 
         private void _LearnBtn_Click(object sender, EventArgs e)
@@ -61,8 +61,7 @@ namespace ClassificationNumbers.Forms
 
         private void LearnNeuralNetwork_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
         {
-            var dataSet = _dataNumberDTO_28x28_Set;
-            _neuralNetwork.Learn(dataSet);
+
         }
 
         private void LearnNeuralNetwork_RunWorkerCompleted(object sender, System.ComponentModel.RunWorkerCompletedEventArgs e)
@@ -119,7 +118,7 @@ namespace ClassificationNumbers.Forms
         /// </summary>
         private void _drawNeuralNetworkBtn_Click(object sender, EventArgs e)
         {
-            if (_neuralNetwork == null)
+            if (_neural3NetworkCreator == null)
             {
                 MessageBox.Show("Нейросеть не создана.");
                 return;
@@ -131,7 +130,7 @@ namespace ClassificationNumbers.Forms
                 return;
             }
 
-            _painterForm = new PainterForm(_neuralNetwork);
+            _painterForm = new PainterForm(_neural3NetworkCreator);
             _painterForm.FormClosed += _painterForm_FormClosed;
             _painterForm.Width = 1400;
             _painterForm.Height = 800;

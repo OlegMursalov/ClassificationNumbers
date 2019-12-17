@@ -10,15 +10,15 @@ namespace ClassificationNumbers.Forms
 {
     public partial class PainterForm : Form
     {
-        private NeuralNetwork _neuralNetwork;
+        private Neural3NetworkCreator _neural3NetworkCreator;
         private NeuralNetworkPainter _neuralNetworkPainter;
 
         private Image28x28Painter _image28x28Painter;
         private DataNumberDTO_28x28_Set[] _dataNumberDTO_28x28_Set;
 
-        public PainterForm(NeuralNetwork neuralNetwork)
+        public PainterForm(Neural3NetworkCreator neural3NetworkCreator)
         {
-            _neuralNetwork = neuralNetwork;
+            _neural3NetworkCreator = neural3NetworkCreator;
             InitializeComponent();
         }
 
@@ -56,7 +56,7 @@ namespace ClassificationNumbers.Forms
             _mainProgressBar.Minimum = 0;
             _mainProgressBar.Maximum = 100;
             _mainPictureBox.Image = null;
-            using (_neuralNetworkPainter = new NeuralNetworkPainter(this, _neuralNetwork))
+            using (_neuralNetworkPainter = new NeuralNetworkPainter(this, _neural3NetworkCreator))
             {
                 await Task.Run(() =>
                 {

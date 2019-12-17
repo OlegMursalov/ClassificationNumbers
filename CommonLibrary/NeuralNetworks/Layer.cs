@@ -1,9 +1,9 @@
-﻿namespace ClassificationNumbers.NeuralNetworks
+﻿namespace CommonLibrary.NeuralNetworks
 {
     public class Layer
     {
         public Neuron[] _neurons;
-        private FunctionActivation _funcActivation;
+        private FunctionActivationEnum _functionActivationEnum;
 
         public Neuron[] Neurons => _neurons;
 
@@ -12,9 +12,9 @@
             _neurons = CreateNeurons(amountNeurons);
         }
 
-        public Layer(FunctionActivation funcActivation, int amountNeurons)
+        public Layer(FunctionActivationEnum functionActivationEnum, int amountNeurons)
         {
-            _funcActivation = funcActivation;
+            _functionActivationEnum = functionActivationEnum;
             _neurons = CreateNeurons(amountNeurons);
         }
 
@@ -23,7 +23,7 @@
             var neurons = new Neuron[amount];
             for (int i = 0; i < neurons.Length; i++)
             {
-                neurons[i] = new Neuron(i, _funcActivation);
+                neurons[i] = new Neuron(i, _functionActivationEnum);
             }
             return neurons;
         }

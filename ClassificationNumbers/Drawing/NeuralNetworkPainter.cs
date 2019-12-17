@@ -17,7 +17,7 @@ namespace ClassificationNumbers.Drawing
         private readonly int _ySpace = 100;
         private readonly int _offset_x_y = 10;
 
-        private NeuralNetwork _neuralNetwork;
+        private Neural3NetworkCreator _neural3NetworkCreator;
         private PainterForm _painterForm;
         private Graphics _currentGraphics;
         private Bitmap _bitmap;
@@ -29,10 +29,10 @@ namespace ClassificationNumbers.Drawing
         private List<RelationLine> _inputHiddenRelationPoints;
         private List<RelationLine> _hiddenOutputRelationPoints;
 
-        public NeuralNetworkPainter(PainterForm painterForm, NeuralNetwork neuralNetwork)
+        public NeuralNetworkPainter(PainterForm painterForm, Neural3NetworkCreator neural3NetworkCreator)
         {
             _painterForm = painterForm;
-            _neuralNetwork = neuralNetwork;
+            _neural3NetworkCreator = neural3NetworkCreator;
             _bitmap = new Bitmap(_painterForm._mainPictureBox.Width, _painterForm._mainPictureBox.Height);
             _currentGraphics = Graphics.FromImage(_bitmap);
         }
@@ -43,13 +43,13 @@ namespace ClassificationNumbers.Drawing
         public void CreateImage(Action<int> progressBarIncrement)
         {
             // Получение точек нейронов входного слоя
-            _inputNeuronPoints = GetNeuronPoints(_neuralNetwork.InputLayer.Neurons, new Point(25, 25), 0, _ySpace);
+            _inputNeuronPoints = GetNeuronPoints(_neural3NetworkCreator.InputLayer.Neurons, new Point(25, 25), 0, _ySpace);
 
             // Получение точек нейронов скрытого слоя
-            _hiddenNeuronPoints = GetNeuronPoints(_neuralNetwork.HiddenLayer.Neurons, new Point(25, 25), 100, _ySpace);
+            _hiddenNeuronPoints = GetNeuronPoints(_neural3NetworkCreator.HiddenLayer.Neurons, new Point(25, 25), 100, _ySpace);
 
             // Получение точек нейронов выходного слоя
-            _outputNeuronPoints = GetNeuronPoints(_neuralNetwork.OutputLayer.Neurons, new Point(25, 25), 200, _ySpace);
+            _outputNeuronPoints = GetNeuronPoints(_neural3NetworkCreator.OutputLayer.Neurons, new Point(25, 25), 200, _ySpace);
 
             _painterForm.Invoke(progressBarIncrement, 10);
 

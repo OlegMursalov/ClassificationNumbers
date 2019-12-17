@@ -64,9 +64,9 @@ namespace CommonLibrary.NeuralNetworks
             {
                 var rightAnswer = dataSet[i].Number;
 
-                // Трансформирование RGB - компонент в входной сигнал для нейронов входного слоя
-                var rgbaComponents = dataSet[i].RGBAComponents;
-                var signalsFromInputLayer = TransformWhiteBlackPixelsToSignals(rgbaComponents);
+                // Трансформирование ARGB - компонент в входной сигнал для нейронов входного слоя
+                var ARGBaComponents = dataSet[i].ARGBAComponents;
+                var signalsFromInputLayer = TransformWhiteBlackPixelsToSignals(ARGBaComponents);
 
                 var inputLayer = _neural3NetworkCreator.InputLayer;
                 var hiddenLayer = _neural3NetworkCreator.HiddenLayer;
@@ -86,17 +86,16 @@ namespace CommonLibrary.NeuralNetworks
         }
 
         /// <summary>
-        /// Преобразование над RGB - составляющими, превращение их в сигналы в указанном диапазоне.
+        /// Преобразование над ARGB - составляющими, превращение их в сигналы в указанном диапазоне.
         /// Данный метод работает только с черно-белыми изображениями.
-        /// При этом минимальный сигнал - _minSignal (0.01), чтобы на вход сигмоиды не поступали нули.
         /// </summary>
-        private double[] TransformWhiteBlackPixelsToSignals(ColorSimplifiedDTO[] rgbaComponents)
+        private double[] TransformWhiteBlackPixelsToSignals(ColorSimplifiedDTO[] ARGBaComponents)
         {
-            var signals = new double[rgbaComponents.Length];
-            for (var i = 0; i < rgbaComponents.Length; i++)
+            var signals = new double[ARGBaComponents.Length];
+            for (var i = 0; i < ARGBaComponents.Length; i++)
             {
-                double sumRgbaComponents = rgbaComponents[i].R + rgbaComponents[i].G + rgbaComponents[i].B + rgbaComponents[i].A;
-                
+                double sumARGBaComponents = ARGBaComponents[i].R + ARGBaComponents[i].G + ARGBaComponents[i].B + ARGBaComponents[i].A;
+                signals[i] = (sumARGBaComponents + 1) / 1022;
             }
             return signals;
         }
@@ -120,7 +119,7 @@ namespace CommonLibrary.NeuralNetworks
                         sumX += inputSignals[j] * relation.Weight;
                     }
                 }
-                // array[i] = CalcOutputSignal(sumX);
+                array[i] = _funcActivation.Invoke(sumX);
             }
             return array;
         }

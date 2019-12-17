@@ -60,9 +60,9 @@ namespace ClassificationNumbers.Forms
         {
             var errors = new Dictionary<string, string>();
             var imageTransformatter28x28 = new ImageWorker28x28(_images_28x28_Set);
-            _dataNumberDTO_28x28_Set = imageTransformatter28x28.GetRGBData(ref errors);
+            _dataNumberDTO_28x28_Set = imageTransformatter28x28.GetARGBData(ref errors);
             var exMessage = string.Empty;
-            _dataNumberDTO_28x28_SetJSON = imageTransformatter28x28.SerializeRGBDataToJSON(_dataNumberDTO_28x28_Set, ref exMessage);
+            _dataNumberDTO_28x28_SetJSON = imageTransformatter28x28.SerializeARGBDataToJSON(_dataNumberDTO_28x28_Set, ref exMessage);
         }
 
         private void _saveDataJsonInFileBtn_Click(object sender, EventArgs e)

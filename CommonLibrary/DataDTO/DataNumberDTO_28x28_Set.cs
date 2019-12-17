@@ -10,10 +10,10 @@ namespace CommonLibrary.DataDTO
     public class DataNumberDTO_28x28_Set
     {
         /// <summary>
-        /// Массив цветов (RGB - компонент) пикселей из изображения
+        /// Массив цветов (ARGB - компонент) пикселей из изображения
         /// </summary>
         [DataMember(Name = "PixelColors")]
-        public ColorSimplifiedDTO[] RGBAComponents { get; private set; }
+        public ColorSimplifiedDTO[] ARGBAComponents { get; private set; }
         
         /// <summary>
         /// Номер item of data set
@@ -31,19 +31,19 @@ namespace CommonLibrary.DataDTO
         {
             Id = id;
             Number = number;
-            RGBAComponents = GetColorSimplifiedDTOFromPixelColors(pixelColors);
+            ARGBAComponents = GetColorSimplifiedDTOFromPixelColors(pixelColors);
         }
 
         /// <summary>
-        /// Получить только RGB - компоненты из пикселей
+        /// Получить только ARGB - компоненты из пикселей
         /// </summary>
         /// <returns></returns>
         private ColorSimplifiedDTO[] GetColorSimplifiedDTOFromPixelColors(Color[] pixelColors)
         {
-            var rgbaComponents = new ColorSimplifiedDTO[pixelColors.Length];
+            var ARGBaComponents = new ColorSimplifiedDTO[pixelColors.Length];
             for (var i = 0; i < pixelColors.Length; i++)
             {
-                rgbaComponents[i] = new ColorSimplifiedDTO
+                ARGBaComponents[i] = new ColorSimplifiedDTO
                 {
                     R = pixelColors[i].R,
                     G = pixelColors[i].G,
@@ -51,7 +51,7 @@ namespace CommonLibrary.DataDTO
                     A = pixelColors[i].A
                 };
             }
-            return rgbaComponents;
+            return ARGBaComponents;
         }
     }
 }

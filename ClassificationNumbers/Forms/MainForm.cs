@@ -54,12 +54,15 @@ namespace ClassificationNumbers.Forms
 
             // Обучение трехслойной нейронной сети
             // ЗАДАЧА - классифицировать на картинках цифры от 0 до 9, написанные от руки
-            // Входные данные, где int - цифры, а double[] - массив преобразованных RGB компонент из картинок
+            // Входные данные, где int - цифры, а double[] - массив преобразованных ARGB компонент из картинок
             _mainBackgroundWorker.DoWork += LearnNeuralNetwork_DoWork;
             _mainBackgroundWorker.RunWorkerCompleted += LearnNeuralNetwork_RunWorkerCompleted;
             _mainBackgroundWorker.RunWorkerAsync();
         }
 
+        /// <summary>
+        /// Обучение трехслойной нейронной сети
+        /// </summary>
         private void LearnNeuralNetwork_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
         {
             var neural3NetworkTeacher = new Neural3NetworkTeacher(_neural3NetworkCreator, 0.01, 0.99, 1, _neural3NetworkProperties.Alpha);
@@ -69,7 +72,7 @@ namespace ClassificationNumbers.Forms
 
         private void LearnNeuralNetwork_RunWorkerCompleted(object sender, System.ComponentModel.RunWorkerCompletedEventArgs e)
         {
-
+            MessageBox.Show("Обучение успешно завершено!");
         }
 
         /// <summary>

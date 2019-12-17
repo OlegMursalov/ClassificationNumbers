@@ -46,6 +46,12 @@ namespace ClassificationNumbers.Forms
 
         private void _LearnBtn_Click(object sender, EventArgs e)
         {
+            if (_neural3NetworkCreator == null)
+            {
+                MessageBox.Show("Не создана трехслойная нейронная сеть.");
+                return;
+            }
+
             if (_dataNumberDTO_28x28_Set == null || _dataNumberDTO_28x28_Set.Length == 0)
             {
                 MessageBox.Show("Нет данных, пожалуйста, выберите подходящий JSON файл.");
@@ -73,6 +79,8 @@ namespace ClassificationNumbers.Forms
         private void LearnNeuralNetwork_RunWorkerCompleted(object sender, System.ComponentModel.RunWorkerCompletedEventArgs e)
         {
             MessageBox.Show("Обучение успешно завершено!");
+            _mainBackgroundWorker.DoWork -= LearnNeuralNetwork_DoWork;
+            _mainBackgroundWorker.RunWorkerCompleted -= LearnNeuralNetwork_RunWorkerCompleted;
         }
 
         /// <summary>
@@ -102,6 +110,8 @@ namespace ClassificationNumbers.Forms
             {
                 _mainFileStream.Dispose();
             }
+            _mainBackgroundWorker.DoWork -= LoadJsonDataSet_DoWork;
+            _mainBackgroundWorker.RunWorkerCompleted -= LoadJsonDataSet_RunWorkerCompleted;
         }
 
         private void LoadJsonDataSet_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)

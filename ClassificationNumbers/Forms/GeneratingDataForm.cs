@@ -54,6 +54,8 @@ namespace ClassificationNumbers.Forms
             _mainRichTxb.Text = _dataNumberDTO_28x28_SetJSON;
             _statusDataLbl.BackColor = Color.Green;
             _statusDataLbl.Text = "Данные получены";
+            _backgroundWorker.DoWork -= GenerateJSONData_DoWork;
+            _backgroundWorker.RunWorkerCompleted -= GenerateJSONData_RunWorkerCompleted;
         }
 
         private void GenerateJSONData_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)

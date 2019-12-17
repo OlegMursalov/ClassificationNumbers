@@ -1,5 +1,6 @@
 ﻿using CommonLibrary.DataDTO;
 using System;
+using System.Linq;
 using static CommonLibrary.NeuralNetworks.Delegates;
 
 namespace CommonLibrary.NeuralNetworks
@@ -65,8 +66,8 @@ namespace CommonLibrary.NeuralNetworks
                 var rightAnswer = dataSet[i].Number;
 
                 // Трансформирование ARGB - компонент в входной сигнал для нейронов входного слоя
-                var ARGBaComponents = dataSet[i].ARGBAComponents;
-                var signalsFromInputLayer = TransformWhiteBlackPixelsToSignals(ARGBaComponents);
+                var rgbaComponents = dataSet[i].RGBAComponents;
+                var signalsFromInputLayer = TransformWhiteBlackPixelsToSignals(rgbaComponents);
 
                 var inputLayer = _neural3NetworkCreator.InputLayer;
                 var hiddenLayer = _neural3NetworkCreator.HiddenLayer;
@@ -89,13 +90,13 @@ namespace CommonLibrary.NeuralNetworks
         /// Преобразование над ARGB - составляющими, превращение их в сигналы в указанном диапазоне.
         /// Данный метод работает только с черно-белыми изображениями.
         /// </summary>
-        private double[] TransformWhiteBlackPixelsToSignals(ColorSimplifiedDTO[] ARGBaComponents)
+        private double[] TransformWhiteBlackPixelsToSignals(ColorSimplifiedDTO[] rgbaComponents)
         {
-            var signals = new double[ARGBaComponents.Length];
-            for (var i = 0; i < ARGBaComponents.Length; i++)
+            var signals = new double[rgbaComponents.Length];
+            for (var i = 0; i < rgbaComponents.Length; i++)
             {
-                double sumARGBaComponents = ARGBaComponents[i].R + ARGBaComponents[i].G + ARGBaComponents[i].B + ARGBaComponents[i].A;
-                signals[i] = (sumARGBaComponents + 1) / 1022;
+                double sumRGBAComponents = rgbaComponents[i].R + rgbaComponents[i].G + rgbaComponents[i].B + rgbaComponents[i].A;
+                signals[i] = _maxSignal / (sumRGBAComponents + _minSignal + _expectedSignal);
             }
             return signals;
         }
@@ -131,23 +132,26 @@ namespace CommonLibrary.NeuralNetworks
         {
             for (int i = 0; i < errors.Length; i++)
             {
+                // Узнаем выходной сигнал из нейрона
+                var mainOutputSignal = outputSignals[i];
+
                 // Ошибка для текущего нейрона
                 var mainError = errors[i];
 
                 // Теперь будем делить ошибку на каждое ребро пропорционально весу ребра, которое входит в текущий нейрон
-                var proportionalErrors = new double[outputSignals.Length];
+                var proportionalErrors = new double[inputSignals.Length];
 
                 // Найдем сумму всех весов, связанных с выходным нейроном
                 double commonWeights = 0;
-                for (int j = 0; j < relations.Length; j++)
+                for (int j = 0; j < relations.GetLength(0); j++)
                 {
                     commonWeights += relations[j, i].Weight;
                 }
 
                 // Найдем части ошибок, распределенных пропорционально весам для будущего обновления весов
-                for (int j = 0; j < relations.Length; j++)
+                for (int j = 0; j < relations.GetLength(0); j++)
                 {
-                    proportionalErrors[i] = (relations[j, i].Weight / commonWeights) * mainError;
+                    proportionalErrors[j] = (relations[j, i].Weight / commonWeights) * mainError;
                 }
 
                 // Обновляем веса по методу градиентного спуска (используя коэффициент обучения и производную от функции активации).
@@ -157,10 +161,9 @@ namespace CommonLibrary.NeuralNetworks
                 {
                     var e = proportionalErrors[j];
                     var inputSignal = inputSignals[j];
-                    var outputSignal = outputSignals[j];
-                    var derivation = _derivativeOfFuncActivation.Invoke(e, inputSignal, outputSignal);
-                    var newWeight = relations[i, j].Weight - _alpha * derivation;
-                    relations[i, j].SetWeight(newWeight);
+                    var derivation = _derivativeOfFuncActivation.Invoke(e, inputSignal, mainOutputSignal);
+                    var newWeight = relations[j, i].Weight - _alpha * derivation;
+                    relations[j, i].SetWeight(newWeight);
                 }
             }
         }
@@ -179,17 +182,17 @@ namespace CommonLibrary.NeuralNetworks
             var mainError = Math.Pow(_expectedSignal - mainOutputSignal, 2);
 
             // Теперь будем делить ошибку на каждое ребро пропорционально весу ребра
-            var proportionalErrors = new double[outputSignals.Length];
+            var proportionalErrors = new double[inputSignals.Length];
 
             // Найдем сумму всех весов, связанных с выходным нейроном
             double commonWeights = 0;
-            for (int i = 0; i < relations.Length / outputSignals.Length; i++)
+            for (int i = 0; i < relations.GetLength(0); i++)
             {
                 commonWeights += relations[i, numberOutputNeuron].Weight;
             }
 
             // Найдем части ошибок, распределенных пропорционально весам для будущего обновления весов
-            for (int i = 0; i < relations.Length / outputSignals.Length; i++)
+            for (int i = 0; i < relations.GetLength(0); i++)
             {
                 proportionalErrors[i] = (relations[i, numberOutputNeuron].Weight / commonWeights) * mainError;
             }
@@ -201,8 +204,7 @@ namespace CommonLibrary.NeuralNetworks
             {
                 var e = proportionalErrors[i];
                 var inputSignal = inputSignals[i];
-                var outputSignal = outputSignals[i];
-                var derivation = _derivativeOfFuncActivation.Invoke(e, inputSignal, outputSignal);
+                var derivation = _derivativeOfFuncActivation.Invoke(e, inputSignal, mainOutputSignal);
                 var newWeight = relations[i, numberOutputNeuron].Weight - _alpha * derivation;
                 relations[i, numberOutputNeuron].SetWeight(newWeight);
             }

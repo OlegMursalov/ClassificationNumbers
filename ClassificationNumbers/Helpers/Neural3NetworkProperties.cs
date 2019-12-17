@@ -61,7 +61,7 @@ namespace ClassificationNumbers.Helpers
             _mainForm._amountOutputNeuronsN.Text = "10";
             _mainForm._alphaN.Text = "0,28";
             _mainForm._minWeightN.Text = "0,01";
-            _mainForm._maxWeightN.Text = "0,99";
+            _mainForm._maxWeightN.Text = "0,1";
             _mainForm._funcActivationsList.SelectedIndex = 1;
         }
     }

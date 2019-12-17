@@ -20,6 +20,8 @@ namespace ClassificationNumbers.Forms
         private DataNumberDTO_28x28_Set[] _dataNumberDTO_28x28_Set;
         private MainLogger _mainLogger;
 
+        public Neural3NetworkCreator Neural3NetworkCreator => _neural3NetworkCreator;
+
         public MainForm()
         {
             InitializeComponent();
@@ -32,7 +34,7 @@ namespace ClassificationNumbers.Forms
         /// </summary>
         private void _createNeuralNetworkBtn_Click(object sender, EventArgs e)
         {
-            _neural3NetworkProperties = new Neural3NetworkProperties(this);
+            _neural3NetworkProperties = new Neural3NetworkProperties(this, _neural3NetworkCreator);
 
             var functionActivation = _neural3NetworkProperties.FuncActivation;
             var amountInputNeurons = _neural3NetworkProperties.AmountInputNeurons;
@@ -136,8 +138,8 @@ namespace ClassificationNumbers.Forms
         /// </summary>
         private void _setDefaultPropertiesBtn_Click(object sender, EventArgs e)
         {
-            var properties = new Neural3NetworkProperties(this);
-            properties.SetInForm();
+            var properties = new Neural3NetworkProperties(this, _neural3NetworkCreator);
+            properties.SetInFormByDefault();
         }
 
         /// <summary>
@@ -280,6 +282,10 @@ namespace ClassificationNumbers.Forms
         {
             _mainBackgroundWorker.DoWork -= LoadStateNeurolNetwork_DoWork;
             _mainBackgroundWorker.RunWorkerCompleted -= LoadStateNeurolNetwork_RunWorkerCompleted;
+
+            _neural3NetworkProperties = new Neural3NetworkProperties(this, _neural3NetworkCreator);
+            _neural3NetworkProperties.SetInForm();
+
             _mainLogger.Log("Подгрузка JSON состояния трехслойной нейронной сети прошла успешна.", isShowMsg: true);
             UIHelper.EnableAllControls(this);
         }

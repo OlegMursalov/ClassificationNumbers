@@ -13,5 +13,10 @@ namespace ClassificationNumbers.Helpers
             else
                 return FunctionActivationEnum.None;
         }
+
+        public static int MapFunction(FunctionActivationEnum functionActivationType)
+        {
+            return (int)functionActivationType;
+        }
     }
 }

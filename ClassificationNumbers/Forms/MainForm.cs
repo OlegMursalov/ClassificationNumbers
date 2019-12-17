@@ -5,6 +5,7 @@ using System;
 using System.IO;
 using System.Runtime.Serialization.Json;
 using System.Windows.Forms;
+using ClassificationNumbers.Logger;
 
 namespace ClassificationNumbers.Forms
 {
@@ -17,10 +18,12 @@ namespace ClassificationNumbers.Forms
         private OpenFileDialog _pngImagesDialogSelecting;
         private FileStream _mainFileStream;
         private DataNumberDTO_28x28_Set[] _dataNumberDTO_28x28_Set;
+        private MainLogger _mainLogger;
 
         public MainForm()
         {
             InitializeComponent();
+            _mainLogger = new MainLogger(_mainLoggerLstBx);
         }
 
         /// <summary>
@@ -41,20 +44,20 @@ namespace ClassificationNumbers.Forms
 
             _neural3NetworkCreator = new Neural3NetworkCreator(functionActivation, amountInputNeurons, amountHiddenNeurons, amountOutputNeurons, minWeight, maxWeight);
 
-            MessageBox.Show("Трехслойная нейросеть успешна создана.");
+            _mainLogger.Log("Трехслойная нейросеть успешна создана.", isShowMsg: true);
         }
 
         private void _LearnBtn_Click(object sender, EventArgs e)
         {
             if (_neural3NetworkCreator == null)
             {
-                MessageBox.Show("Не создана трехслойная нейронная сеть.");
+                _mainLogger.Log("Не создана трехслойная нейронная сеть.", isShowMsg: true);
                 return;
             }
 
             if (_dataNumberDTO_28x28_Set == null || _dataNumberDTO_28x28_Set.Length == 0)
             {
-                MessageBox.Show("Нет данных, пожалуйста, выберите подходящий JSON файл.");
+                _mainLogger.Log("Нет данных, пожалуйста, выберите подходящий JSON файл.", isShowMsg: true);
                 return;
             }
 
@@ -80,7 +83,7 @@ namespace ClassificationNumbers.Forms
 
         private void LearnNeuralNetwork_RunWorkerCompleted(object sender, System.ComponentModel.RunWorkerCompletedEventArgs e)
         {
-            MessageBox.Show("Обучение успешно завершено!");
+            _mainLogger.Log("Обучение успешно завершено!", isShowMsg: true);
             _mainBackgroundWorker.DoWork -= LearnNeuralNetwork_DoWork;
             _mainBackgroundWorker.RunWorkerCompleted -= LearnNeuralNetwork_RunWorkerCompleted;
             UIHelper.EnableAllControls(this);
@@ -92,7 +95,7 @@ namespace ClassificationNumbers.Forms
         private void _loadJsonDataSetBtn_Click(object sender, EventArgs e)
         {
             _pngImagesDialogSelecting = new OpenFileDialog();
-            _pngImagesDialogSelecting.Filter = "Json Files|*.json";
+            _pngImagesDialogSelecting.Filter = "JSON Files|*.json";
             if (_pngImagesDialogSelecting.ShowDialog() == DialogResult.OK)
             {
                 UIHelper.BlockAllControls(this);
@@ -118,7 +121,7 @@ namespace ClassificationNumbers.Forms
             _mainBackgroundWorker.DoWork -= LoadJsonDataSet_DoWork;
             _mainBackgroundWorker.RunWorkerCompleted -= LoadJsonDataSet_RunWorkerCompleted;
 
-            MessageBox.Show("Данные JSON по картинкам 28x28 успешно подгружены.");
+            _mainLogger.Log("Данные JSON по картинкам 28x28 успешно подгружены.", isShowMsg: true);
             UIHelper.EnableAllControls(this);
         }
 
@@ -144,13 +147,13 @@ namespace ClassificationNumbers.Forms
         {
             if (_neural3NetworkCreator == null)
             {
-                MessageBox.Show("Нейросеть не создана.");
+                _mainLogger.Log("Нейросеть не создана.", isShowMsg: true);
                 return;
             }
 
             if (_painterForm != null)
             {
-                MessageBox.Show("Второе окно уже используется для отрисовки.");
+                _mainLogger.Log("Второе окно уже используется для отрисовки.", isShowMsg: true);
                 return;
             }
 
@@ -174,13 +177,13 @@ namespace ClassificationNumbers.Forms
         {
             if (_dataNumberDTO_28x28_Set == null)
             {
-                MessageBox.Show("Не были подгружены JSON данные картинок 28x28 pixels.");
+                _mainLogger.Log("Не были подгружены JSON данные картинок 28x28 pixels.", isShowMsg: true);
                 return;
             }
 
             if (_painterForm != null)
             {
-                MessageBox.Show("Второе окно уже используется для отрисовки.");
+                _mainLogger.Log("Второе окно уже используется для отрисовки.", isShowMsg: true);
                 return;
             }
 
@@ -202,7 +205,7 @@ namespace ClassificationNumbers.Forms
         {
             if (_neural3NetworkCreator == null)
             {
-                MessageBox.Show("Нейросеть не создана.");
+                _mainLogger.Log("Нейросеть не создана.", isShowMsg: true);
                 return;
             }
 
@@ -231,8 +234,54 @@ namespace ClassificationNumbers.Forms
 
             if (!string.IsNullOrEmpty(savedFileName))
             {
-                MessageBox.Show($"Состояние нейросети сохранено в файл {savedFileName}");
+                _mainLogger.Log($"Состояние нейросети сохранено в файл {savedFileName}", isShowMsg: true);
             }
+        }
+
+        private void _loadStateNeurolNetworkBtn_Click(object sender, EventArgs e)
+        {
+            using (var openFileDialog = new OpenFileDialog())
+            {
+                openFileDialog.Filter = "JSON Files|*.json";
+                if (openFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    UIHelper.BlockAllControls(this);
+
+                    var jsonFileName = openFileDialog.FileName;
+                    _mainBackgroundWorker.DoWork += LoadStateNeurolNetwork_DoWork;
+                    _mainBackgroundWorker.RunWorkerCompleted += LoadStateNeurolNetwork_RunWorkerCompleted;
+                    _mainBackgroundWorker.RunWorkerAsync(jsonFileName);
+                }
+            }
+        }
+
+        private void LoadStateNeurolNetwork_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
+        {
+            if (e.Argument is string jsonFileName)
+            {
+                using (var fs = new FileStream(jsonFileName, FileMode.Open))
+                {
+                    var serializer = new DataContractJsonSerializer(typeof(Neural3NetworkCreator));
+                    _neural3NetworkCreator = (Neural3NetworkCreator)serializer.ReadObject(fs);
+                }
+            }
+            else
+            {
+                var msg = "Не найден путь к JSON файлу состояния простой нейронной сети.";
+                _mainLogger.Log(msg, isShowMsg: true);
+                throw new ArgumentException(msg);
+            }
+        }
+
+        /// <summary>
+        /// Установить характеристики простой трехслойной нейронной сети по-умолчанию
+        /// </summary>
+        private void LoadStateNeurolNetwork_RunWorkerCompleted(object sender, EventArgs e)
+        {
+            _mainBackgroundWorker.DoWork -= LoadStateNeurolNetwork_DoWork;
+            _mainBackgroundWorker.RunWorkerCompleted -= LoadStateNeurolNetwork_RunWorkerCompleted;
+            _mainLogger.Log("Подгрузка JSON состояния трехслойной нейронной сети прошла успешна.", isShowMsg: true);
+            UIHelper.EnableAllControls(this);
         }
     }
 }

@@ -64,6 +64,9 @@
             this._visualizationDataBtn = new System.Windows.Forms.Button();
             this._generateJsonData28x28 = new System.Windows.Forms.Button();
             this._saveStateNeuroNetworkBtn = new System.Windows.Forms.Button();
+            this._loadStateNeurolNetworkBtn = new System.Windows.Forms.Button();
+            this.label11 = new System.Windows.Forms.Label();
+            this._mainLoggerLstBx = new System.Windows.Forms.ListBox();
             ((System.ComponentModel.ISupportInitialize)(this._amountInputNeuronsN)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this._amountHiddenNeuronsN)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this._amountOutputNeuronsN)).BeginInit();
@@ -111,7 +114,7 @@
             // _createNeuralNetworkBtn
             // 
             this._createNeuralNetworkBtn.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
-            this._createNeuralNetworkBtn.Location = new System.Drawing.Point(94, 345);
+            this._createNeuralNetworkBtn.Location = new System.Drawing.Point(91, 402);
             this._createNeuralNetworkBtn.Name = "_createNeuralNetworkBtn";
             this._createNeuralNetworkBtn.Size = new System.Drawing.Size(324, 46);
             this._createNeuralNetworkBtn.TabIndex = 9;
@@ -302,9 +305,9 @@
             // _LearnBtn
             // 
             this._LearnBtn.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
-            this._LearnBtn.Location = new System.Drawing.Point(95, 637);
+            this._LearnBtn.Location = new System.Drawing.Point(422, 454);
             this._LearnBtn.Name = "_LearnBtn";
-            this._LearnBtn.Size = new System.Drawing.Size(323, 73);
+            this._LearnBtn.Size = new System.Drawing.Size(323, 64);
             this._LearnBtn.TabIndex = 22;
             this._LearnBtn.Text = "Начать обучение";
             this._LearnBtn.UseVisualStyleBackColor = false;
@@ -313,7 +316,7 @@
             // _loadJsonDataSetBtn
             // 
             this._loadJsonDataSetBtn.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
-            this._loadJsonDataSetBtn.Location = new System.Drawing.Point(94, 467);
+            this._loadJsonDataSetBtn.Location = new System.Drawing.Point(421, 289);
             this._loadJsonDataSetBtn.Name = "_loadJsonDataSetBtn";
             this._loadJsonDataSetBtn.Size = new System.Drawing.Size(324, 58);
             this._loadJsonDataSetBtn.TabIndex = 23;
@@ -362,7 +365,7 @@
             // _setDefaultPropertiesBtn
             // 
             this._setDefaultPropertiesBtn.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
-            this._setDefaultPropertiesBtn.Location = new System.Drawing.Point(94, 293);
+            this._setDefaultPropertiesBtn.Location = new System.Drawing.Point(92, 350);
             this._setDefaultPropertiesBtn.Name = "_setDefaultPropertiesBtn";
             this._setDefaultPropertiesBtn.Size = new System.Drawing.Size(324, 46);
             this._setDefaultPropertiesBtn.TabIndex = 28;
@@ -373,7 +376,7 @@
             // _drawNeuralNetworkBtn
             // 
             this._drawNeuralNetworkBtn.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
-            this._drawNeuralNetworkBtn.Location = new System.Drawing.Point(94, 533);
+            this._drawNeuralNetworkBtn.Location = new System.Drawing.Point(421, 350);
             this._drawNeuralNetworkBtn.Name = "_drawNeuralNetworkBtn";
             this._drawNeuralNetworkBtn.Size = new System.Drawing.Size(323, 46);
             this._drawNeuralNetworkBtn.TabIndex = 29;
@@ -384,7 +387,7 @@
             // _visualizationDataBtn
             // 
             this._visualizationDataBtn.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
-            this._visualizationDataBtn.Location = new System.Drawing.Point(94, 585);
+            this._visualizationDataBtn.Location = new System.Drawing.Point(421, 402);
             this._visualizationDataBtn.Name = "_visualizationDataBtn";
             this._visualizationDataBtn.Size = new System.Drawing.Size(323, 46);
             this._visualizationDataBtn.TabIndex = 30;
@@ -395,7 +398,7 @@
             // _generateJsonData28x28
             // 
             this._generateJsonData28x28.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
-            this._generateJsonData28x28.Location = new System.Drawing.Point(94, 397);
+            this._generateJsonData28x28.Location = new System.Drawing.Point(91, 454);
             this._generateJsonData28x28.Name = "_generateJsonData28x28";
             this._generateJsonData28x28.Size = new System.Drawing.Size(324, 64);
             this._generateJsonData28x28.TabIndex = 31;
@@ -406,19 +409,52 @@
             // _saveStateNeuroNetworkBtn
             // 
             this._saveStateNeuroNetworkBtn.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
-            this._saveStateNeuroNetworkBtn.Location = new System.Drawing.Point(95, 716);
+            this._saveStateNeuroNetworkBtn.Location = new System.Drawing.Point(91, 524);
             this._saveStateNeuroNetworkBtn.Name = "_saveStateNeuroNetworkBtn";
-            this._saveStateNeuroNetworkBtn.Size = new System.Drawing.Size(323, 55);
+            this._saveStateNeuroNetworkBtn.Size = new System.Drawing.Size(324, 55);
             this._saveStateNeuroNetworkBtn.TabIndex = 32;
             this._saveStateNeuroNetworkBtn.Text = "Сохранить состояние нейросети";
             this._saveStateNeuroNetworkBtn.UseVisualStyleBackColor = false;
             this._saveStateNeuroNetworkBtn.Click += new System.EventHandler(this._saveStateNeuroNetworkBtn_Click);
             // 
+            // _loadStateNeurolNetworkBtn
+            // 
+            this._loadStateNeurolNetworkBtn.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
+            this._loadStateNeurolNetworkBtn.Location = new System.Drawing.Point(92, 289);
+            this._loadStateNeurolNetworkBtn.Name = "_loadStateNeurolNetworkBtn";
+            this._loadStateNeurolNetworkBtn.Size = new System.Drawing.Size(323, 55);
+            this._loadStateNeurolNetworkBtn.TabIndex = 34;
+            this._loadStateNeurolNetworkBtn.Text = "Подгрузить состояние нейросети";
+            this._loadStateNeurolNetworkBtn.UseVisualStyleBackColor = false;
+            this._loadStateNeurolNetworkBtn.Click += new System.EventHandler(this._loadStateNeurolNetworkBtn_Click);
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.BackColor = System.Drawing.Color.LightBlue;
+            this.label11.Location = new System.Drawing.Point(88, 592);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(94, 17);
+            this.label11.TabIndex = 35;
+            this.label11.Text = "Логирование";
+            // 
+            // _mainLoggerLstBx
+            // 
+            this._mainLoggerLstBx.FormattingEnabled = true;
+            this._mainLoggerLstBx.ItemHeight = 16;
+            this._mainLoggerLstBx.Location = new System.Drawing.Point(91, 624);
+            this._mainLoggerLstBx.Name = "_mainLoggerLstBx";
+            this._mainLoggerLstBx.Size = new System.Drawing.Size(653, 196);
+            this._mainLoggerLstBx.TabIndex = 37;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(495, 843);
+            this.ClientSize = new System.Drawing.Size(832, 882);
+            this.Controls.Add(this._mainLoggerLstBx);
+            this.Controls.Add(this.label11);
+            this.Controls.Add(this._loadStateNeurolNetworkBtn);
             this.Controls.Add(this._saveStateNeuroNetworkBtn);
             this.Controls.Add(this._generateJsonData28x28);
             this.Controls.Add(this._visualizationDataBtn);
@@ -484,6 +520,9 @@
         internal System.Windows.Forms.Button _visualizationDataBtn;
         internal System.Windows.Forms.Button _generateJsonData28x28;
         internal System.Windows.Forms.Button _saveStateNeuroNetworkBtn;
+        internal System.Windows.Forms.Button _loadStateNeurolNetworkBtn;
+        internal System.Windows.Forms.Label label11;
+        private System.Windows.Forms.ListBox _mainLoggerLstBx;
     }
 }
 

@@ -1,8 +1,14 @@
-﻿namespace CommonLibrary.NeuralNetworks
+﻿using System.Runtime.Serialization;
+
+namespace CommonLibrary.NeuralNetworks
 {
+    [DataContract]
     public class Layer
     {
+        [DataMember]
         public Neuron[] _neurons;
+
+        [DataMember]
         private FunctionActivationEnum _functionActivationEnum;
 
         public Neuron[] Neurons => _neurons;

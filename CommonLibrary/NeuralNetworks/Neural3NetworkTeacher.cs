@@ -1,4 +1,5 @@
 ﻿using CommonLibrary.DataDTO;
+using CommonLibrary.Helpers;
 using System;
 using System.Linq;
 using static CommonLibrary.NeuralNetworks.Delegates;
@@ -69,11 +70,12 @@ namespace CommonLibrary.NeuralNetworks
                 var rgbaComponents = dataSet[i].RGBAComponents;
                 var signalsFromInputLayer = TransformWhiteBlackPixelsToSignals(rgbaComponents);
 
+                var neural3NetworkHelper = new Neural3NetworkHelper(_neural3NetworkCreator);
                 var inputLayer = _neural3NetworkCreator.InputLayer;
                 var hiddenLayer = _neural3NetworkCreator.HiddenLayer;
                 var outputLayer = _neural3NetworkCreator.OutputLayer;
-                var inputHiddenRelations = _neural3NetworkCreator.InputHiddenRelations;
-                var hiddenOutputRelations = _neural3NetworkCreator.HiddenOutputRelations;
+                var inputHiddenRelations = neural3NetworkHelper.GetInputHiddenRelations();
+                var hiddenOutputRelations = neural3NetworkHelper.GetHiddenOutputRelations();
 
                 // Вычисление комбинированного и сглаженного сигнала, пропущенного через сигмоиду,
                 // данный сигнал прошел через все узлы и вышел из output layer

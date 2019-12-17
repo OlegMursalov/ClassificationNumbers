@@ -14,10 +14,8 @@ namespace ClassificationNumbers.Forms
         private PainterForm _painterForm;
         private GeneratingDataForm _generatingDataForm;
         private Neural3NetworkProperties _neural3NetworkProperties;
-
         private OpenFileDialog _pngImagesDialogSelecting;
         private FileStream _mainFileStream;
-
         private DataNumberDTO_28x28_Set[] _dataNumberDTO_28x28_Set;
 
         public MainForm()
@@ -42,6 +40,8 @@ namespace ClassificationNumbers.Forms
             var maxWeight = _neural3NetworkProperties.MaxWeight;
 
             _neural3NetworkCreator = new Neural3NetworkCreator(functionActivation, amountInputNeurons, amountHiddenNeurons, amountOutputNeurons, minWeight, maxWeight);
+
+            MessageBox.Show("Трехслойная нейросеть успешна создана.");
         }
 
         private void _LearnBtn_Click(object sender, EventArgs e)
@@ -57,6 +57,8 @@ namespace ClassificationNumbers.Forms
                 MessageBox.Show("Нет данных, пожалуйста, выберите подходящий JSON файл.");
                 return;
             }
+
+            UIHelper.BlockAllControls(this);
 
             // Обучение трехслойной нейронной сети
             // ЗАДАЧА - классифицировать на картинках цифры от 0 до 9, написанные от руки
@@ -81,6 +83,7 @@ namespace ClassificationNumbers.Forms
             MessageBox.Show("Обучение успешно завершено!");
             _mainBackgroundWorker.DoWork -= LearnNeuralNetwork_DoWork;
             _mainBackgroundWorker.RunWorkerCompleted -= LearnNeuralNetwork_RunWorkerCompleted;
+            UIHelper.EnableAllControls(this);
         }
 
         /// <summary>
@@ -92,6 +95,8 @@ namespace ClassificationNumbers.Forms
             _pngImagesDialogSelecting.Filter = "Json Files|*.json";
             if (_pngImagesDialogSelecting.ShowDialog() == DialogResult.OK)
             {
+                UIHelper.BlockAllControls(this);
+
                 var fileName = _pngImagesDialogSelecting.FileName;
                 _mainFileStream = new FileStream(fileName, FileMode.Open);
                 _mainBackgroundWorker.DoWork += LoadJsonDataSet_DoWork;
@@ -112,6 +117,9 @@ namespace ClassificationNumbers.Forms
             }
             _mainBackgroundWorker.DoWork -= LoadJsonDataSet_DoWork;
             _mainBackgroundWorker.RunWorkerCompleted -= LoadJsonDataSet_RunWorkerCompleted;
+
+            MessageBox.Show("Данные JSON по картинкам 28x28 успешно подгружены.");
+            UIHelper.EnableAllControls(this);
         }
 
         private void LoadJsonDataSet_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
@@ -188,6 +196,43 @@ namespace ClassificationNumbers.Forms
         {
             _generatingDataForm = new GeneratingDataForm();
             _generatingDataForm.Show();
+        }
+
+        private void _saveStateNeuroNetworkBtn_Click(object sender, EventArgs e)
+        {
+            if (_neural3NetworkCreator == null)
+            {
+                MessageBox.Show("Нейросеть не создана.");
+                return;
+            }
+
+            var savedFileName = string.Empty;
+            var exMessage = string.Empty;
+
+            using (var saveFileDialog = new SaveFileDialog())
+            {
+                saveFileDialog.Filter = "JSON Files|*.json";
+                if (saveFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    using (var fs = saveFileDialog.OpenFile())
+                    {
+                        savedFileName = saveFileDialog.FileName;
+                        var neural3NetworkSaver = new Neural3NetworkSaver(_neural3NetworkCreator);
+                        neural3NetworkSaver.Save(fs, out exMessage);
+                    }
+                }
+            }
+
+            if (!string.IsNullOrEmpty(exMessage))
+            {
+                MessageBox.Show(exMessage);
+                return;
+            }
+
+            if (!string.IsNullOrEmpty(savedFileName))
+            {
+                MessageBox.Show($"Состояние нейросети сохранено в файл {savedFileName}");
+            }
         }
     }
 }

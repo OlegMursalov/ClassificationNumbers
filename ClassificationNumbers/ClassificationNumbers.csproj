@@ -71,6 +71,7 @@
       <DependentUpon>PainterForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Helpers\Neural3NetworkProperties.cs" />
+    <Compile Include="Helpers\UIHelper.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Forms\GeneratingDataForm.resx">

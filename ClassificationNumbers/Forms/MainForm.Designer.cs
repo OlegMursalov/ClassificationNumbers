@@ -63,6 +63,7 @@
             this._mainBackgroundWorker = new System.ComponentModel.BackgroundWorker();
             this._visualizationDataBtn = new System.Windows.Forms.Button();
             this._generateJsonData28x28 = new System.Windows.Forms.Button();
+            this._saveStateNeuroNetworkBtn = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this._amountInputNeuronsN)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this._amountHiddenNeuronsN)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this._amountOutputNeuronsN)).BeginInit();
@@ -402,11 +403,23 @@
             this._generateJsonData28x28.UseVisualStyleBackColor = false;
             this._generateJsonData28x28.Click += new System.EventHandler(this._generateJsonData28x28_Click);
             // 
+            // _saveStateNeuroNetworkBtn
+            // 
+            this._saveStateNeuroNetworkBtn.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
+            this._saveStateNeuroNetworkBtn.Location = new System.Drawing.Point(95, 716);
+            this._saveStateNeuroNetworkBtn.Name = "_saveStateNeuroNetworkBtn";
+            this._saveStateNeuroNetworkBtn.Size = new System.Drawing.Size(323, 55);
+            this._saveStateNeuroNetworkBtn.TabIndex = 32;
+            this._saveStateNeuroNetworkBtn.Text = "Сохранить состояние нейросети";
+            this._saveStateNeuroNetworkBtn.UseVisualStyleBackColor = false;
+            this._saveStateNeuroNetworkBtn.Click += new System.EventHandler(this._saveStateNeuroNetworkBtn_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(495, 780);
+            this.ClientSize = new System.Drawing.Size(495, 843);
+            this.Controls.Add(this._saveStateNeuroNetworkBtn);
             this.Controls.Add(this._generateJsonData28x28);
             this.Controls.Add(this._visualizationDataBtn);
             this.Controls.Add(this._drawNeuralNetworkBtn);
@@ -470,6 +483,7 @@
         private System.ComponentModel.BackgroundWorker _mainBackgroundWorker;
         internal System.Windows.Forms.Button _visualizationDataBtn;
         internal System.Windows.Forms.Button _generateJsonData28x28;
+        internal System.Windows.Forms.Button _saveStateNeuroNetworkBtn;
     }
 }
 

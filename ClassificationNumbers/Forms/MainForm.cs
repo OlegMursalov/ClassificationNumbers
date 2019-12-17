@@ -1,5 +1,5 @@
 ﻿using ClassificationNumbers.Helpers;
-using ClassificationNumbers.NeuralNetworks;
+using CommonLibrary.NeuralNetworks;
 using CommonLibrary.DataDTO;
 using System;
 using System.IO;
@@ -13,6 +13,7 @@ namespace ClassificationNumbers.Forms
         private Neural3NetworkCreator _neural3NetworkCreator;
         private PainterForm _painterForm;
         private GeneratingDataForm _generatingDataForm;
+        private Neural3NetworkProperties _neural3NetworkProperties;
 
         private OpenFileDialog _pngImagesDialogSelecting;
         private FileStream _mainFileStream;
@@ -30,17 +31,17 @@ namespace ClassificationNumbers.Forms
         /// </summary>
         private void _createNeuralNetworkBtn_Click(object sender, EventArgs e)
         {
-            var properties = new NeuralNetworkProperties(this);
+            _neural3NetworkProperties = new Neural3NetworkProperties(this);
 
-            var functionActivation = properties.FuncActivation;
-            var amountInputNeurons = properties.AmountInputNeurons;
-            var amountHiddenNeurons = properties.AmountHiddenNeurons;
-            var amountOutputNeurons = properties.AmountOutputNeurons;
-            var alpha = properties.Alpha;
-            var minWeight = properties.MinWeight;
-            var maxWeight = properties.MaxWeight;
+            var functionActivation = _neural3NetworkProperties.FuncActivation;
+            var amountInputNeurons = _neural3NetworkProperties.AmountInputNeurons;
+            var amountHiddenNeurons = _neural3NetworkProperties.AmountHiddenNeurons;
+            var amountOutputNeurons = _neural3NetworkProperties.AmountOutputNeurons;
+            var alpha = _neural3NetworkProperties.Alpha;
+            var minWeight = _neural3NetworkProperties.MinWeight;
+            var maxWeight = _neural3NetworkProperties.MaxWeight;
 
-            _neural3NetworkCreator = new Neural3NetworkCreator(functionActivation, amountInputNeurons, amountHiddenNeurons, amountOutputNeurons, alpha, minWeight, maxWeight);
+            _neural3NetworkCreator = new Neural3NetworkCreator(functionActivation, amountInputNeurons, amountHiddenNeurons, amountOutputNeurons, minWeight, maxWeight);
         }
 
         private void _LearnBtn_Click(object sender, EventArgs e)
@@ -53,7 +54,7 @@ namespace ClassificationNumbers.Forms
 
             // Обучение трехслойной нейронной сети
             // ЗАДАЧА - классифицировать на картинках цифры от 0 до 9, написанные от руки
-            // Входные данные, где int - цифры, а float[] - массив преобразованных RGB компонент из картинок
+            // Входные данные, где int - цифры, а double[] - массив преобразованных RGB компонент из картинок
             _mainBackgroundWorker.DoWork += LearnNeuralNetwork_DoWork;
             _mainBackgroundWorker.RunWorkerCompleted += LearnNeuralNetwork_RunWorkerCompleted;
             _mainBackgroundWorker.RunWorkerAsync();
@@ -61,7 +62,9 @@ namespace ClassificationNumbers.Forms
 
         private void LearnNeuralNetwork_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
         {
-
+            var neural3NetworkTeacher = new Neural3NetworkTeacher(_neural3NetworkCreator, 0.01, 0.99, 1, _neural3NetworkProperties.Alpha);
+            var data = _dataNumberDTO_28x28_Set;
+            neural3NetworkTeacher.Learn(data);
         }
 
         private void LearnNeuralNetwork_RunWorkerCompleted(object sender, System.ComponentModel.RunWorkerCompletedEventArgs e)
@@ -109,7 +112,7 @@ namespace ClassificationNumbers.Forms
         /// </summary>
         private void _setDefaultPropertiesBtn_Click(object sender, EventArgs e)
         {
-            var properties = new NeuralNetworkProperties(this);
+            var properties = new Neural3NetworkProperties(this);
             properties.SetInForm();
         }
 

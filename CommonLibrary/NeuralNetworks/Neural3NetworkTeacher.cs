@@ -1,18 +1,57 @@
-﻿using CommonLibrary.NeuralNetworks;
-using CommonLibrary.DataDTO;
+﻿using CommonLibrary.DataDTO;
 using System;
-using System.Drawing;
+using static CommonLibrary.NeuralNetworks.Delegates;
 
 namespace CommonLibrary.NeuralNetworks
 {
-    public class NeuralNetworkTeacher
+    public class Neural3NetworkTeacher
     {
         private Neural3NetworkCreator _neural3NetworkCreator;
 
-        public NeuralNetworkTeacher(Neural3NetworkCreator neural3NetworkCreator)
+        /// <summary>
+        /// Функция активации в нейронах в hidden и output слоях
+        /// </summary>
+        private FuncActivationDelegate _funcActivation;
+
+        /// <summary>
+        /// Производная от функции активации в нейронах в hidden и output слоях
+        /// </summary>
+        private DerivativeOfFuncActivationDelegate _derivativeOfFuncActivation;
+
+        /// <summary>
+        /// Ожидаемый сигнал на выходе из нейронов output слоя
+        /// </summary>
+        private double _expectedSignal;
+
+        /// <summary>
+        /// Минимально возможный сигнал
+        /// </summary>
+        private double _minSignal;
+
+        /// <summary>
+        /// Максимально возможный сигнал
+        /// </summary>
+        private double _maxSignal;
+
+        /// <summary>
+        /// Коэффициент обучения нейронной сети (шаг в градиентном спуске)
+        /// </summary>
+        private double _alpha;
+
+        public Neural3NetworkTeacher(Neural3NetworkCreator neural3NetworkCreator)
         {
             _neural3NetworkCreator = neural3NetworkCreator;
+            var funcActivationWorker = new FuncActivationWorker(_neural3NetworkCreator.FuncActivationType);
+            _funcActivation = funcActivationWorker.GetFunction();
+            _derivativeOfFuncActivation = funcActivationWorker.DerivateByFuncActivation();
+        }
 
+        public Neural3NetworkTeacher(Neural3NetworkCreator neural3NetworkCreator, double minSignal, double maxSignal, double expectedSignal, double alpha) : this(neural3NetworkCreator)
+        {
+            _minSignal = minSignal;
+            _maxSignal = maxSignal;
+            _expectedSignal = expectedSignal;
+            _alpha = alpha;
         }
         
         /// <summary>
@@ -21,39 +60,29 @@ namespace CommonLibrary.NeuralNetworks
         public void Learn(DataNumberDTO_28x28_Set[] dataSet)
         {
             // Поэтапная тренировка по каждой картинке
-            /*for (var i = 0; i < dataSet.Length; i++)
+            for (var i = 0; i < dataSet.Length; i++)
             {
                 var rightAnswer = dataSet[i].Number;
 
                 // Трансформирование RGB - компонент в входной сигнал для нейронов входного слоя
-                var pixelColors = dataSet[i].PixelColors;
-                var signalsFromInputLayer = TransformWhiteBlackPixelsToSignals(pixelColors);
+                var rgbaComponents = dataSet[i].RGBAComponents;
+                var signalsFromInputLayer = TransformWhiteBlackPixelsToSignals(rgbaComponents);
+
+                var inputLayer = _neural3NetworkCreator.InputLayer;
+                var hiddenLayer = _neural3NetworkCreator.HiddenLayer;
+                var outputLayer = _neural3NetworkCreator.OutputLayer;
+                var inputHiddenRelations = _neural3NetworkCreator.InputHiddenRelations;
+                var hiddenOutputRelations = _neural3NetworkCreator.HiddenOutputRelations;
 
                 // Вычисление комбинированного и сглаженного сигнала, пропущенного через сигмоиду,
                 // данный сигнал прошел через все узлы и вышел из output layer
-                var signalsFromHiddenLayer = CalcSignalsFromLayer(signalsFromInputLayer, InputLayer, HiddenLayer, InputHiddenRelations);
-                var signalsFromOutputLayer = CalcSignalsFromLayer(signalsFromHiddenLayer, HiddenLayer, OutputLayer, HiddenOutputRelations);
+                var signalsFromHiddenLayer = CalcSignalsFromLayer(signalsFromInputLayer, inputLayer, hiddenLayer, inputHiddenRelations);
+                var signalsFromOutputLayer = CalcSignalsFromLayer(signalsFromHiddenLayer, hiddenLayer, outputLayer, hiddenOutputRelations);
 
                 // Обновление весов на нужных ребрах, в зависимости от ошибки и правильного ответа
-                var errorsHiddenLayer = UpdateWeights(HiddenOutputRelations, signalsFromHiddenLayer, signalsFromOutputLayer, rightAnswer);
-                UpdateWeights(errorsHiddenLayer, InputHiddenRelations, signalsFromInputLayer, signalsFromHiddenLayer);
-            }*/
-        }
-
-        /// <summary>
-        /// Вычисление выходного сигнала по функции активации нейрона
-        /// </summary>
-        private double CalcOutputSignal(double inputSignal)
-        {
-            if (_neural3NetworkCreator.FuncActivation == FunctionActivation.None)
-            {
-                return inputSignal;
+                var errorsHiddenLayer = UpdateWeights(hiddenOutputRelations, signalsFromHiddenLayer, signalsFromOutputLayer, rightAnswer);
+                UpdateWeights(errorsHiddenLayer, inputHiddenRelations, signalsFromInputLayer, signalsFromHiddenLayer);
             }
-            else if (_funcActivation == FunctionActivation.Sigmoida)
-            {
-                return (1 / (1 + Math.Pow(Math.E, -inputSignal)));
-            }
-            return inputSignal;
         }
 
         /// <summary>
@@ -61,20 +90,13 @@ namespace CommonLibrary.NeuralNetworks
         /// Данный метод работает только с черно-белыми изображениями.
         /// При этом минимальный сигнал - _minSignal (0.01), чтобы на вход сигмоиды не поступали нули.
         /// </summary>
-        private double[] TransformWhiteBlackPixelsToSignals(Color[] pixelColors)
+        private double[] TransformWhiteBlackPixelsToSignals(ColorSimplifiedDTO[] rgbaComponents)
         {
-            var signals = new double[pixelColors.Length];
-            for (var i = 0; i < pixelColors.Length; i++)
+            var signals = new double[rgbaComponents.Length];
+            for (var i = 0; i < rgbaComponents.Length; i++)
             {
-                double sumRgbComponents = pixelColors[i].R + pixelColors[i].G + pixelColors[i].B;
-                if (sumRgbComponents <= 10)
-                {
-                    signals[i] = _minSignal;
-                }
-                else
-                {
-                    signals[i] = sumRgbComponents / 1000;
-                }
+                double sumRgbaComponents = rgbaComponents[i].R + rgbaComponents[i].G + rgbaComponents[i].B + rgbaComponents[i].A;
+                
             }
             return signals;
         }
@@ -98,7 +120,7 @@ namespace CommonLibrary.NeuralNetworks
                         sumX += inputSignals[j] * relation.Weight;
                     }
                 }
-                array[i] = CalcOutputSignal(sumX);
+                // array[i] = CalcOutputSignal(sumX);
             }
             return array;
         }
@@ -137,7 +159,7 @@ namespace CommonLibrary.NeuralNetworks
                     var e = proportionalErrors[j];
                     var inputSignal = inputSignals[j];
                     var outputSignal = outputSignals[j];
-                    var derivation = DerivateByFuncActivation(e, inputSignal, outputSignal);
+                    var derivation = _derivativeOfFuncActivation.Invoke(e, inputSignal, outputSignal);
                     var newWeight = relations[i, j].Weight - _alpha * derivation;
                     relations[i, j].SetWeight(newWeight);
                 }
@@ -181,7 +203,7 @@ namespace CommonLibrary.NeuralNetworks
                 var e = proportionalErrors[i];
                 var inputSignal = inputSignals[i];
                 var outputSignal = outputSignals[i];
-                var derivation = DerivateByFuncActivation(e, inputSignal, outputSignal);
+                var derivation = _derivativeOfFuncActivation.Invoke(e, inputSignal, outputSignal);
                 var newWeight = relations[i, numberOutputNeuron].Weight - _alpha * derivation;
                 relations[i, numberOutputNeuron].SetWeight(newWeight);
             }

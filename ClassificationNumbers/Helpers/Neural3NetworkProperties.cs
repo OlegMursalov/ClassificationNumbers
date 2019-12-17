@@ -1,9 +1,9 @@
 ﻿using ClassificationNumbers.Forms;
-using ClassificationNumbers.NeuralNetworks;
+using CommonLibrary.NeuralNetworks;
 
 namespace ClassificationNumbers.Helpers
 {
-    public class NeuralNetworkProperties
+    public class Neural3NetworkProperties
     {
         private MainForm _mainForm;
 
@@ -40,7 +40,7 @@ namespace ClassificationNumbers.Helpers
         /// <summary>
         /// Функция активации для нейрона
         /// </summary>
-        public FunctionActivation FuncActivation
+        public FunctionActivationEnum FuncActivation
         {
             get
             {
@@ -49,7 +49,7 @@ namespace ClassificationNumbers.Helpers
             }
         }
 
-        public NeuralNetworkProperties(MainForm mainForm)
+        public Neural3NetworkProperties(MainForm mainForm)
         {
             _mainForm = mainForm;
         }

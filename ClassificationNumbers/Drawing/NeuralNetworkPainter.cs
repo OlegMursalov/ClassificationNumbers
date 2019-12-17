@@ -1,10 +1,8 @@
-﻿using ClassificationNumbers.NeuralNetworks;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.IO;
-using System.Windows.Forms;
 using ClassificationNumbers.Forms;
+using CommonLibrary.NeuralNetworks;
 
 namespace ClassificationNumbers.Drawing
 {

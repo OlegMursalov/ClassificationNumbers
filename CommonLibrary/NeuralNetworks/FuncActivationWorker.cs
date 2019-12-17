@@ -1,5 +1,5 @@
 ﻿using System;
-using static CommonLibrary.NeuralNetworks.Neural3NetworkCreator;
+using static CommonLibrary.NeuralNetworks.Delegates;
 
 namespace CommonLibrary.NeuralNetworks
 {
@@ -15,7 +15,6 @@ namespace CommonLibrary.NeuralNetworks
         /// <summary>
         /// Возвращает делегат функции активации в зависимости от типа функции
         /// </summary>
-        /// <returns></returns>
         public FuncActivationDelegate GetFunction()
         {
             if (_funcActivationType == FunctionActivationEnum.None)
@@ -29,15 +28,15 @@ namespace CommonLibrary.NeuralNetworks
         /// <summary>
         /// Возвращает делегат функции производной от функции активации по весу одного ребра
         /// </summary>
-        public double DerivateByFuncActivation(double e, double inputSignal, double outputSignal)
+        public DerivativeOfFuncActivationDelegate DerivateByFuncActivation()
         {
             // e - пропорциональная ошибка на нейроне
             // inputSignal - сигнал, который пришел на этот нейрон от предыдущего нейрона из предыдущего слоя
             // outputSignal - комбинированный и сглаженный сигнал, пропущенный через функцию активации на данном нейроне
             if (_funcActivationType == FunctionActivationEnum.None)
-                return 0;
+                return (e, inSignal, outSignal) => 0;
             else if (_funcActivationType == FunctionActivationEnum.Sigmoida)
-                return -2 * e * outputSignal * (1 - outputSignal) * inputSignal;
+                return (e, inSignal, outSignal) => -2 * e * outSignal * (1 - outSignal) * inSignal;
             else
                 throw new ArgumentException("Неизвестная производная от функции активации");
         }

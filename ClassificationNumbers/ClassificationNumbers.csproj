@@ -70,7 +70,7 @@
     <Compile Include="Forms\PainterForm.Designer.cs">
       <DependentUpon>PainterForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Helpers\NeuralNetworkProperties.cs" />
+    <Compile Include="Helpers\Neural3NetworkProperties.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Forms\GeneratingDataForm.resx">

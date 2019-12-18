@@ -50,6 +50,7 @@
   <ItemGroup>
     <Compile Include="Drawing\Image28x28Painter.cs" />
     <Compile Include="Drawing\NeuralNetworkPainter.cs" />
+    <Compile Include="Drawing\ParamsDrawEditor.cs" />
     <Compile Include="Drawing\RelationLine.cs" />
     <Compile Include="Forms\CheckerNNForm.cs">
       <SubType>Form</SubType>

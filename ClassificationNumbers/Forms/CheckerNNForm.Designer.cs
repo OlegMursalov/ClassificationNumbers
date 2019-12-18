@@ -19,13 +19,9 @@
             }
             base.Dispose(disposing);
 
-            if (_mainGraphics != null)
+            if (_paramsDrawEditor != null)
             {
-                _mainGraphics.Dispose();
-            }
-            if (_pen != null)
-            {
-                _pen.Dispose();
+                _paramsDrawEditor.Dispose();
             }
         }
 
@@ -54,6 +50,7 @@
             this._mainPictureBox.TabIndex = 0;
             this._mainPictureBox.TabStop = false;
             this._mainPictureBox.MouseMove += _mainPictureBox_MouseMove;
+            this._mainPictureBox.Paint += _mainPictureBox_Paint;
             // 
             // label1
             // 

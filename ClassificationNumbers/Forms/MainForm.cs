@@ -47,6 +47,7 @@ namespace ClassificationNumbers.Forms
             _neural3NetworkCreator = new Neural3NetworkCreator(functionActivation, amountInputNeurons, amountHiddenNeurons, amountOutputNeurons, minWeight, maxWeight);
 
             _mainLogger.Log("Трехслойная нейросеть успешна создана.", isShowMsg: true);
+            UIHelper.ChangeStatusLabel(_creatingNNStsLbl, true);
         }
 
         private void _LearnBtn_Click(object sender, EventArgs e)
@@ -89,6 +90,7 @@ namespace ClassificationNumbers.Forms
             _mainBackgroundWorker.DoWork -= LearnNeuralNetwork_DoWork;
             _mainBackgroundWorker.RunWorkerCompleted -= LearnNeuralNetwork_RunWorkerCompleted;
             UIHelper.EnableAllControls(this);
+            UIHelper.ChangeStatusLabel(_learningNNStsLbl, true);
         }
 
         /// <summary>
@@ -125,6 +127,7 @@ namespace ClassificationNumbers.Forms
 
             _mainLogger.Log("Данные JSON по картинкам 28x28 успешно подгружены.", isShowMsg: true);
             UIHelper.EnableAllControls(this);
+            UIHelper.ChangeStatusLabel(_loadingJSONDataStsLbl, true);
         }
 
         private void LoadJsonDataSet_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
@@ -237,6 +240,7 @@ namespace ClassificationNumbers.Forms
             if (!string.IsNullOrEmpty(savedFileName))
             {
                 _mainLogger.Log($"Состояние нейросети сохранено в файл {savedFileName}", isShowMsg: true);
+                UIHelper.ChangeStatusLabel(_savingStateNNStsLbl, true);
             }
         }
 
@@ -288,6 +292,8 @@ namespace ClassificationNumbers.Forms
 
             _mainLogger.Log("Подгрузка JSON состояния трехслойной нейронной сети прошла успешна.", isShowMsg: true);
             UIHelper.EnableAllControls(this);
+            UIHelper.ChangeStatusLabel(_loadingStateNNStsLbl, true);
+            UIHelper.ChangeStatusLabel(_creatingNNStsLbl, true);
         }
     }
 }

@@ -67,6 +67,11 @@
             this._loadStateNeurolNetworkBtn = new System.Windows.Forms.Button();
             this.label11 = new System.Windows.Forms.Label();
             this._mainLoggerLstBx = new System.Windows.Forms.ListBox();
+            this._loadingStateNNStsLbl = new System.Windows.Forms.Label();
+            this._loadingJSONDataStsLbl = new System.Windows.Forms.Label();
+            this._creatingNNStsLbl = new System.Windows.Forms.Label();
+            this._savingStateNNStsLbl = new System.Windows.Forms.Label();
+            this._learningNNStsLbl = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this._amountInputNeuronsN)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this._amountHiddenNeuronsN)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this._amountOutputNeuronsN)).BeginInit();
@@ -447,11 +452,71 @@
             this._mainLoggerLstBx.Size = new System.Drawing.Size(653, 196);
             this._mainLoggerLstBx.TabIndex = 37;
             // 
+            // _loadingStateNNStsLbl
+            // 
+            this._loadingStateNNStsLbl.AutoSize = true;
+            this._loadingStateNNStsLbl.BackColor = System.Drawing.Color.DarkRed;
+            this._loadingStateNNStsLbl.ForeColor = System.Drawing.Color.White;
+            this._loadingStateNNStsLbl.Location = new System.Drawing.Point(60, 308);
+            this._loadingStateNNStsLbl.Name = "_loadingStateNNStsLbl";
+            this._loadingStateNNStsLbl.Size = new System.Drawing.Size(26, 17);
+            this._loadingStateNNStsLbl.TabIndex = 38;
+            this._loadingStateNNStsLbl.Text = "No";
+            // 
+            // _loadingJSONDataStsLbl
+            // 
+            this._loadingJSONDataStsLbl.AutoSize = true;
+            this._loadingJSONDataStsLbl.BackColor = System.Drawing.Color.DarkRed;
+            this._loadingJSONDataStsLbl.ForeColor = System.Drawing.Color.White;
+            this._loadingJSONDataStsLbl.Location = new System.Drawing.Point(751, 310);
+            this._loadingJSONDataStsLbl.Name = "_loadingJSONDataStsLbl";
+            this._loadingJSONDataStsLbl.Size = new System.Drawing.Size(26, 17);
+            this._loadingJSONDataStsLbl.TabIndex = 39;
+            this._loadingJSONDataStsLbl.Text = "No";
+            // 
+            // _creatingNNStsLbl
+            // 
+            this._creatingNNStsLbl.AutoSize = true;
+            this._creatingNNStsLbl.BackColor = System.Drawing.Color.DarkRed;
+            this._creatingNNStsLbl.ForeColor = System.Drawing.Color.White;
+            this._creatingNNStsLbl.Location = new System.Drawing.Point(59, 417);
+            this._creatingNNStsLbl.Name = "_creatingNNStsLbl";
+            this._creatingNNStsLbl.Size = new System.Drawing.Size(26, 17);
+            this._creatingNNStsLbl.TabIndex = 40;
+            this._creatingNNStsLbl.Text = "No";
+            // 
+            // _savingStateNNStsLbl
+            // 
+            this._savingStateNNStsLbl.AutoSize = true;
+            this._savingStateNNStsLbl.BackColor = System.Drawing.Color.DarkRed;
+            this._savingStateNNStsLbl.ForeColor = System.Drawing.Color.White;
+            this._savingStateNNStsLbl.Location = new System.Drawing.Point(60, 543);
+            this._savingStateNNStsLbl.Name = "_savingStateNNStsLbl";
+            this._savingStateNNStsLbl.Size = new System.Drawing.Size(26, 17);
+            this._savingStateNNStsLbl.TabIndex = 41;
+            this._savingStateNNStsLbl.Text = "No";
+            // 
+            // _learningNNStsLbl
+            // 
+            this._learningNNStsLbl.AutoSize = true;
+            this._learningNNStsLbl.BackColor = System.Drawing.Color.DarkRed;
+            this._learningNNStsLbl.ForeColor = System.Drawing.Color.White;
+            this._learningNNStsLbl.Location = new System.Drawing.Point(751, 478);
+            this._learningNNStsLbl.Name = "_learningNNStsLbl";
+            this._learningNNStsLbl.Size = new System.Drawing.Size(26, 17);
+            this._learningNNStsLbl.TabIndex = 42;
+            this._learningNNStsLbl.Text = "No";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(832, 882);
+            this.Controls.Add(this._learningNNStsLbl);
+            this.Controls.Add(this._savingStateNNStsLbl);
+            this.Controls.Add(this._creatingNNStsLbl);
+            this.Controls.Add(this._loadingJSONDataStsLbl);
+            this.Controls.Add(this._loadingStateNNStsLbl);
             this.Controls.Add(this._mainLoggerLstBx);
             this.Controls.Add(this.label11);
             this.Controls.Add(this._loadStateNeurolNetworkBtn);
@@ -523,6 +588,11 @@
         internal System.Windows.Forms.Button _loadStateNeurolNetworkBtn;
         internal System.Windows.Forms.Label label11;
         private System.Windows.Forms.ListBox _mainLoggerLstBx;
+        private System.Windows.Forms.Label _loadingStateNNStsLbl;
+        private System.Windows.Forms.Label _loadingJSONDataStsLbl;
+        private System.Windows.Forms.Label _creatingNNStsLbl;
+        private System.Windows.Forms.Label _savingStateNNStsLbl;
+        private System.Windows.Forms.Label _learningNNStsLbl;
     }
 }
 

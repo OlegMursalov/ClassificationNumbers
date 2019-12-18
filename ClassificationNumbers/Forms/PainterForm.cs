@@ -35,8 +35,9 @@ namespace ClassificationNumbers.Forms
         {
             _mainProgressBar.Value = 0;
             _mainProgressBar.Minimum = 0;
-            _mainProgressBar.Maximum = 100;
+            _mainProgressBar.Maximum = _dataNumberDTO_28x28_Set.Length;
             _mainPictureBox.Image = null;
+
             using (_image28x28Painter = new Image28x28Painter(this, _dataNumberDTO_28x28_Set))
             {
                 await Task.Run(() =>

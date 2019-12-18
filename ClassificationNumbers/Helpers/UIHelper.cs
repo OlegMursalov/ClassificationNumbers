@@ -1,4 +1,5 @@
-﻿using System.Windows.Forms;
+﻿using System.Drawing;
+using System.Windows.Forms;
 
 namespace ClassificationNumbers.Helpers
 {
@@ -30,6 +31,12 @@ namespace ClassificationNumbers.Helpers
                     control.Enabled = state;
                 }
             }
+        }
+
+        public static void ChangeStatusLabel(Label label, bool state)
+        {
+            label.Text = state ? "OK" : "NO";
+            label.BackColor = state ? Color.DarkGreen : Color.DarkRed;
         }
     }
 }

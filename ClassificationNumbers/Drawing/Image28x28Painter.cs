@@ -41,6 +41,7 @@ namespace ClassificationNumbers.Drawing
             var counter = 0;
             var x_offset = 0;
             var y_offset = 0;
+            var amountOfImagesByOnePercent = Math.Floor((double)_dataNumberDTO_28x28_Set.Length / 100);
             for (int i = 0; i < _dataNumberDTO_28x28_Set.Length; i++)
             {
                 var x = 0;
@@ -59,8 +60,11 @@ namespace ClassificationNumbers.Drawing
                         x = 0;
                     }
                 }
+
                 counter++;
                 ChangeOffset(ref x_offset, ref y_offset, ref counter);
+
+                _painterForm.Invoke(progressBarIncrement, 1);
             }
             SaveImageToPictureBox();
         }

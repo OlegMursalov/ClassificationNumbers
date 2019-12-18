@@ -16,7 +16,7 @@ namespace ClassificationNumbers.Forms
         private Bitmap _mainBitmap;
         private Graphics _mainGraphics;
         private Pen _pen;
-
+        
         public CheckerNNForm(Neural3NetworkCreator neural3NetworkCreator)
         {
             InitializeComponent();

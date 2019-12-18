@@ -67,6 +67,12 @@ namespace ClassificationNumbers.Forms
                 return;
             }
 
+            if (Neural3NetworkCreator.InputLayer.Neurons.Length != 28 * 28)
+            {
+                _mainLogger.Log($"Нейросеть должна иметь {28 * 28} нейронов во входном слое для работы с картинками 28x28 пикселей.", isShowMsg: true);
+                return;
+            }
+
             if (_dataNumberDTO_28x28_Set == null || _dataNumberDTO_28x28_Set.Length == 0)
             {
                 _mainLogger.Log("Нет данных, пожалуйста, выберите подходящий JSON файл.", isShowMsg: true);

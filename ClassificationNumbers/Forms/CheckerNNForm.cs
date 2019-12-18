@@ -13,6 +13,7 @@ namespace ClassificationNumbers.Forms
         private readonly int sizeImg = 28;
 
         private Neural3NetworkCreator _neural3NetworkCreator;
+        private Bitmap _mainBitmap;
         private Graphics _mainGraphics;
         private Pen _pen;
 
@@ -43,6 +44,7 @@ namespace ClassificationNumbers.Forms
         private Color[] GetRGBAComponents28x28FromEditor()
         {
             var image = new Bitmap(_mainPictureBox.Width, _mainPictureBox.Height, _mainGraphics);
+            image.Save("result.png");
             var resizedImage = ImageWorker28x28.ResizeImage(image, sizeImg, sizeImg);
             return ImageWorker28x28.GetColorsByRows(resizedImage);
         }

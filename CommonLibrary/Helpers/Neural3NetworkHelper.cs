@@ -87,8 +87,8 @@ namespace CommonLibrary.Helpers
 
         public OutputSignalDTO GetOutputSignalDTO(double[] signalsFromOutputLayer)
         {
-            var number = 0;
-            var maxSignal = 0;
+            int number = 0;
+            double maxSignal = 0;
 
             for (int i = 0; i < signalsFromOutputLayer.Length; i++)
             {
@@ -96,7 +96,7 @@ namespace CommonLibrary.Helpers
                 if (signal > maxSignal)
                 {
                     number = i;
-                    signal = maxSignal;
+                    maxSignal = signal;
                 }
             }
 

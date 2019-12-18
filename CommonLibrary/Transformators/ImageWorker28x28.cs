@@ -42,6 +42,8 @@ namespace CommonLibrary.Transformators
 
             using (var graphics = Graphics.FromImage(destImage))
             {
+                graphics.DrawRectangle(new Pen(Color.White), new Rectangle(0, 0, width, height));
+
                 graphics.CompositingMode = CompositingMode.SourceCopy;
                 graphics.CompositingQuality = CompositingQuality.HighQuality;
                 graphics.InterpolationMode = InterpolationMode.HighQualityBicubic;

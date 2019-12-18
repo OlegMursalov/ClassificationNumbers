@@ -1,6 +1,7 @@
 ﻿using ClassificationNumbers.Drawing;
 using CommonLibrary.DataDTO;
 using CommonLibrary.NeuralNetworks;
+using CommonLibrary.Transformators;
 using System;
 using System.Drawing;
 using System.Windows.Forms;
@@ -9,6 +10,7 @@ namespace ClassificationNumbers.Forms
 {
     public partial class CheckerNNForm : Form
     {
+        private readonly int _sizeImg = 28;
         private readonly int _sizePen = 10;
 
         private ParamsDrawEditor _paramsDrawEditor;
@@ -88,10 +90,8 @@ namespace ClassificationNumbers.Forms
         /// </summary>
         private Color[] GetRGBAComponents28x28FromEditor()
         {
-            /*var image = new Bitmap(_mainPictureBox.Width, _mainPictureBox.Height, _mainGraphics);
-            var resizedImage = ImageWorker28x28.ResizeImage(image, sizeImg, sizeImg);
-            return ImageWorker28x28.GetColorsByRows(resizedImage);*/
-            return new Color[0];
+            var resizedImage = ImageWorker28x28.ResizeImage(_paramsDrawEditor.Canvas, _sizeImg, _sizeImg);
+            return ImageWorker28x28.GetColorsByRows(resizedImage);
         }
 
         /// <summary>

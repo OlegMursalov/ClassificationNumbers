@@ -22,22 +22,22 @@ namespace CommonLibrary.NeuralNetworks
         /// <summary>
         /// Ожидаемый сигнал на выходе из нейронов output слоя
         /// </summary>
-        private double _expectedSignal;
+        public double ExpectedSignal { get; }
 
         /// <summary>
         /// Минимально возможный сигнал
         /// </summary>
-        private double _minSignal;
+        public double MinSignal { get; }
 
         /// <summary>
         /// Максимально возможный сигнал
         /// </summary>
-        private double _maxSignal;
+        public double MaxSignal { get; }
 
         /// <summary>
         /// Коэффициент обучения нейронной сети (шаг в градиентном спуске)
         /// </summary>
-        private double _alpha;
+        public double Alpha { get; }
 
         public Neural3NetworkTeacher(Neural3NetworkCreator neural3NetworkCreator)
         {
@@ -49,10 +49,10 @@ namespace CommonLibrary.NeuralNetworks
 
         public Neural3NetworkTeacher(Neural3NetworkCreator neural3NetworkCreator, double minSignal, double maxSignal, double expectedSignal, double alpha) : this(neural3NetworkCreator)
         {
-            _minSignal = minSignal;
-            _maxSignal = maxSignal;
-            _expectedSignal = expectedSignal;
-            _alpha = alpha;
+            MinSignal = minSignal;
+            MaxSignal = maxSignal;
+            ExpectedSignal = expectedSignal;
+            Alpha = alpha;
         }
         
         /// <summary>
@@ -69,7 +69,7 @@ namespace CommonLibrary.NeuralNetworks
 
                 // Трансформирование ARGB - компонент в входной сигнал для нейронов входного слоя
                 var rgbaComponents = dataSet[i].RGBAComponents;
-                var signalsFromInputLayer = neural3NetworkHelper.TransformWhiteBlackPixelsToSignals(rgbaComponents, _minSignal, _maxSignal, _expectedSignal);
+                var signalsFromInputLayer = neural3NetworkHelper.TransformWhiteBlackPixelsToSignals(rgbaComponents, MinSignal, MaxSignal, ExpectedSignal);
 
                 var inputLayer = _neural3NetworkCreator.InputLayer;
                 var hiddenLayer = _neural3NetworkCreator.HiddenLayer;
@@ -125,7 +125,7 @@ namespace CommonLibrary.NeuralNetworks
                     var e = proportionalErrors[j];
                     var inputSignal = inputSignals[j];
                     var derivation = _derivativeOfFuncActivation.Invoke(e, inputSignal, mainOutputSignal);
-                    var newWeight = relations[j, i].Weight - _alpha * derivation;
+                    var newWeight = relations[j, i].Weight - Alpha * derivation;
                     relations[j, i].SetWeight(newWeight);
                 }
             }
@@ -142,7 +142,7 @@ namespace CommonLibrary.NeuralNetworks
             var mainOutputSignal = outputSignals[numberOutputNeuron];
 
             // Ошибка будет ожидаемый сигнал (_expectedSignal) минус фактический (0.53, например) и все в квадрате, чтобы уйти от знака минуса
-            var mainError = Math.Pow(_expectedSignal - mainOutputSignal, 2);
+            var mainError = Math.Pow(ExpectedSignal - mainOutputSignal, 2);
 
             // Теперь будем делить ошибку на каждое ребро пропорционально весу ребра
             var proportionalErrors = new double[inputSignals.Length];
@@ -168,7 +168,7 @@ namespace CommonLibrary.NeuralNetworks
                 var e = proportionalErrors[i];
                 var inputSignal = inputSignals[i];
                 var derivation = _derivativeOfFuncActivation.Invoke(e, inputSignal, mainOutputSignal);
-                var newWeight = relations[i, numberOutputNeuron].Weight - _alpha * derivation;
+                var newWeight = relations[i, numberOutputNeuron].Weight - Alpha * derivation;
                 relations[i, numberOutputNeuron].SetWeight(newWeight);
             }
 

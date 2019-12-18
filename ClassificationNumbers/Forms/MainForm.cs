@@ -92,10 +92,10 @@ namespace ClassificationNumbers.Forms
             var minSignal = _neural3NetworkTeacherProperties.MinSignal;
             var maxSignal = _neural3NetworkTeacherProperties.MaxSignal;
             var expectedSignal = _neural3NetworkTeacherProperties.ExpectedSignal;
-
-            var neural3NetworkTeacher = new Neural3NetworkTeacher(Neural3NetworkCreator, minSignal, maxSignal, expectedSignal, alpha);
             var data = _dataNumberDTO_28x28_Set;
-            neural3NetworkTeacher.Learn(data);
+
+            Neural3NetworkTeacher = new Neural3NetworkTeacher(Neural3NetworkCreator, minSignal, maxSignal, expectedSignal, alpha);
+            Neural3NetworkTeacher.Learn(data);
         }
 
         private void LearnNeuralNetwork_RunWorkerCompleted(object sender, System.ComponentModel.RunWorkerCompletedEventArgs e)
@@ -319,7 +319,13 @@ namespace ClassificationNumbers.Forms
                 return;
             }
 
-            _checkerNNForm = new CheckerNNForm(Neural3NetworkCreator);
+            if (Neural3NetworkTeacher == null)
+            {
+                _mainLogger.Log("Необходимо обучить нейронную сеть.", isShowMsg: true);
+                return;
+            }
+
+            _checkerNNForm = new CheckerNNForm(Neural3NetworkCreator, Neural3NetworkTeacher);
             _checkerNNForm.Show();
         }
 

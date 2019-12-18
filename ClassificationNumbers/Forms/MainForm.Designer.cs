@@ -666,7 +666,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(832, 901);
+            this.ClientSize = new System.Drawing.Size(832, 960);
             this.Controls.Add(this._setDefaultTeacherPropertiesBtn);
             this.Controls.Add(this.label15);
             this.Controls.Add(this._expectedSignalN);

@@ -36,7 +36,7 @@ namespace ClassificationNumbers.Helpers
         {
             _mainForm._alphaN.Text = "0,28";
             _mainForm._minSignalN.Text = "0,01";
-            _mainForm._maxSignalN.Text = "0,99";
+            _mainForm._maxSignalN.Text = "0,5";
             _mainForm._expectedSignalN.Text = "1";
         }
     }

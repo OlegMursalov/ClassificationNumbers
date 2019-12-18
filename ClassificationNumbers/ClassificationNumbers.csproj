@@ -78,6 +78,7 @@
       <DependentUpon>PainterForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Helpers\Neural3NetworkProperties.cs" />
+    <Compile Include="Helpers\Neural3NetworkTeacherProperties.cs" />
     <Compile Include="Helpers\UIHelper.cs" />
     <Compile Include="Logger\MainLogger.cs" />
     <Compile Include="Program.cs" />

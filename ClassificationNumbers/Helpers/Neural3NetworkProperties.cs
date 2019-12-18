@@ -24,11 +24,6 @@ namespace ClassificationNumbers.Helpers
         public int AmountOutputNeurons => int.Parse(_mainForm._amountOutputNeuronsN.Text);
 
         /// <summary>
-        /// Коэфициент обучения
-        /// </summary>
-        public double Alpha => double.Parse(_mainForm._alphaN.Text);
-
-        /// <summary>
         /// Минимальный возможный вес для ребра
         /// </summary>
         public double MinWeight => double.Parse(_mainForm._minWeightN.Text);

@@ -11,17 +11,20 @@ namespace ClassificationNumbers.Forms
 {
     public partial class MainForm : Form
     {
-        private Neural3NetworkCreator _neural3NetworkCreator;
         private PainterForm _painterForm;
         private CheckerNNForm _checkerNNForm;
         private GeneratingDataForm _generatingDataForm;
+
         private Neural3NetworkProperties _neural3NetworkProperties;
+        private Neural3NetworkTeacherProperties _neural3NetworkTeacherProperties;
+
         private OpenFileDialog _pngImagesDialogSelecting;
         private FileStream _mainFileStream;
         private DataNumberDTO_28x28_Set[] _dataNumberDTO_28x28_Set;
         private MainLogger _mainLogger;
 
-        public Neural3NetworkCreator Neural3NetworkCreator => _neural3NetworkCreator;
+        public Neural3NetworkCreator Neural3NetworkCreator { get; private set; }
+        public Neural3NetworkTeacher Neural3NetworkTeacher { get; private set; }
 
         public MainForm()
         {
@@ -35,17 +38,16 @@ namespace ClassificationNumbers.Forms
         /// </summary>
         private void _createNeuralNetworkBtn_Click(object sender, EventArgs e)
         {
-            _neural3NetworkProperties = new Neural3NetworkProperties(this, _neural3NetworkCreator);
+            _neural3NetworkProperties = new Neural3NetworkProperties(this, Neural3NetworkCreator);
 
             var functionActivation = _neural3NetworkProperties.FuncActivation;
             var amountInputNeurons = _neural3NetworkProperties.AmountInputNeurons;
             var amountHiddenNeurons = _neural3NetworkProperties.AmountHiddenNeurons;
             var amountOutputNeurons = _neural3NetworkProperties.AmountOutputNeurons;
-            var alpha = _neural3NetworkProperties.Alpha;
             var minWeight = _neural3NetworkProperties.MinWeight;
             var maxWeight = _neural3NetworkProperties.MaxWeight;
 
-            _neural3NetworkCreator = new Neural3NetworkCreator(functionActivation, amountInputNeurons, amountHiddenNeurons, amountOutputNeurons, minWeight, maxWeight);
+            Neural3NetworkCreator = new Neural3NetworkCreator(functionActivation, amountInputNeurons, amountHiddenNeurons, amountOutputNeurons, minWeight, maxWeight);
 
             _mainLogger.Log("Трехслойная нейросеть успешна создана.", isShowMsg: true);
             UIHelper.ChangeStatusLabel(_creatingNNStsLbl, true);
@@ -53,7 +55,13 @@ namespace ClassificationNumbers.Forms
 
         private void _LearnBtn_Click(object sender, EventArgs e)
         {
-            if (_neural3NetworkCreator == null)
+            if (_neural3NetworkTeacherProperties == null)
+            {
+                _mainLogger.Log("Задайте явно параметры для обучения.", isShowMsg: true);
+                return;
+            }
+
+            if (Neural3NetworkCreator == null)
             {
                 _mainLogger.Log("Не создана трехслойная нейронная сеть.", isShowMsg: true);
                 return;
@@ -80,7 +88,12 @@ namespace ClassificationNumbers.Forms
         /// </summary>
         private void LearnNeuralNetwork_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
         {
-            var neural3NetworkTeacher = new Neural3NetworkTeacher(_neural3NetworkCreator, 0.01, 0.99, 1, _neural3NetworkProperties.Alpha);
+            var alpha = _neural3NetworkTeacherProperties.Alpha;
+            var minSignal = _neural3NetworkTeacherProperties.MinSignal;
+            var maxSignal = _neural3NetworkTeacherProperties.MaxSignal;
+            var expectedSignal = _neural3NetworkTeacherProperties.ExpectedSignal;
+
+            var neural3NetworkTeacher = new Neural3NetworkTeacher(Neural3NetworkCreator, minSignal, maxSignal, expectedSignal, alpha);
             var data = _dataNumberDTO_28x28_Set;
             neural3NetworkTeacher.Learn(data);
         }
@@ -142,8 +155,9 @@ namespace ClassificationNumbers.Forms
         /// </summary>
         private void _setDefaultPropertiesBtn_Click(object sender, EventArgs e)
         {
-            var properties = new Neural3NetworkProperties(this, _neural3NetworkCreator);
-            properties.SetInFormByDefault();
+            var neural3NetworkProperties = new Neural3NetworkProperties(this, Neural3NetworkCreator);
+            neural3NetworkProperties.SetInFormByDefault();
+            _mainLogger.Log("Заданы параметры для нейросети по-умолчанию.", isShowMsg: false);
         }
 
         /// <summary>
@@ -151,7 +165,7 @@ namespace ClassificationNumbers.Forms
         /// </summary>
         private void _drawNeuralNetworkBtn_Click(object sender, EventArgs e)
         {
-            if (_neural3NetworkCreator == null)
+            if (Neural3NetworkCreator == null)
             {
                 _mainLogger.Log("Нейросеть не создана.", isShowMsg: true);
                 return;
@@ -163,7 +177,7 @@ namespace ClassificationNumbers.Forms
                 return;
             }
 
-            _painterForm = new PainterForm(_neural3NetworkCreator);
+            _painterForm = new PainterForm(Neural3NetworkCreator);
             _painterForm.FormClosed += _painterForm_FormClosed;
             _painterForm.Width = 1400;
             _painterForm.Height = 800;
@@ -209,7 +223,7 @@ namespace ClassificationNumbers.Forms
 
         private void _saveStateNeuroNetworkBtn_Click(object sender, EventArgs e)
         {
-            if (_neural3NetworkCreator == null)
+            if (Neural3NetworkCreator == null)
             {
                 _mainLogger.Log("Нейросеть не создана.", isShowMsg: true);
                 return;
@@ -226,7 +240,7 @@ namespace ClassificationNumbers.Forms
                     using (var fs = saveFileDialog.OpenFile())
                     {
                         savedFileName = saveFileDialog.FileName;
-                        var neural3NetworkSaver = new Neural3NetworkSaver(_neural3NetworkCreator);
+                        var neural3NetworkSaver = new Neural3NetworkSaver(Neural3NetworkCreator);
                         neural3NetworkSaver.Save(fs, out exMessage);
                     }
                 }
@@ -269,7 +283,7 @@ namespace ClassificationNumbers.Forms
                 using (var fs = new FileStream(jsonFileName, FileMode.Open))
                 {
                     var serializer = new DataContractJsonSerializer(typeof(Neural3NetworkCreator));
-                    _neural3NetworkCreator = (Neural3NetworkCreator)serializer.ReadObject(fs);
+                    Neural3NetworkCreator = (Neural3NetworkCreator)serializer.ReadObject(fs);
                 }
             }
             else
@@ -288,7 +302,7 @@ namespace ClassificationNumbers.Forms
             _mainBackgroundWorker.DoWork -= LoadStateNeurolNetwork_DoWork;
             _mainBackgroundWorker.RunWorkerCompleted -= LoadStateNeurolNetwork_RunWorkerCompleted;
 
-            _neural3NetworkProperties = new Neural3NetworkProperties(this, _neural3NetworkCreator);
+            _neural3NetworkProperties = new Neural3NetworkProperties(this, Neural3NetworkCreator);
             _neural3NetworkProperties.SetInForm();
 
             _mainLogger.Log("Подгрузка JSON состояния трехслойной нейронной сети прошла успешна.", isShowMsg: true);
@@ -299,14 +313,24 @@ namespace ClassificationNumbers.Forms
 
         private void _checkNeuralNetworkBtn_Click(object sender, EventArgs e)
         {
-            if (_neural3NetworkCreator == null)
+            if (Neural3NetworkCreator == null)
             {
                 _mainLogger.Log("Не создана трехслойная нейронная сеть.", isShowMsg: true);
                 return;
             }
 
-            _checkerNNForm = new CheckerNNForm(_neural3NetworkCreator);
+            _checkerNNForm = new CheckerNNForm(Neural3NetworkCreator);
             _checkerNNForm.Show();
+        }
+
+        /// <summary>
+        ///  Установить характеристики простой трехслойной нейронной сети для обучения по-умолчанию
+        /// </summary>
+        private void _setDefaultTeacherPropertiesBtn_Click(object sender, EventArgs e)
+        {
+            _neural3NetworkTeacherProperties = new Neural3NetworkTeacherProperties(this);
+            _neural3NetworkTeacherProperties.SetInFormByDefault();
+            _mainLogger.Log("Заданы параметры для обучения по-умолчанию.", isShowMsg: false);
         }
     }
 }

@@ -90,10 +90,11 @@ namespace ClassificationNumbers.Forms
         /// </summary>
         private Color[] GetRGBAComponents28x28FromEditor()
         {
-            var resizedImage = ImageWorker28x28.ResizeImage(_paramsDrawEditor.Canvas, _sizeImg, _sizeImg);
+            // var resizedImage = ImageWorker28x28.ResizeImage(_paramsDrawEditor.Canvas, _sizeImg, _sizeImg);
+            var resizedImage = new Bitmap(@"C:\Users\Олег\source\repos\ClassificationNumbers\DataSet\DataSet28x28\5_02c750d1-39aa-484b-aeca-fcf7944d6d53.png");
             return ImageWorker28x28.GetColorsByRows(resizedImage);
         }
-
+        
         /// <summary>
         /// Проверка нейросети.
         /// Нейросеть должна предсказать, что это за цифра, отрисованная в редакторе.
@@ -102,7 +103,7 @@ namespace ClassificationNumbers.Forms
         {
             var id = int.MaxValue;
             int number = int.MaxValue;
-            var neural3NetworkChecker = new Neural3NetworkChecker(_neural3NetworkCreator);
+            var neural3NetworkChecker = new Neural3NetworkChecker(_neural3NetworkCreator, 0.01, 0.5, 1);
             var colors = GetRGBAComponents28x28FromEditor();
             var dataNumberDTO_28x28_Set = new DataNumberDTO_28x28_Set(id, number, colors);
             var result = neural3NetworkChecker.Check(dataNumberDTO_28x28_Set);

@@ -72,6 +72,7 @@
             this._creatingNNStsLbl = new System.Windows.Forms.Label();
             this._savingStateNNStsLbl = new System.Windows.Forms.Label();
             this._learningNNStsLbl = new System.Windows.Forms.Label();
+            this._checkNeuralNetworkBtn = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this._amountInputNeuronsN)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this._amountHiddenNeuronsN)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this._amountOutputNeuronsN)).BeginInit();
@@ -507,11 +508,23 @@
             this._learningNNStsLbl.TabIndex = 42;
             this._learningNNStsLbl.Text = "No";
             // 
+            // _checkNeuralNetworkBtn
+            // 
+            this._checkNeuralNetworkBtn.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
+            this._checkNeuralNetworkBtn.Location = new System.Drawing.Point(422, 524);
+            this._checkNeuralNetworkBtn.Name = "_checkNeuralNetworkBtn";
+            this._checkNeuralNetworkBtn.Size = new System.Drawing.Size(322, 55);
+            this._checkNeuralNetworkBtn.TabIndex = 43;
+            this._checkNeuralNetworkBtn.Text = "Проверить нейросеть";
+            this._checkNeuralNetworkBtn.UseVisualStyleBackColor = false;
+            this._checkNeuralNetworkBtn.Click += new System.EventHandler(this._checkNeuralNetworkBtn_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(832, 882);
+            this.Controls.Add(this._checkNeuralNetworkBtn);
             this.Controls.Add(this._learningNNStsLbl);
             this.Controls.Add(this._savingStateNNStsLbl);
             this.Controls.Add(this._creatingNNStsLbl);
@@ -593,6 +606,7 @@
         private System.Windows.Forms.Label _creatingNNStsLbl;
         private System.Windows.Forms.Label _savingStateNNStsLbl;
         private System.Windows.Forms.Label _learningNNStsLbl;
+        internal System.Windows.Forms.Button _checkNeuralNetworkBtn;
     }
 }
 

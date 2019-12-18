@@ -1,7 +1,6 @@
 ﻿using CommonLibrary.DataDTO;
 using CommonLibrary.Helpers;
 using System;
-using System.Linq;
 using static CommonLibrary.NeuralNetworks.Delegates;
 
 namespace CommonLibrary.NeuralNetworks
@@ -66,11 +65,12 @@ namespace CommonLibrary.NeuralNetworks
             {
                 var rightAnswer = dataSet[i].Number;
 
+                var neural3NetworkHelper = new Neural3NetworkHelper(_neural3NetworkCreator);
+
                 // Трансформирование ARGB - компонент в входной сигнал для нейронов входного слоя
                 var rgbaComponents = dataSet[i].RGBAComponents;
-                var signalsFromInputLayer = TransformWhiteBlackPixelsToSignals(rgbaComponents);
+                var signalsFromInputLayer = neural3NetworkHelper.TransformWhiteBlackPixelsToSignals(rgbaComponents, _minSignal, _maxSignal, _expectedSignal);
 
-                var neural3NetworkHelper = new Neural3NetworkHelper(_neural3NetworkCreator);
                 var inputLayer = _neural3NetworkCreator.InputLayer;
                 var hiddenLayer = _neural3NetworkCreator.HiddenLayer;
                 var outputLayer = _neural3NetworkCreator.OutputLayer;
@@ -79,52 +79,13 @@ namespace CommonLibrary.NeuralNetworks
 
                 // Вычисление комбинированного и сглаженного сигнала, пропущенного через сигмоиду,
                 // данный сигнал прошел через все узлы и вышел из output layer
-                var signalsFromHiddenLayer = CalcSignalsFromLayer(signalsFromInputLayer, inputLayer, hiddenLayer, inputHiddenRelations);
-                var signalsFromOutputLayer = CalcSignalsFromLayer(signalsFromHiddenLayer, hiddenLayer, outputLayer, hiddenOutputRelations);
+                var signalsFromHiddenLayer = neural3NetworkHelper.CalcSignalsFromLayer(signalsFromInputLayer, inputLayer, hiddenLayer, inputHiddenRelations, _funcActivation);
+                var signalsFromOutputLayer = neural3NetworkHelper.CalcSignalsFromLayer(signalsFromHiddenLayer, hiddenLayer, outputLayer, hiddenOutputRelations, _funcActivation);
 
                 // Обновление весов на нужных ребрах, в зависимости от ошибки и правильного ответа
                 var errorsHiddenLayer = UpdateWeights(hiddenOutputRelations, signalsFromHiddenLayer, signalsFromOutputLayer, rightAnswer);
                 UpdateWeights(errorsHiddenLayer, inputHiddenRelations, signalsFromInputLayer, signalsFromHiddenLayer);
             }
-        }
-
-        /// <summary>
-        /// Преобразование над ARGB - составляющими, превращение их в сигналы в указанном диапазоне.
-        /// Данный метод работает только с черно-белыми изображениями.
-        /// </summary>
-        private double[] TransformWhiteBlackPixelsToSignals(ColorSimplifiedDTO[] rgbaComponents)
-        {
-            var signals = new double[rgbaComponents.Length];
-            for (var i = 0; i < rgbaComponents.Length; i++)
-            {
-                double sumRGBAComponents = rgbaComponents[i].R + rgbaComponents[i].G + rgbaComponents[i].B + rgbaComponents[i].A;
-                signals[i] = _maxSignal / (sumRGBAComponents + _minSignal + _expectedSignal);
-            }
-            return signals;
-        }
-
-        /// <summary>
-        /// Вычисление сглаженного и комбинированного сигналов для нейронов следующего слоя, пропущенных через функцию активации
-        /// </summary>
-        private double[] CalcSignalsFromLayer(double[] inputSignals, Layer inputLayer, Layer outputLayer, Relation[,] relations)
-        {
-            var array = new double[outputLayer.Neurons.Length];
-            for (int i = 0; i < outputLayer.Neurons.Length; i++)
-            {
-                double sumX = 0;
-                var outNeuron = outputLayer.Neurons[i];
-                for (int j = 0; j < inputLayer.Neurons.Length; j++)
-                {
-                    var inNeuron = inputLayer.Neurons[j];
-                    var relation = relations[j, i];
-                    if (relation.InputNeuron.Number == inNeuron.Number && relation.OutputNeuron.Number == outNeuron.Number)
-                    {
-                        sumX += inputSignals[j] * relation.Weight;
-                    }
-                }
-                array[i] = _funcActivation.Invoke(sumX);
-            }
-            return array;
         }
 
         /// <summary>

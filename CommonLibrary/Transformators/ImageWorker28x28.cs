@@ -5,6 +5,8 @@ using System.Drawing;
 using System;
 using System.Runtime.Serialization.Json;
 using System.Text;
+using System.Drawing.Drawing2D;
+using System.Drawing.Imaging;
 
 namespace CommonLibrary.Transformators
 {
@@ -15,8 +17,8 @@ namespace CommonLibrary.Transformators
     {
         private string[] _images;
         
-        private readonly int _widthImage = 28;
-        private readonly int _heightImage = 28;
+        private readonly static int _widthImage = 28;
+        private readonly static int _heightImage = 28;
 
         public ImageWorker28x28(string path, string fileExt)
         {
@@ -26,6 +28,34 @@ namespace CommonLibrary.Transformators
         public ImageWorker28x28(string[] images)
         {
             _images = images;
+        }
+
+        /// <summary>
+        /// Изменяет размер текущего изображения
+        /// </summary>
+        public static Bitmap ResizeImage(Image image, int width, int height)
+        {
+            var destRect = new Rectangle(0, 0, width, height);
+            var destImage = new Bitmap(width, height);
+
+            destImage.SetResolution(image.HorizontalResolution, image.VerticalResolution);
+
+            using (var graphics = Graphics.FromImage(destImage))
+            {
+                graphics.CompositingMode = CompositingMode.SourceCopy;
+                graphics.CompositingQuality = CompositingQuality.HighQuality;
+                graphics.InterpolationMode = InterpolationMode.HighQualityBicubic;
+                graphics.SmoothingMode = SmoothingMode.HighQuality;
+                graphics.PixelOffsetMode = PixelOffsetMode.HighQuality;
+
+                using (var wrapMode = new ImageAttributes())
+                {
+                    wrapMode.SetWrapMode(WrapMode.TileFlipXY);
+                    graphics.DrawImage(image, destRect, 0, 0, image.Width, image.Height, GraphicsUnit.Pixel, wrapMode);
+                }
+            }
+
+            return destImage;
         }
 
         /// <summary>
@@ -65,7 +95,7 @@ namespace CommonLibrary.Transformators
         /// <summary>
         /// Получить построчно массив ARGB - компонент из картинки 28x28 pixels
         /// </summary>
-        private Color[] GetColorsByRows(Bitmap bitmap)
+        public static Color[] GetColorsByRows(Bitmap bitmap)
         {
             var list = new List<Color>();
             for (int y = 0; y < _heightImage; y++)

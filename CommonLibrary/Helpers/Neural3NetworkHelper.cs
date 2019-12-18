@@ -1,4 +1,6 @@
-﻿using CommonLibrary.NeuralNetworks;
+﻿using CommonLibrary.DataDTO;
+using CommonLibrary.NeuralNetworks;
+using static CommonLibrary.NeuralNetworks.Delegates;
 
 namespace CommonLibrary.Helpers
 {
@@ -42,6 +44,67 @@ namespace CommonLibrary.Helpers
                 }
             }
             return newRelations;
+        }
+
+        /// <summary>
+        /// Преобразование над ARGB - составляющими, превращение их в сигналы в указанном диапазоне.
+        /// Данный метод работает только с черно-белыми изображениями.
+        /// </summary>
+        public double[] TransformWhiteBlackPixelsToSignals(ColorSimplifiedDTO[] rgbaComponents, double minSignal, double maxSignal, double expectedSignal)
+        {
+            var signals = new double[rgbaComponents.Length];
+            for (var i = 0; i < rgbaComponents.Length; i++)
+            {
+                double sumRGBAComponents = rgbaComponents[i].R + rgbaComponents[i].G + rgbaComponents[i].B + rgbaComponents[i].A;
+                signals[i] = maxSignal / (sumRGBAComponents + minSignal + expectedSignal);
+            }
+            return signals;
+        }
+
+        /// <summary>
+        /// Вычисление сглаженного и комбинированного сигналов для нейронов следующего слоя, пропущенных через функцию активации
+        /// </summary>
+        public double[] CalcSignalsFromLayer(double[] inputSignals, Layer inputLayer, Layer outputLayer, Relation[,] relations, FuncActivationDelegate funcActivation)
+        {
+            var array = new double[outputLayer.Neurons.Length];
+            for (int i = 0; i < outputLayer.Neurons.Length; i++)
+            {
+                double sumX = 0;
+                var outNeuron = outputLayer.Neurons[i];
+                for (int j = 0; j < inputLayer.Neurons.Length; j++)
+                {
+                    var inNeuron = inputLayer.Neurons[j];
+                    var relation = relations[j, i];
+                    if (relation.InputNeuron.Number == inNeuron.Number && relation.OutputNeuron.Number == outNeuron.Number)
+                    {
+                        sumX += inputSignals[j] * relation.Weight;
+                    }
+                }
+                array[i] = funcActivation.Invoke(sumX);
+            }
+            return array;
+        }
+
+        public OutputSignalDTO GetOutputSignalDTO(double[] signalsFromOutputLayer)
+        {
+            var number = 0;
+            var maxSignal = 0;
+
+            for (int i = 0; i < signalsFromOutputLayer.Length; i++)
+            {
+                var signal = signalsFromOutputLayer[i];
+                if (signal > maxSignal)
+                {
+                    number = i;
+                    signal = maxSignal;
+                }
+            }
+
+            return new OutputSignalDTO
+            {
+                NeuronNumber = number,
+                Signal = maxSignal
+            };
         }
     }
 }

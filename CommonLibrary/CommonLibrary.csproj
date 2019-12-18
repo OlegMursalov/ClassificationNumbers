@@ -46,11 +46,13 @@
     <Compile Include="DataDTO\ColorSimplifiedDTO.cs" />
     <Compile Include="DataDTO\DataNumberDTO_28x28_Set.cs" />
     <Compile Include="DataDTO\DataNumberDTO_5x5.cs" />
+    <Compile Include="DataDTO\OutputSignalDTO.cs" />
     <Compile Include="Helpers\Neural3NetworkHelper.cs" />
     <Compile Include="NeuralNetworks\Delegates.cs" />
     <Compile Include="NeuralNetworks\FuncActivationWorker.cs" />
     <Compile Include="NeuralNetworks\FunctionActivationEnum.cs" />
     <Compile Include="NeuralNetworks\Layer.cs" />
+    <Compile Include="NeuralNetworks\Neural3NetworkChecker.cs" />
     <Compile Include="NeuralNetworks\Neural3NetworkCreator.cs" />
     <Compile Include="NeuralNetworks\Neural3NetworkTeacher.cs" />
     <Compile Include="NeuralNetworks\Neural3NetworkSaver.cs" />

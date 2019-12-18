@@ -13,6 +13,7 @@ namespace ClassificationNumbers.Forms
     {
         private Neural3NetworkCreator _neural3NetworkCreator;
         private PainterForm _painterForm;
+        private CheckerNNForm _checkerNNForm;
         private GeneratingDataForm _generatingDataForm;
         private Neural3NetworkProperties _neural3NetworkProperties;
         private OpenFileDialog _pngImagesDialogSelecting;
@@ -294,6 +295,18 @@ namespace ClassificationNumbers.Forms
             UIHelper.EnableAllControls(this);
             UIHelper.ChangeStatusLabel(_loadingStateNNStsLbl, true);
             UIHelper.ChangeStatusLabel(_creatingNNStsLbl, true);
+        }
+
+        private void _checkNeuralNetworkBtn_Click(object sender, EventArgs e)
+        {
+            if (_neural3NetworkCreator == null)
+            {
+                _mainLogger.Log("Не создана трехслойная нейронная сеть.", isShowMsg: true);
+                return;
+            }
+
+            _checkerNNForm = new CheckerNNForm(_neural3NetworkCreator);
+            _checkerNNForm.Show();
         }
     }
 }

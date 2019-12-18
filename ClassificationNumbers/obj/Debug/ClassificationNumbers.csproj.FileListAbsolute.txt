@@ -13,3 +13,4 @@ C:\Users\Олег\source\repos\ClassificationNumbers\ClassificationNumbers\obj\D
 C:\Users\Олег\source\repos\ClassificationNumbers\ClassificationNumbers\obj\Debug\ClassificationNumbers.Forms.GeneratingDataForm.resources
 C:\Users\Олег\source\repos\ClassificationNumbers\ClassificationNumbers\obj\Debug\ClassificationNumbers.Forms.MainForm.resources
 C:\Users\Олег\source\repos\ClassificationNumbers\ClassificationNumbers\obj\Debug\ClassificationNumbers.Forms.PainterForm.resources
+C:\Users\Олег\source\repos\ClassificationNumbers\ClassificationNumbers\obj\Debug\ClassificationNumbers.Forms.CheckerNNForm.resources

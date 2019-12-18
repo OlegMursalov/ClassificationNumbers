@@ -51,6 +51,12 @@
     <Compile Include="Drawing\Image28x28Painter.cs" />
     <Compile Include="Drawing\NeuralNetworkPainter.cs" />
     <Compile Include="Drawing\RelationLine.cs" />
+    <Compile Include="Forms\CheckerNNForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\CheckerNNForm.Designer.cs">
+      <DependentUpon>CheckerNNForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\GeneratingDataForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -75,6 +81,9 @@
     <Compile Include="Logger\MainLogger.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Forms\CheckerNNForm.resx">
+      <DependentUpon>CheckerNNForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\GeneratingDataForm.resx">
       <DependentUpon>GeneratingDataForm.cs</DependentUpon>
     </EmbeddedResource>

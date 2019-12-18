@@ -93,7 +93,8 @@ namespace ClassificationNumbers.Forms
         /// </summary>
         private Color[] GetRGBAComponents28x28FromEditor()
         {
-            var resizedImage = ImageWorker28x28.ResizeImage(_paramsDrawEditor.Canvas, _sizeImg, _sizeImg);
+            // var resizedImage = ImageWorker28x28.ResizeImage(_paramsDrawEditor.Canvas, _sizeImg, _sizeImg);
+            var resizedImage = new Bitmap(@"C:\Users\Олег\source\repos\ClassificationNumbers\DataSet\DataSet28x28\8_3098bd46-1835-4645-867c-070c28bc7ef9.png");
             return ImageWorker28x28.GetColorsByRows(resizedImage);
         }
         

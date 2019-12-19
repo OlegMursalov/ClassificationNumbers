@@ -29,7 +29,7 @@ namespace CommonLibrary.Transformators
         {
             _images = images;
         }
-
+        
         /// <summary>
         /// Изменяет размер текущего изображения
         /// </summary>
@@ -42,8 +42,6 @@ namespace CommonLibrary.Transformators
 
             using (var graphics = Graphics.FromImage(destImage))
             {
-                graphics.DrawRectangle(new Pen(Color.White), new Rectangle(0, 0, width, height));
-
                 graphics.CompositingMode = CompositingMode.SourceCopy;
                 graphics.CompositingQuality = CompositingQuality.HighQuality;
                 graphics.InterpolationMode = InterpolationMode.HighQualityBicubic;
@@ -95,9 +93,10 @@ namespace CommonLibrary.Transformators
         }
 
         /// <summary>
-        /// Получить построчно массив ARGB - компонент из картинки 28x28 pixels
+        /// Получить построчно массив ARGB - компонент из картинки 28x28 pixels.
+        /// При необходимых параметрах также проставляет определенный цвет прзрачным пикселям.
         /// </summary>
-        public static Color[] GetColorsByRows(Bitmap bitmap)
+        public static Color[] GetColorsByRows(Bitmap bitmap, bool isSetColorForTransparencyPixels = false, Color colorForTransparency = default(Color))
         {
             var list = new List<Color>();
             for (int y = 0; y < _heightImage; y++)
@@ -105,7 +104,14 @@ namespace CommonLibrary.Transformators
                 for (int x = 0; x < _widthImage; x++)
                 {
                     var color = bitmap.GetPixel(x, y);
-                    list.Add(color);
+                    if (isSetColorForTransparencyPixels && color == Color.Transparent)
+                    {
+                        list.Add(colorForTransparency);
+                    }
+                    else
+                    {
+                        list.Add(color);
+                    }
                 }
             }
             return list.ToArray();

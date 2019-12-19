@@ -4,6 +4,7 @@ using CommonLibrary.NeuralNetworks;
 using CommonLibrary.Transformators;
 using System;
 using System.Drawing;
+using System.Drawing.Imaging;
 using System.Windows.Forms;
 
 namespace ClassificationNumbers.Forms
@@ -24,7 +25,7 @@ namespace ClassificationNumbers.Forms
             InitializeComponent();
             _neural3NetworkCreator = neural3NetworkCreator;
             _neural3NetworkTeacher = neural3NetworkTeacher;
-            _paramsDrawEditor = new ParamsDrawEditor(Color.Black);
+            _paramsDrawEditor = new ParamsDrawEditor(brushPoint: Color.Black);
         }
 
         private void _mainPictureBox_MouseMove(object sender, MouseEventArgs e)
@@ -48,12 +49,12 @@ namespace ClassificationNumbers.Forms
                     using (Graphics g = Graphics.FromImage(_paramsDrawEditor.Canvas))
                     {
                         g.DrawImage(_paramsDrawEditor.Canvas, 0, 0);
-                        g.FillEllipse(_paramsDrawEditor.Brush, new RectangleF(x, y, _sizePen, _sizePen));
+                        g.FillEllipse(_paramsDrawEditor.BrushPoint, new RectangleF(x, y, _sizePen, _sizePen));
                     }
                 }
                 else
                 {
-                    e.Graphics.FillEllipse(_paramsDrawEditor.Brush, new RectangleF(x, y, _sizePen, _sizePen));
+                    e.Graphics.FillEllipse(_paramsDrawEditor.BrushPoint, new RectangleF(x, y, _sizePen, _sizePen));
                     var canvas = new Bitmap(_mainPictureBox.Width, _mainPictureBox.Height, e.Graphics);
                     _paramsDrawEditor.SetCanvas(canvas);
                 }
@@ -94,8 +95,7 @@ namespace ClassificationNumbers.Forms
         private Color[] GetRGBAComponents28x28FromEditor()
         {
             var resizedImage = ImageWorker28x28.ResizeImage(_paramsDrawEditor.Canvas, _sizeImg, _sizeImg);
-            // var resizedImage = new Bitmap(@"C:\Users\Олег\source\repos\ClassificationNumbers\DataSet\DataSet28x28\8_3098bd46-1835-4645-867c-070c28bc7ef9.png");
-            return ImageWorker28x28.GetColorsByRows(resizedImage);
+            return ImageWorker28x28.GetColorsByRows(resizedImage, isSetColorForTransparencyPixels: true, colorForTransparency: Color.White);
         }
         
         /// <summary>

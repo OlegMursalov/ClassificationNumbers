@@ -8,15 +8,15 @@ namespace ClassificationNumbers.Drawing
         public int X { get; private set; }
         public int Y { get; private set; }
 
-        public Brush Brush { get; private set; }
+        public Brush BrushPoint { get; private set; }
         public Bitmap Canvas { get; private set; }
 
         public bool IsCrealAll { get; private set; }
         public bool AreCoordnatesSet { get; private set; }
 
-        public ParamsDrawEditor(Color color)
+        public ParamsDrawEditor(Color brushPoint)
         {
-            Brush = new SolidBrush(color);
+            BrushPoint = new SolidBrush(brushPoint);
         }
 
         public void SetCanvas(Bitmap newCanvas)
@@ -42,9 +42,9 @@ namespace ClassificationNumbers.Drawing
 
         public void Dispose()
         {
-            if (Brush != null)
+            if (BrushPoint != null)
             {
-                Brush.Dispose();
+                BrushPoint.Dispose();
             }
             if (Canvas != null)
             {

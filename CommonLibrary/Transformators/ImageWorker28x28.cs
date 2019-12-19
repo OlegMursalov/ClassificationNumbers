@@ -98,15 +98,21 @@ namespace CommonLibrary.Transformators
         /// </summary>
         public static Color[] GetColorsByRows(Bitmap bitmap, bool isSetColorForTransparencyPixels = false, Color colorForTransparency = default(Color))
         {
+            var transparencyColor = Color.FromArgb(0, 0, 0, 0);
             var list = new List<Color>();
             for (int y = 0; y < _heightImage; y++)
             {
                 for (int x = 0; x < _widthImage; x++)
                 {
                     var color = bitmap.GetPixel(x, y);
-                    if (isSetColorForTransparencyPixels && color == Color.Transparent)
+                    if (isSetColorForTransparencyPixels && color == transparencyColor)
                     {
                         list.Add(colorForTransparency);
+                    }
+                    else if (color.A < 255)
+                    {
+                        color = Color.FromArgb(255, color.R, color.G, color.B);
+                        list.Add(color);
                     }
                     else
                     {

@@ -14,3 +14,4 @@ C:\Users\Олег\source\repos\ClassificationNumbers\ClassificationNumbers\obj\D
 C:\Users\Олег\source\repos\ClassificationNumbers\ClassificationNumbers\obj\Debug\ClassificationNumbers.csproj.CopyComplete
 C:\Users\Олег\source\repos\ClassificationNumbers\ClassificationNumbers\obj\Debug\ClassificationNumbers.exe
 C:\Users\Олег\source\repos\ClassificationNumbers\ClassificationNumbers\obj\Debug\ClassificationNumbers.pdb
+C:\Users\Олег\source\repos\ClassificationNumbers\ClassificationNumbers\obj\Debug\ClassificationNumbers.Forms.RightAnswerForm.resources

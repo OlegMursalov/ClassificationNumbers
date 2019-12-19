@@ -48,6 +48,7 @@
     <Compile Include="DataDTO\DataNumberDTO_5x5.cs" />
     <Compile Include="DataDTO\OutputSignalDTO.cs" />
     <Compile Include="Helpers\Neural3NetworkHelper.cs" />
+    <Compile Include="NeuralNetworks\Neural3NetworkWeightsUpdater.cs" />
     <Compile Include="NeuralNetworks\Delegates.cs" />
     <Compile Include="NeuralNetworks\FuncActivationWorker.cs" />
     <Compile Include="NeuralNetworks\FunctionActivationEnum.cs" />

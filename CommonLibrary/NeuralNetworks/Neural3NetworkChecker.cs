@@ -51,7 +51,7 @@ namespace CommonLibrary.NeuralNetworks
         /// <summary>
         /// Главный метод нейросети - обучение на картинках 28x28 pixels
         /// </summary>
-        public OutputSignalDTO Check(DataNumberDTO_28x28_Set imageDataSet)
+        public OutputSignalDTO Check(DataNumberDTO_28x28_Set imageDataSet, out double[] signalsFromInputLayer, out double[] signalsFromHiddenLayer, out double[] signalsFromOutputLayer)
         {
             var rightAnswer = imageDataSet.Number;
 
@@ -59,7 +59,7 @@ namespace CommonLibrary.NeuralNetworks
 
             // Трансформирование ARGB - компонент в входной сигнал для нейронов входного слоя
             var rgbaComponents = imageDataSet.RGBAComponents;
-            var signalsFromInputLayer = neural3NetworkHelper.TransformWhiteBlackPixelsToSignals(rgbaComponents, _minSignal, _maxSignal, _expectedSignal);
+            signalsFromInputLayer = neural3NetworkHelper.TransformWhiteBlackPixelsToSignals(rgbaComponents, _minSignal, _maxSignal, _expectedSignal);
 
             var inputLayer = _neural3NetworkCreator.InputLayer;
             var hiddenLayer = _neural3NetworkCreator.HiddenLayer;
@@ -69,8 +69,8 @@ namespace CommonLibrary.NeuralNetworks
 
             // Вычисление комбинированного и сглаженного сигнала, пропущенного через сигмоиду,
             // данный сигнал прошел через все узлы и вышел из output layer
-            var signalsFromHiddenLayer = neural3NetworkHelper.CalcSignalsFromLayer(signalsFromInputLayer, inputLayer, hiddenLayer, inputHiddenRelations, _funcActivation);
-            var signalsFromOutputLayer = neural3NetworkHelper.CalcSignalsFromLayer(signalsFromHiddenLayer, hiddenLayer, outputLayer, hiddenOutputRelations, _funcActivation);
+            signalsFromHiddenLayer = neural3NetworkHelper.CalcSignalsFromLayer(signalsFromInputLayer, inputLayer, hiddenLayer, inputHiddenRelations, _funcActivation);
+            signalsFromOutputLayer = neural3NetworkHelper.CalcSignalsFromLayer(signalsFromHiddenLayer, hiddenLayer, outputLayer, hiddenOutputRelations, _funcActivation);
 
             return neural3NetworkHelper.GetOutputSignalDTO(signalsFromOutputLayer);
         }

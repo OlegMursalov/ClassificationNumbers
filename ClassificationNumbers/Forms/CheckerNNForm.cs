@@ -6,6 +6,7 @@ using System;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.Windows.Forms;
+using CommonLibrary.Helpers;
 
 namespace ClassificationNumbers.Forms
 {
@@ -116,10 +117,17 @@ namespace ClassificationNumbers.Forms
             var colors = GetRGBAComponents28x28FromEditor();
             var dataNumberDTO_28x28_Set = new DataNumberDTO_28x28_Set(id, number, colors);
 
-            var result = neural3NetworkChecker.Check(dataNumberDTO_28x28_Set);
+            var signalsFromInputLayer = new double[0];
+            var signalsFromHiddenLayer = new double[0];
+            var signalsFromOutputLayer = new double[0];
+            var result = neural3NetworkChecker.Check(dataNumberDTO_28x28_Set, out signalsFromInputLayer, out signalsFromHiddenLayer, out signalsFromOutputLayer);
             
-            // Момент истины
-            MessageBox.Show($"Цифра - {result.NeuronNumber}, sutput signal - {result.Signal}");
+            var neural3NetworkWeightsUpdater = new Neural3NetworkWeightsUpdater(_neural3NetworkTeacher, signalsFromInputLayer, signalsFromHiddenLayer, signalsFromOutputLayer);
+
+            var neural3NetworkHelper = new Neural3NetworkHelper(_neural3NetworkCreator);
+
+            var rightAnswerForm = new RightAnswerForm(result.NeuronNumber, neural3NetworkWeightsUpdater, neural3NetworkHelper);
+            rightAnswerForm.Show();
         }
     }
 }

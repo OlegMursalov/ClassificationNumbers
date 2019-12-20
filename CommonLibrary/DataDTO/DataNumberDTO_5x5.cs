@@ -3,12 +3,12 @@
     public class DataNumberDTO_5x5
     {
         public int Number { get; }
-        public double[] ImageARGBComponents { get; }
+        public double[] ImageRGBComponents { get; }
 
-        public DataNumberDTO_5x5(int number, double[] imageARGBComponents)
+        public DataNumberDTO_5x5(int number, double[] imageRGBComponents)
         {
             Number = number;
-            ImageARGBComponents = imageARGBComponents;
+            ImageRGBComponents = imageRGBComponents;
         }
     }
 }

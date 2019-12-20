@@ -83,7 +83,7 @@ namespace ClassificationNumbers.Forms
 
             // Обучение трехслойной нейронной сети
             // ЗАДАЧА - классифицировать на картинках цифры от 0 до 9, написанные от руки
-            // Входные данные, где int - цифры, а double[] - массив преобразованных ARGB компонент из картинок
+            // Входные данные, где int - цифры, а double[] - массив преобразованных RGB компонент из картинок
             _mainBackgroundWorker.DoWork += LearnNeuralNetwork_DoWork;
             _mainBackgroundWorker.RunWorkerCompleted += LearnNeuralNetwork_RunWorkerCompleted;
             _mainBackgroundWorker.RunWorkerAsync();

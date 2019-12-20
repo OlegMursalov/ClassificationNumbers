@@ -59,9 +59,9 @@ namespace CommonLibrary.Transformators
         }
 
         /// <summary>
-        /// Вытаскивание ARGB - компонент из изображений 28x28, получение данных для обучения нейросети
+        /// Вытаскивание RGB - компонент из изображений 28x28, получение данных для обучения нейросети
         /// </summary>
-        public DataNumberDTO_28x28_Set[] GetARGBData(ref Dictionary<string, string> errors)
+        public DataNumberDTO_28x28_Set[] GetRGBData(ref Dictionary<string, string> errors)
         {
             var dataSet = new DataNumberDTO_28x28_Set[_images.Length];
             for (int i = 0; i < _images.Length; i++)
@@ -93,31 +93,18 @@ namespace CommonLibrary.Transformators
         }
 
         /// <summary>
-        /// Получить построчно массив ARGB - компонент из картинки 28x28 pixels.
+        /// Получить построчно массив RGB - компонент из картинки 28x28 pixels.
         /// При необходимых параметрах также проставляет определенный цвет прзрачным пикселям.
         /// </summary>
-        public static Color[] GetColorsByRows(Bitmap bitmap, bool isSetColorForTransparencyPixels = false, Color colorForTransparency = default(Color))
+        public static Color[] GetColorsByRows(Bitmap bitmap)
         {
-            var transparencyColor = Color.FromArgb(0, 0, 0, 0);
             var list = new List<Color>();
             for (int y = 0; y < _heightImage; y++)
             {
                 for (int x = 0; x < _widthImage; x++)
                 {
                     var color = bitmap.GetPixel(x, y);
-                    if (isSetColorForTransparencyPixels && color == transparencyColor)
-                    {
-                        list.Add(colorForTransparency);
-                    }
-                    else if (color.A < 255)
-                    {
-                        color = Color.FromArgb(255, color.R, color.G, color.B);
-                        list.Add(color);
-                    }
-                    else
-                    {
-                        list.Add(color);
-                    }
+                    list.Add(color);
                 }
             }
             return list.ToArray();
@@ -126,7 +113,7 @@ namespace CommonLibrary.Transformators
         /// <summary>
         /// Сериализует наборы 28x28 изображений для тренировки нейросети
         /// </summary>
-        public string SerializeARGBDataToJSON(DataNumberDTO_28x28_Set[] dataNumberDTO_28x28_Set, ref string exMessage)
+        public string SerializeRGBDataToJSON(DataNumberDTO_28x28_Set[] dataNumberDTO_28x28_Set, ref string exMessage)
         {
             var jsonStr = string.Empty;
             try

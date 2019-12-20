@@ -47,11 +47,11 @@ namespace ClassificationNumbers.Drawing
                 var x = 0;
                 var y = 0;
                 var dataSet = _dataNumberDTO_28x28_Set[i];
-                var rgbaComponents = dataSet.RGBAComponents;
-                for (int j = 0; j < rgbaComponents.Length; j++)
+                var RGBComponents = dataSet.RGBComponents;
+                for (int j = 0; j < RGBComponents.Length; j++)
                 {
-                    var colorSimplifiedDTO = rgbaComponents[j];
-                    var colorPixel = Color.FromArgb(colorSimplifiedDTO.A, colorSimplifiedDTO.R, colorSimplifiedDTO.G, colorSimplifiedDTO.B);
+                    var colorSimplifiedDTO = RGBComponents[j];
+                    var colorPixel = Color.FromArgb(colorSimplifiedDTO.R, colorSimplifiedDTO.G, colorSimplifiedDTO.B);
                     _bitmap.SetPixel(x + x_offset, y + y_offset, colorPixel);
                     x++;
                     if (x >= widthOneImage)

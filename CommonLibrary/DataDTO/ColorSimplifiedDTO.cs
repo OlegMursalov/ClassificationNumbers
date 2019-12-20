@@ -13,8 +13,5 @@ namespace CommonLibrary.DataDTO
 
         [DataMember]
         public int B { get; set; }
-
-        [DataMember]
-        public int A { get; set; }
     }
 }

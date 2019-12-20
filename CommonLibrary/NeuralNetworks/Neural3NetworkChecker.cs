@@ -57,9 +57,9 @@ namespace CommonLibrary.NeuralNetworks
 
             var neural3NetworkHelper = new Neural3NetworkHelper(_neural3NetworkCreator);
 
-            // Трансформирование ARGB - компонент в входной сигнал для нейронов входного слоя
-            var rgbaComponents = imageDataSet.RGBAComponents;
-            signalsFromInputLayer = neural3NetworkHelper.TransformWhiteBlackPixelsToSignals(rgbaComponents, _minSignal, _maxSignal, _expectedSignal);
+            // Трансформирование RGB - компонент в входной сигнал для нейронов входного слоя
+            var RGBComponents = imageDataSet.RGBComponents;
+            signalsFromInputLayer = neural3NetworkHelper.TransformWhiteBlackPixelsToSignals(RGBComponents, _minSignal, _maxSignal, _expectedSignal);
 
             var inputLayer = _neural3NetworkCreator.InputLayer;
             var hiddenLayer = _neural3NetworkCreator.HiddenLayer;

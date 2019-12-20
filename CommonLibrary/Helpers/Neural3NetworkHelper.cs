@@ -47,16 +47,16 @@ namespace CommonLibrary.Helpers
         }
 
         /// <summary>
-        /// Преобразование над ARGB - составляющими, превращение их в сигналы в указанном диапазоне.
+        /// Преобразование над RGB - составляющими, превращение их в сигналы в указанном диапазоне.
         /// Данный метод работает только с черно-белыми изображениями.
         /// </summary>
-        public double[] TransformWhiteBlackPixelsToSignals(ColorSimplifiedDTO[] rgbaComponents, double minSignal, double maxSignal, double expectedSignal)
+        public double[] TransformWhiteBlackPixelsToSignals(ColorSimplifiedDTO[] RGBComponents, double minSignal, double maxSignal, double expectedSignal)
         {
-            var signals = new double[rgbaComponents.Length];
-            for (var i = 0; i < rgbaComponents.Length; i++)
+            var signals = new double[RGBComponents.Length];
+            for (var i = 0; i < RGBComponents.Length; i++)
             {
-                double sumRGBAComponents = rgbaComponents[i].R + rgbaComponents[i].G + rgbaComponents[i].B + rgbaComponents[i].A;
-                signals[i] = maxSignal / (sumRGBAComponents + minSignal + expectedSignal);
+                double sumRGBComponents = RGBComponents[i].R + RGBComponents[i].G + RGBComponents[i].B;
+                signals[i] = maxSignal / (sumRGBComponents + minSignal + expectedSignal);
             }
             return signals;
         }

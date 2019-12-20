@@ -91,12 +91,12 @@ namespace ClassificationNumbers.Forms
         }
 
         /// <summary>
-        /// Сжимает картинку в редакторе до 28x28 pixels, возвращает RGBA - составляющие
+        /// Сжимает картинку в редакторе до 28x28 pixels, возвращает RGB - составляющие
         /// </summary>
-        private Color[] GetRGBAComponents28x28FromEditor()
+        private Color[] GetRGBComponents28x28FromEditor()
         {
             var resizedImage = ImageWorker28x28.ResizeImage(_paramsDrawEditor.Canvas, _sizeImg, _sizeImg);
-            return ImageWorker28x28.GetColorsByRows(resizedImage, isSetColorForTransparencyPixels: true, colorForTransparency: Color.White);
+            return ImageWorker28x28.GetColorsByRows(resizedImage);
         }
         
         /// <summary>
@@ -114,7 +114,7 @@ namespace ClassificationNumbers.Forms
 
             var neural3NetworkChecker = new Neural3NetworkChecker(_neural3NetworkCreator, minSignal, maxSignal, expectedSignal);
 
-            var colors = GetRGBAComponents28x28FromEditor();
+            var colors = GetRGBComponents28x28FromEditor();
             var dataNumberDTO_28x28_Set = new DataNumberDTO_28x28_Set(id, number, colors);
 
             var signalsFromInputLayer = new double[0];

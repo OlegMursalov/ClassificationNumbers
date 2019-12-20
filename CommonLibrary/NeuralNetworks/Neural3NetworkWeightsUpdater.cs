@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CommonLibrary.Consts;
+using System;
 
 namespace CommonLibrary.NeuralNetworks
 {
@@ -68,11 +69,13 @@ namespace CommonLibrary.NeuralNetworks
         /// </summary>
         public double[] UpdateWeights(Relation[,] relations, double[] inputSignals, double[] outputSignals, int numberOutputNeuron)
         {
+            var expectedSignal = Neural3NetworkConsts.ExpectedSignal;
+
             // Забираем выходной сигнал из нейрона, ответственного за эту цифру
             var mainOutputSignal = outputSignals[numberOutputNeuron];
 
             // Ошибка будет ожидаемый сигнал (_expectedSignal) минус фактический (0.53, например) и все в квадрате, чтобы уйти от знака минуса
-            var mainError = Math.Pow(1 - mainOutputSignal, 2);
+            var mainError = Math.Pow(expectedSignal - mainOutputSignal, 2);
 
             // Теперь будем делить ошибку на каждое ребро пропорционально весу ребра
             var proportionalErrors = new double[inputSignals.Length];

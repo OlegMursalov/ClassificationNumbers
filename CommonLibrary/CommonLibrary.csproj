@@ -43,6 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Consts\Neural3NetworkConsts.cs" />
     <Compile Include="DataDTO\ColorSimplifiedDTO.cs" />
     <Compile Include="DataDTO\DataNumberDTO_28x28_Set.cs" />
     <Compile Include="DataDTO\DataNumberDTO_5x5.cs" />

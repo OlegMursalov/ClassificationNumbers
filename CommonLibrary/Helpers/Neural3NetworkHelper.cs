@@ -1,4 +1,5 @@
-﻿using CommonLibrary.DataDTO;
+﻿using CommonLibrary.Consts;
+using CommonLibrary.DataDTO;
 using CommonLibrary.NeuralNetworks;
 using static CommonLibrary.NeuralNetworks.Delegates;
 
@@ -52,11 +53,12 @@ namespace CommonLibrary.Helpers
         /// </summary>
         public double[] TransformWhiteBlackPixelsToSignals(ColorSimplifiedDTO[] RGBComponents)
         {
+            var expectedSignal = Neural3NetworkConsts.ExpectedSignal;
             var signals = new double[RGBComponents.Length];
             for (var i = 0; i < RGBComponents.Length; i++)
             {
-                double sumRGBComponents = RGBComponents[i].R + RGBComponents[i].G + RGBComponents[i].B;
-                signals[i] = 1 / (sumRGBComponents + 1);
+                var sumRGBComponents = RGBComponents[i].R + RGBComponents[i].G + RGBComponents[i].B;
+                signals[i] = expectedSignal / (sumRGBComponents + expectedSignal);
             }
             return signals;
         }

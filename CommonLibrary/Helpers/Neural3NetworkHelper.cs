@@ -50,13 +50,13 @@ namespace CommonLibrary.Helpers
         /// Преобразование над RGB - составляющими, превращение их в сигналы в указанном диапазоне.
         /// Данный метод работает только с черно-белыми изображениями.
         /// </summary>
-        public double[] TransformWhiteBlackPixelsToSignals(ColorSimplifiedDTO[] RGBComponents, double minSignal, double maxSignal, double expectedSignal)
+        public double[] TransformWhiteBlackPixelsToSignals(ColorSimplifiedDTO[] RGBComponents)
         {
             var signals = new double[RGBComponents.Length];
             for (var i = 0; i < RGBComponents.Length; i++)
             {
                 double sumRGBComponents = RGBComponents[i].R + RGBComponents[i].G + RGBComponents[i].B;
-                signals[i] = maxSignal / (sumRGBComponents + minSignal + expectedSignal);
+                signals[i] = 1 / (sumRGBComponents + 1);
             }
             return signals;
         }

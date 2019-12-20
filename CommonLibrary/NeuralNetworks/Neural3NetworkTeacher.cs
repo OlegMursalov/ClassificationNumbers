@@ -20,21 +20,6 @@ namespace CommonLibrary.NeuralNetworks
         public DerivativeOfFuncActivationDelegate DerivativeOfFuncActivation { get; }
 
         /// <summary>
-        /// Ожидаемый сигнал на выходе из нейронов output слоя
-        /// </summary>
-        public double ExpectedSignal { get; }
-
-        /// <summary>
-        /// Минимально возможный сигнал
-        /// </summary>
-        public double MinSignal { get; }
-
-        /// <summary>
-        /// Максимально возможный сигнал
-        /// </summary>
-        public double MaxSignal { get; }
-
-        /// <summary>
         /// Коэффициент обучения нейронной сети (шаг в градиентном спуске)
         /// </summary>
         public double Alpha { get; }
@@ -47,11 +32,8 @@ namespace CommonLibrary.NeuralNetworks
             DerivativeOfFuncActivation = funcActivationWorker.DerivateByFuncActivation();
         }
 
-        public Neural3NetworkTeacher(Neural3NetworkCreator neural3NetworkCreator, double minSignal, double maxSignal, double expectedSignal, double alpha) : this(neural3NetworkCreator)
+        public Neural3NetworkTeacher(Neural3NetworkCreator neural3NetworkCreator, double alpha) : this(neural3NetworkCreator)
         {
-            MinSignal = minSignal;
-            MaxSignal = maxSignal;
-            ExpectedSignal = expectedSignal;
             Alpha = alpha;
         }
         
@@ -69,7 +51,7 @@ namespace CommonLibrary.NeuralNetworks
 
                 // Трансформирование RGB - компонент в входной сигнал для нейронов входного слоя
                 var RGBComponents = dataSet[i].RGBComponents;
-                var signalsFromInputLayer = neural3NetworkHelper.TransformWhiteBlackPixelsToSignals(RGBComponents, MinSignal, MaxSignal, ExpectedSignal);
+                var signalsFromInputLayer = neural3NetworkHelper.TransformWhiteBlackPixelsToSignals(RGBComponents);
 
                 var inputLayer = Neural3NetworkCreator.InputLayer;
                 var hiddenLayer = Neural3NetworkCreator.HiddenLayer;

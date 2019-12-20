@@ -72,7 +72,7 @@ namespace CommonLibrary.NeuralNetworks
             var mainOutputSignal = outputSignals[numberOutputNeuron];
 
             // Ошибка будет ожидаемый сигнал (_expectedSignal) минус фактический (0.53, например) и все в квадрате, чтобы уйти от знака минуса
-            var mainError = Math.Pow(Neural3NetworkTeacher.ExpectedSignal - mainOutputSignal, 2);
+            var mainError = Math.Pow(1 - mainOutputSignal, 2);
 
             // Теперь будем делить ошибку на каждое ребро пропорционально весу ребра
             var proportionalErrors = new double[inputSignals.Length];

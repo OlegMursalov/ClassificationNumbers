@@ -95,12 +95,10 @@ namespace ClassificationNumbers.Forms
         private void LearnNeuralNetwork_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
         {
             var alpha = _neural3NetworkTeacherProperties.Alpha;
-            var minSignal = _neural3NetworkTeacherProperties.MinSignal;
-            var maxSignal = _neural3NetworkTeacherProperties.MaxSignal;
-            var expectedSignal = _neural3NetworkTeacherProperties.ExpectedSignal;
+
             var data = _dataNumberDTO_28x28_Set;
 
-            Neural3NetworkTeacher = new Neural3NetworkTeacher(Neural3NetworkCreator, minSignal, maxSignal, expectedSignal, alpha);
+            Neural3NetworkTeacher = new Neural3NetworkTeacher(Neural3NetworkCreator, alpha);
             Neural3NetworkTeacher.Learn(data);
         }
 

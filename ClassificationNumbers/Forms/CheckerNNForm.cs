@@ -108,11 +108,7 @@ namespace ClassificationNumbers.Forms
             var id = int.MaxValue;
             int number = int.MaxValue;
 
-            var minSignal = _neural3NetworkTeacher.MinSignal;
-            var maxSignal = _neural3NetworkTeacher.MaxSignal;
-            var expectedSignal = _neural3NetworkTeacher.ExpectedSignal;
-
-            var neural3NetworkChecker = new Neural3NetworkChecker(_neural3NetworkCreator, minSignal, maxSignal, expectedSignal);
+            var neural3NetworkChecker = new Neural3NetworkChecker(_neural3NetworkCreator);
 
             var colors = GetRGBComponents28x28FromEditor();
             var dataNumberDTO_28x28_Set = new DataNumberDTO_28x28_Set(id, number, colors);

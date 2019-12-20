@@ -267,7 +267,7 @@
             this._funcActivationsList.ItemHeight = 16;
             this._funcActivationsList.Items.AddRange(new object[] {
             "None",
-            "y = 1 / (1 + e^x)"});
+            "y = 1 / (1 + e^(-x))"});
             this._funcActivationsList.Location = new System.Drawing.Point(268, 132);
             this._funcActivationsList.Name = "_funcActivationsList";
             this._funcActivationsList.Size = new System.Drawing.Size(150, 132);

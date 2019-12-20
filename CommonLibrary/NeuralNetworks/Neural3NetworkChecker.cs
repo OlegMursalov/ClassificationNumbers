@@ -18,34 +18,12 @@ namespace CommonLibrary.NeuralNetworks
         /// </summary>
         private DerivativeOfFuncActivationDelegate _derivativeOfFuncActivation;
 
-        /// <summary>
-        /// Ожидаемый сигнал на выходе из нейронов output слоя
-        /// </summary>
-        private double _expectedSignal;
-
-        /// <summary>
-        /// Минимально возможный сигнал
-        /// </summary>
-        private double _minSignal;
-
-        /// <summary>
-        /// Максимально возможный сигнал
-        /// </summary>
-        private double _maxSignal;
-
         public Neural3NetworkChecker(Neural3NetworkCreator neural3NetworkCreator)
         {
             _neural3NetworkCreator = neural3NetworkCreator;
             var funcActivationWorker = new FuncActivationWorker(_neural3NetworkCreator.FuncActivationType);
             _funcActivation = funcActivationWorker.GetFunction();
             _derivativeOfFuncActivation = funcActivationWorker.DerivateByFuncActivation();
-        }
-
-        public Neural3NetworkChecker(Neural3NetworkCreator neural3NetworkCreator, double minSignal, double maxSignal, double expectedSignal) : this(neural3NetworkCreator)
-        {
-            _minSignal = minSignal;
-            _maxSignal = maxSignal;
-            _expectedSignal = expectedSignal;
         }
 
         /// <summary>

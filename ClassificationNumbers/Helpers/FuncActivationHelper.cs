@@ -8,7 +8,7 @@ namespace ClassificationNumbers.Helpers
         {
             if (item == "None")
                 return FunctionActivationEnum.None;
-            else if (item == "y = 1 / (1 + e^x)")
+            else if (item == "y = 1 / (1 + e^(-x))")
                 return FunctionActivationEnum.Sigmoida;
             else
                 return FunctionActivationEnum.None;
